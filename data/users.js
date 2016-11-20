@@ -8,24 +8,29 @@ let exportedMethods = {
             return userCollection.find({}).toArray();
         });
     },
-    // This is a fun new syntax that was brought forth in ES6, where we can define
-    // methods on an object with this shorthand!
     getUserById(id) {
         return users().then((userCollection) => {
             return userCollection.findOne({ _id: id }).then((user) => {
                 if (!user) throw "User not found";
-                
+
                 return user;
             });
         });
     },
-    addUser(firstName, lastName) {
+    addUser(firstName, lastName, email, gender, city, state, age, hashedPassword) {
         return users().then((userCollection) => {
             let newUser = {
+                _id: uuid.v4(),
                 firstName: firstName,
                 lastName: lastName,
-                _id: uuid.v4(),
-                posts: []
+                email: email,
+                gender: gender,
+                city: city,
+                state: state,
+                age: age,
+                hashedPassword: hashedPassword,
+                pollsCreated: [],
+                pollsVotedIn: []
             };
 
             return userCollection.insertOne(newUser).then((newInsertInformation) => {
@@ -48,10 +53,18 @@ let exportedMethods = {
         return this.getUserById(id).then((currentUser) => {
             let updatedUser = {
                 firstName: updatedUser.firstName,
-                lastName: updatedUser.lastName
+                lastName: updatedUser.lastName,
+                email: upatedUser.email,
+                gender: upatedUser.gender,
+                city: updateUser.city,
+                state: upatedUser.state,
+                age: upatedUser.age,
+                hashedPassword: upatedUser.hashedPassword,
+                pollsCreated: updateUser.pollsCreated,
+                pollsVotedIn: upatedUser.pollsVotedIn
             };
 
-            let updateCommand = { 
+            let updateCommand = {
                 $set: updatedUser
             };
 
@@ -60,25 +73,36 @@ let exportedMethods = {
             });
         });
     },
-    addPostToUser(userId, postId, postTitle) {
-        return this.getUserById(id).then((currentUser) => {
+    addPollCreatedToUser(userId, pollId) {
+        return this.getUserById(userId).then((currentUser) => {
 
             return userCollection.updateOne({ _id: id }, {
                 $addToSet: {
-                    posts: {
-                        id: postId,
-                        title: postTitle
+                    pollsCreated: {
+                        pollId: pollId
                     }
                 }
             });
         });
     },
-    removePostFromUser(userId, postId) {
-        return this.getUserById(id).then((currentUser) => {
+    addPollVotedInToUser(userId, pollId) {
+        return this.getUserById(userId).then((currentUser) => {
+
+            return userCollection.updateOne({ _id: id }, {
+                $addToSet: {
+                    pollsVotedIn: {
+                        pollId: pollId
+                    }
+                }
+            });
+        });
+    },
+    removePollFromUser(userId, pollId) {
+        return this.getUserById(userId).then((currentUser) => {
             return userCollection.updateOne({ _id: id }, {
                 $pull: {
-                    posts: {
-                        id: postId
+                    pollsCreated: {
+                        pollId: pollId
                     }
                 }
             });

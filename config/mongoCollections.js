@@ -18,6 +18,7 @@ let getCollectionFn = (collection) => {
 
 /* Now, you can list your collections here: */
 module.exports = {
-    
+    polls: getCollectionFn("polls"),
+    users: getCollectionFn("users")
     //example recipes: getCollectionFn("recipes"),
 };
