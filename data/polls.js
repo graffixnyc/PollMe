@@ -1,38 +1,38 @@
 const mongoCollections = require("../config/mongoCollections");
-const posts = mongoCollections.posts;
+const polls = mongoCollections.polls;
 const users = require("./users");
 const uuid = require('node-uuid');
 
 let exportedMethods = {
-    getAllPosts() {
-        return posts().then((postCollection) => {
-            return postCollection
+    getAllPolls() {
+        return polls().then((pollCollection) => {
+            return pollCollection
                 .find({})
                 .toArray();
         });
     },
-    getPostsByTag(tag) {
+    getPollsByCategory(tag) {
         if (!tag) 
             return Promise.reject("No tag provided");
         
-        return posts().then((postCollection) => {
-            return postCollection
+        return polls().then((pollCollection) => {
+            return pollCollection
                 .find({tags: tag})
                 .toArray();
         });
     },
-    getPostById(id) {
-        return posts().then((postCollection) => {
-            return postCollection
+    getPollById(id) {
+        return polls().then((pollCollection) => {
+            return pollCollection
                 .findOne({_id: id})
-                .then((post) => {
-                    if (!post) 
-                        throw "Post not found";
-                    return post;
+                .then((poll) => {
+                    if (!poll) 
+                        throw "Poll not found";
+                    return poll;
                 });
         });
     },
-    addPost(title, body, tags, posterId) {
+    addPoll(title, body, tags, pollerId) {
         if (typeof title !== "string") 
             return Promise.reject("No title provided");
         if (typeof body !== "string") 
@@ -42,90 +42,90 @@ let exportedMethods = {
             tags = [];
         }
         
-        return posts().then((postCollection) => {
+        return polls().then((pollCollection) => {
             return users
-                .getUserById(posterId)
-                .then((userThatPosted) => {
-                    let newPost = {
+                .getUserById(pollerId)
+                .then((userThatPolled) => {
+                    let newPoll = {
                         title: title,
                         body: body,
-                        poster: {
-                            id: posterId,
-                            name: `${userThatPosted.name}`
+                        poller: {
+                            id: pollerId,
+                            name: `${userThatPolled.name}`
                         },
                         tags: tags,
                         _id: uuid.v4()
                     };
 
-                    return postCollection
-                        .insertOne(newPost)
+                    return pollCollection
+                        .insertOne(newPoll)
                         .then((newInsertInformation) => {
                             return newInsertInformation.insertedId;
                         })
                         .then((newId) => {
-                            return this.getPostById(newId);
+                            return this.getPollById(newId);
                         });
                 });
         });
     },
-    removePost(id) {
-        return posts().then((postCollection) => {
-            return postCollection
+    removePoll(id) {
+        return polls().then((pollCollection) => {
+            return pollCollection
                 .removeOne({_id: id})
                 .then((deletionInfo) => {
                     if (deletionInfo.deletedCount === 0) {
-                        throw(`Could not delete post with id of ${id}`)
+                        throw(`Could not delete poll with id of ${id}`)
                     } else {}
                 });
         });
     },
-    updatePost(id, updatedPost) {
-        return posts().then((postCollection) => {
-            let updatedPostData = {};
+    updatePoll(id, updatedPoll) {
+        return polls().then((pollCollection) => {
+            let updatedPollData = {};
 
-            if (updatedPost.tags) {
-                updatedPostData.tags = updatedPost.tags;
+            if (updatedPoll.tags) {
+                updatedPollData.tags = updatedPoll.tags;
             }
 
-            if (updatedPost.title) {
-                updatedPostData.title = updatedPost.title;
+            if (updatedPoll.title) {
+                updatedPollData.title = updatedPoll.title;
             }
 
-            if (updatedPost.body) {
-                updatedPostData.body = updatedPost.body;
+            if (updatedPoll.body) {
+                updatedPollData.body = updatedPoll.body;
             }
 
             let updateCommand = {
-                $set: updatedPostData
+                $set: updatedPollData
             };
 
-            return postCollection.updateOne({
+            return pollCollection.updateOne({
                 _id: id
             }, updateCommand).then((result) => {
-                return this.getPostById(id);
+                return this.getPollById(id);
             });
         });
     },
-    renameTag(oldTag, newTag) {
+    renameCategory(oldCategory, newCategory) {
         let findDocuments = {
-            tags: oldTag
+            tags: oldCategory
         };
 
         let firstUpdate = {
-            $pull: oldTag
+            $pull: oldCategory
         };
 
         let secondUpdate = {
-            $addToSet: newTag
+            $addToSet: newCategory
         };
 
-        return postCollection
+        return pollCollection
             .updateMany(findDocuments, firstUpdate)
             .then((result) => {
-                return postCollection.updateMany(findDocuments, secondUpdate);
+                return pollCollection.updateMany(findDocuments, secondUpdate);
             })
             .then((secondUpdate) => {
-                return this.getPostsByTag(newTag);
+                return this.getPollsByCategory(newCategory);
             });
     }
 }

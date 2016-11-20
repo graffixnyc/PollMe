@@ -59,9 +59,7 @@ let exportedMethods = {
                 city: updateUser.city,
                 state: upatedUser.state,
                 age: upatedUser.age,
-                hashedPassword: upatedUser.hashedPassword,
-                pollsCreated: updateUser.pollsCreated,
-                pollsVotedIn: upatedUser.pollsVotedIn
+                hashedPassword: upatedUser.hashedPassword
             };
 
             let updateCommand = {
