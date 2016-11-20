@@ -11,13 +11,13 @@ let exportedMethods = {
                 .toArray();
         });
     },
-    getPollsByCategory(tag) {
-        if (!tag) 
+    getPollsByCategory(category) {
+        if (!category) 
             return Promise.reject("No tag provided");
         
         return polls().then((pollCollection) => {
             return pollCollection
-                .find({tags: tag})
+                .find({category: category})
                 .toArray();
         });
     },
@@ -32,7 +32,7 @@ let exportedMethods = {
                 });
         });
     },
-    addPoll(title, body, tags, pollerId) {
+    addPoll(title, body, tags, userId) {
         if (typeof title !== "string") 
             return Promise.reject("No title provided");
         if (typeof body !== "string") 
@@ -44,13 +44,13 @@ let exportedMethods = {
         
         return polls().then((pollCollection) => {
             return users
-                .getUserById(pollerId)
+                .getUserById(userId)
                 .then((userThatPolled) => {
                     let newPoll = {
                         title: title,
                         body: body,
                         poller: {
-                            id: pollerId,
+                            id: userId,
                             name: `${userThatPolled.name}`
                         },
                         tags: tags,

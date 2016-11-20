@@ -74,19 +74,20 @@ let exportedMethods = {
     addPollCreatedToUser(userId, pollId) {
         return this.getUserById(userId).then((currentUser) => {
 
-            return userCollection.updateOne({ _id: id }, {
+            return userCollection.updateOne({ _id: userId }, {
                 $addToSet: {
                     pollsCreated: {
                         pollId: pollId
                     }
                 }
+                //users.pollsCreated.push(newIngredient);
             });
         });
     },
     addPollVotedInToUser(userId, pollId) {
         return this.getUserById(userId).then((currentUser) => {
 
-            return userCollection.updateOne({ _id: id }, {
+            return userCollection.updateOne({ _id: userId }, {
                 $addToSet: {
                     pollsVotedIn: {
                         pollId: pollId
