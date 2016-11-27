@@ -19,6 +19,12 @@ getPolls.then((polls) => {
 });
 
 
+let getPollsByCat = polls.getPollsByCategory("Technology");
+getPollsByCat.then((polls) => {
+    console.log("******Polls By Tech Cat******");
+    console.log(polls);
+});
+
 // let getClasses = classes.getAllClasses();
 // getClasses.then((classes) => {
 //     console.log("******CLASSES******");

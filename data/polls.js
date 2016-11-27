@@ -16,10 +16,12 @@ let exportedMethods = {
             return Promise.reject("No tag provided");
         
         return polls().then((pollCollection) => {
+            
             return pollCollection
                 .find({category: category})
                 .toArray();
         });
+        
     },
     getPollById(id) {
         return polls().then((pollCollection) => {
