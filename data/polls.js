@@ -63,6 +63,8 @@ let exportedMethods = {
                             ReferenceError: userCollection is not defined
                             (node:2620) DeprecationWarning: Unhandled promise rejections are deprecated. In the future, 
                             promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+
+                            When it's commented the seed.js runs but obviously the user record is not getting updated with the poll id'
                             */
                             
                             //return users.addPollCreatedToUser(userId,newId._id)
