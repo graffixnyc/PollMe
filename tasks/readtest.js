@@ -25,6 +25,12 @@ getPollsByCat.then((polls) => {
     console.log(polls);
 });
 
+let getPollsByUser= polls.getPollsByUser("d4072b20-334e-4e26-a991-11b56a542692");
+getPollsByUser.then((polls) => {
+    console.log("******Polls By usert******");
+    console.log(polls);
+});
+
 // let getClasses = classes.getAllClasses();
 // getClasses.then((classes) => {
 //     console.log("******CLASSES******");

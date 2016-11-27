@@ -1,5 +1,6 @@
 const mongoCollections = require("../config/mongoCollections");
-const polls = mongoCollections.polls;
+const votesAndMetrics =mongoCollections.votesAndMetrics;
+const polls = require("./polls");
 const users = require("./users");
 const uuid = require('node-uuid');
 
@@ -23,18 +24,7 @@ let exportedMethods = {
         });
         
     },
-       getPollsByUser(userId) {
-        if (!userId) 
-            return Promise.reject("No tag provided");
-        
-        return polls().then((pollCollection) => {
-            
-            return pollCollection
-                .find({createdByUser: userId})
-                .toArray();
-        });
-        
-    },
+  
     getPollById(id) {
         return polls().then((pollCollection) => {
             return pollCollection

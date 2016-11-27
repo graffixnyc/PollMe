@@ -76,7 +76,7 @@ let exportedMethods = {
         return users().then((userCollection) => {
         return this.getUserById(userId).then((currentUser) => {
             return userCollection.updateOne({ _id: userId }, {
-                $addToSet: {
+                $push: {
                     pollsCreated: {
                         pollId: pollId
                     }
