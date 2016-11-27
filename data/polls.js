@@ -67,7 +67,7 @@ let exportedMethods = {
                             When it's commented the seed.js runs but obviously the user record is not getting updated with the poll id'
                             */
                             
-                            //return users.addPollCreatedToUser(userId,newId._id)
+                            return users.addPollCreatedToUser(userId,newId._id)
                             
                         });
         });
