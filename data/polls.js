@@ -56,17 +56,7 @@ let exportedMethods = {
                         .then((newId) => {
                             return this.getPollById(newId);
                         }).then((newId) =>{
-                            console.log (userId + ":" + newId._id);
-                            /*
-                            When the line below is uncommented the seed.js crashes with this error:
-                            (node:2620) UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 1): 
-                            ReferenceError: userCollection is not defined
-                            (node:2620) DeprecationWarning: Unhandled promise rejections are deprecated. In the future, 
-                            promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
-
-                            When it's commented the seed.js runs but obviously the user record is not getting updated with the poll id'
-                            */
-                            
+                            console.log (userId + ":" + newId._id);     
                             return users.addPollCreatedToUser(userId,newId._id)
                             
                         });

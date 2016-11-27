@@ -86,8 +86,8 @@ let exportedMethods = {
         });
     },
     addPollVotedInToUser(userId, pollId) {
+        return users().then((userCollection) => {
         return this.getUserById(userId).then((currentUser) => {
-
             return userCollection.updateOne({ _id: userId }, {
                 $addToSet: {
                     pollsVotedIn: {
@@ -95,6 +95,7 @@ let exportedMethods = {
                     }
                 }
             });
+        });
         });
     },
     removePollFromUser(userId, pollId) {
