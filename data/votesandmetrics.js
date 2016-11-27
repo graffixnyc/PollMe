@@ -20,6 +20,7 @@ let exportedMethods = {
         // First we need to get the user's information like gender and age, then we need to see if votes for this poll already exsist, 
         // if so then we need to update by calling updateVote, 
         // if not then we need to create a new record to hold the votes by calling addNewVote. 
+        // then we need to update the user collection pollsVotedIn 
     },
     addNewVote(pollId,ansChoice1,ansChoice2,ansChoice3,ansChoice4,userId ) {
         //Need error checking here
