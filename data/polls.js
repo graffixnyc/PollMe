@@ -25,7 +25,7 @@ let exportedMethods = {
     },
        getPollsByUser(userId) {
         if (!userId) 
-            return Promise.reject("No tag provided");
+            return Promise.reject("No userId provided");
         
         return polls().then((pollCollection) => {
             
@@ -92,18 +92,25 @@ let exportedMethods = {
         return polls().then((pollCollection) => {
             let updatedPollData = {};
 
-            if (updatedPoll.tags) {
-                updatedPollData.tags = updatedPoll.tags;
+            if (updatedPoll.category) {
+                updatedPollData.category = updatedPoll.category;
             }
 
-            if (updatedPoll.title) {
-                updatedPollData.title = updatedPoll.title;
+            if (updatedPoll.question) {
+                updatedPollData.question = updatedPoll.question;
             }
-
-            if (updatedPoll.body) {
-                updatedPollData.body = updatedPoll.body;
+              if (updatedPoll.ansChoice1) {
+                updatedPollData.ansChoice1 = updatedPoll.ansChoice1;
             }
-
+              if (updatedPoll.ansChoice2) {
+                updatedPollData.ansChoice2 = updatedPoll.ansChoice2;
+            }
+              if (updatedPoll.ansChoice3) {
+                updatedPollData.ansChoice3 = updatedPoll.ansChoice3;
+            }
+              if (updatedPoll.ansChoice4) {
+                updatedPollData.ansChoice4 = updatedPoll.ansChoice4;
+            }
             let updateCommand = {
                 $set: updatedPollData
             };

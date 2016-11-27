@@ -1,107 +1,88 @@
 const mongoCollections = require("../config/mongoCollections");
 const votesAndMetrics =mongoCollections.votesAndMetrics;
-const polls = require("./polls");
+
 const users = require("./users");
 const uuid = require('node-uuid');
 
 let exportedMethods = {
-    getAllPolls() {
-        return polls().then((pollCollection) => {
-            return pollCollection
-                .find({})
-                .toArray();
-        });
-    },
-    getPollsByCategory(category) {
-        if (!category) 
-            return Promise.reject("No tag provided");
-        
-        return polls().then((pollCollection) => {
-            
-            return pollCollection
-                .find({category: category})
-                .toArray();
-        });
-        
-    },
-  
-    getPollById(id) {
-        return polls().then((pollCollection) => {
-            return pollCollection
-                .findOne({_id: id})
-                .then((poll) => {
-                    if (!poll) 
+    getVotesByPollId(pollId) {
+        return votes().then((voteCollection) => {
+            return voteCollection
+                .findOne({_id: pollId})
+                .then((vote) => {
+                    if (!vote) 
                         throw "Poll not found";
-                    return poll;
+                    return vote;
                 });
         });
     },
-    addPoll(category, postedDate, question, ansChoice1,ansChoice2,ansChoice3,ansChoice4,userId ) {
+    addVote(pollId,ansChoice1,ansChoice2,ansChoice3,ansChoice4,userId ) {
+        //First we need to see if votes for this poll already exsist, if so then we need to update by calling updateVote, 
+        //if not then we need to create a new record to hold the votes by calling addNewVote. 
+    },
+    addNewVote(pollId,ansChoice1,ansChoice2,ansChoice3,ansChoice4,userId ) {
         //Need error checking here
-        
-        return polls().then((pollCollection) => {
-                let newPoll = {
-                    _id: uuid.v4(),
+        return votes().then((voteCollection) => {
+                let newVote = {
+                    _id: pollId,
                     category: category,
                     postedDate: postedDate,
                     question: question,
-                    ansChoice1: ansChoice1,
-                    ansChoice2: ansChoice2,
-                    ansChoice3: ansChoice3,
-                    ansChoice4: ansChoice4,
-                    comments: [],
-                    createdByUser: userId
+                    ansChoice1: [],
+                    ansChoice2: [],
+                    ansChoice3: [],
+                    ansChoice4: [],
                     };
-                    return pollCollection
-                        .insertOne(newPoll)
+                    return voteCollection
+                        .insertOne(newVote)
                         .then((newInsertInformation) => {
                             return newInsertInformation.insertedId;
                         })
                         
                         .then((newId) => {
-                            return this.getPollById(newId);
+                            return this.getVoteById(newId);
                         }).then((newId) =>{
                             console.log (userId + ":" + newId._id);     
-                            return users.addPollCreatedToUser(userId,newId._id)
+                            return users.addVoteCreatedToUser(userId,newId._id)
                             
                         });
         });
     },
-    removePoll(id) {
-        return polls().then((pollCollection) => {
-            return pollCollection
+    removeVote(id) {
+        return votes().then((voteCollection) => {
+            return voteCollection
                 .removeOne({_id: id})
                 .then((deletionInfo) => {
                     if (deletionInfo.deletedCount === 0) {
-                        throw(`Could not delete poll with id of ${id}`)
+                        throw(`Could not delete vote with id of ${id}`)
                     } else {}
                 });
         });
     },
-    updatePoll(id, updatedPoll) {
-        return polls().then((pollCollection) => {
-            let updatedPollData = {};
+    updateVote(id, updatedVote) {
+        return votes().then((voteCollection) => {
+            let updatedVoteData = {};
 
-            if (updatedPoll.tags) {
-                updatedPollData.tags = updatedPoll.tags;
+            if (updatedVote.tags) {
+                updatedVoteData.tags = updatedVote.tags;
             }
 
-            if (updatedPoll.title) {
-                updatedPollData.title = updatedPoll.title;
+            if (updatedVote.title) {
+                updatedVoteData.title = updatedVote.title;
             }
 
-            if (updatedPoll.body) {
-                updatedPollData.body = updatedPoll.body;
+            if (updatedVote.body) {
+                updatedVoteData.body = updatedVote.body;
             }
 
             let updateCommand = {
-                $set: updatedPollData
+                $set: updatedVoteData
             };
 
-            return pollCollection.updateOne({
+            return voteCollection.updateOne({
                 _id: id
             }, updateCommand).then((result) => {
-                return this.getPollById(id);
+                return this.getVoteById(id);
             });
         });
     },
@@ -118,13 +99,13 @@ let exportedMethods = {
             $addToSet: newCategory
         };
 
-        return pollCollection
+        return voteCollection
             .updateMany(findDocuments, firstUpdate)
             .then((result) => {
-                return pollCollection.updateMany(findDocuments, secondUpdate);
+                return voteCollection.updateMany(findDocuments, secondUpdate);
             })
             .then((secondUpdate) => {
-                return this.getPollsByCategory(newCategory);
+                return this.getVotesByCategory(newCategory);
             });
     }
 }
