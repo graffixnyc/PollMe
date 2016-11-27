@@ -32,7 +32,7 @@ let exportedMethods = {
                 });
         });
     },
-    addPoll(title, body, tags, userId) {
+    addPoll(category, postedDate, question, ansChoice1,ansChoice2,ansChoice3,ansChoice4,userId ) {
         if (typeof title !== "string") 
             return Promise.reject("No title provided");
         if (typeof body !== "string") 
@@ -47,14 +47,15 @@ let exportedMethods = {
                 .getUserById(userId)
                 .then((userThatPolled) => {
                     let newPoll = {
-                        title: title,
-                        body: body,
-                        poller: {
-                            id: userId,
-                            name: `${userThatPolled.name}`
-                        },
-                        tags: tags,
-                        _id: uuid.v4()
+                        _id: uuid.v4(),
+                        category: category,
+                        postedDate: postedDate,
+                        question: question,
+                        ansChoice1: ansChoice1,
+                        ansChoice2: ansChoice2,
+                        ansChoice3: ansChoice3,
+                        ansChoice4: ansChoice4,
+                        comments: []
                     };
 
                     return pollCollection
