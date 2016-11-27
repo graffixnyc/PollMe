@@ -16,7 +16,7 @@ let exportedMethods = {
                 });
         });
     },
-    addVote(pollId,ansChoice1,ansChoice2,ansChoice3,ansChoice4,userId ) {
+    countVote(pollId,ansChoice1,ansChoice2,ansChoice3,ansChoice4,userId ) {
         //First we need to see if votes for this poll already exsist, if so then we need to update by calling updateVote, 
         //if not then we need to create a new record to hold the votes by calling addNewVote. 
     },
