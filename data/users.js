@@ -18,6 +18,7 @@ let exportedMethods = {
         });
     },
     addUser(firstName, lastName, email, gender, city, state, age, hashedPassword) {
+        //need error checking here
         return users().then((userCollection) => {
             let newUser = {
                 _id: uuid.v4(),

@@ -33,40 +33,41 @@ let exportedMethods = {
         });
     },
     addPoll(category, postedDate, question, ansChoice1,ansChoice2,ansChoice3,ansChoice4,userId ) {
-        if (typeof title !== "string") 
-            return Promise.reject("No title provided");
-        if (typeof body !== "string") 
-            return Promise.reject("I aint got nobody!");
-
-        if (!Array.isArray(tags)) {
-            tags = [];
-        }
+        //Need error checking here
         
         return polls().then((pollCollection) => {
-            return users
-                .getUserById(userId)
-                .then((userThatPolled) => {
-                    let newPoll = {
-                        _id: uuid.v4(),
-                        category: category,
-                        postedDate: postedDate,
-                        question: question,
-                        ansChoice1: ansChoice1,
-                        ansChoice2: ansChoice2,
-                        ansChoice3: ansChoice3,
-                        ansChoice4: ansChoice4,
-                        comments: []
+                let newPoll = {
+                    _id: uuid.v4(),
+                    category: category,
+                    postedDate: postedDate,
+                    question: question,
+                    ansChoice1: ansChoice1,
+                    ansChoice2: ansChoice2,
+                    ansChoice3: ansChoice3,
+                    ansChoice4: ansChoice4,
+                    comments: []
                     };
-
                     return pollCollection
                         .insertOne(newPoll)
                         .then((newInsertInformation) => {
                             return newInsertInformation.insertedId;
                         })
+                        
                         .then((newId) => {
                             return this.getPollById(newId);
+                        }).then((newId) =>{
+                            console.log (userId + ":" + newId._id);
+                            /*
+                            When the line below is uncommented the seed.js crashes with this error:
+                            (node:2620) UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 1): 
+                            ReferenceError: userCollection is not defined
+                            (node:2620) DeprecationWarning: Unhandled promise rejections are deprecated. In the future, 
+                            promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+                            */
+                            
+                            //return users.addPollCreatedToUser(userId,newId._id)
+                            
                         });
-                });
         });
     },
     removePoll(id) {

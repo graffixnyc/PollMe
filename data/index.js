@@ -1,5 +1,7 @@
 const users = require("./users");
+const polls=require("./polls")
 
 module.exports = {
-    users: users
+    users: users,
+    polls: polls
 };
