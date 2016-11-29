@@ -1,6 +1,7 @@
 const mongoCollections = require("../config/mongoCollections");
 const users = mongoCollections.users;
 const uuid = require('node-uuid');
+const bcrypt = require('bcryptjs');
 
 let exportedMethods = {
     getAllUsers() {
@@ -108,6 +109,19 @@ let exportedMethods = {
                 }
             });
         });
+    },
+    
+    isPasswordValid((user, password) {
+        return new Promise((fulfill, reject) => {
+            if( !user ) reject("User not given");
+            if( !password ) reject("Password not given");
+            bcrypt.compare(password, user.password, function(err, res) {
+                if (err) reject(err);
+                fulfill(res);
+            });
+
+        });
+
     }
 }
 

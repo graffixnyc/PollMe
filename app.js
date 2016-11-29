@@ -1,5 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cookieParser = require('cookie-parser');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const session = require('express-session');
+const flash = require('req-flash');
 const app = express();
 const static = express.static(__dirname + '/public');
 
@@ -8,6 +13,9 @@ const configRoutes = require("./routes");
 const exphbs = require('express-handlebars');
 
 const Handlebars = require('handlebars');
+
+const data = require("./data");
+const usersData = data.users;
 
 const handlebarsInstance = exphbs.create({
     defaultLayout: 'main',
@@ -34,6 +42,26 @@ const rewriteUnsupportedBrowserMethods = (req, res, next) => {
     // let the next middleware run:
     next();
 };
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+      return usersData.getUserById(username).then((user) => {
+          if (!user) { 
+            return done(null, false, { message: 'Incorrect username' });
+          }
+          return usersData.isPasswordValid(user, password).then((result) => {
+            if (result === false)
+                return done(null, false, { message: 'Incorrect password' });
+            else  
+                return done(null, userinfo);
+            }, (err) => {
+                if (err) { return done(err); } 
+          });
+      }, (err) => {
+         if (err) { return done(err); } 
+      });
+  }
+));
 
 app.use("/public", static);
 app.use(bodyParser.json());
