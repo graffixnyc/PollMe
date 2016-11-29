@@ -45,7 +45,7 @@ const rewriteUnsupportedBrowserMethods = (req, res, next) => {
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
-      return usersData.getUserById(username).then((user) => {
+      return usersData.getUserByUsername(username).then((user) => {
           if (!user) { 
             return done(null, false, { message: 'Incorrect username' });
           }
@@ -64,8 +64,18 @@ passport.use(new LocalStrategy(
 ));
 
 app.use("/public", static);
+app.use(cookieParser('keyboard cat'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(session({ secret: 'keyboard cat', 
+  resave: false,
+  saveUninitialized: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 app.use(rewriteUnsupportedBrowserMethods);
 
 app.engine('handlebars', handlebarsInstance.engine);

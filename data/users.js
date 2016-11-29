@@ -18,11 +18,21 @@ let exportedMethods = {
             });
         });
     },
-    addUser(firstName, lastName, email, gender, city, state, age, hashedPassword) {
+    getUserByUsername(username) {
+        return users().then((userCollection) => {
+            return userCollection.findOne({ username: username }).then((user) => {
+                if (!user) throw "User not found";
+
+                return user;
+            });
+        });
+    },
+    addUser(username, firstName, lastName, email, gender, city, state, age, hashedPassword) {
         //need error checking here
         return users().then((userCollection) => {
             let newUser = {
                 _id: uuid.v4(),
+                username: username,
                 firstName: firstName,
                 lastName: lastName,
                 email: email,
