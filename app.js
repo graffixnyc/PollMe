@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require('express');
 const bodyParser = require("body-parser");
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
@@ -62,6 +62,18 @@ passport.use(new LocalStrategy(
       });
   }
 ));
+
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+   usersData.getUserById(id).then((user) => {
+    done(null, user);
+   }, (err) => {
+    done(err, null);
+   });
+});
 
 app.use("/public", static);
 app.use(cookieParser('keyboard cat'));

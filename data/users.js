@@ -12,7 +12,7 @@ let exportedMethods = {
     getUserById(id) {
         return users().then((userCollection) => {
             return userCollection.findOne({ _id: id }).then((user) => {
-                if (!user) throw "User not found";
+                if (!user) reject("User not found");
 
                 return user;
             });
@@ -21,8 +21,6 @@ let exportedMethods = {
     getUserByUsername(username) {
         return users().then((userCollection) => {
             return userCollection.findOne({ username: username }).then((user) => {
-                if (!user) throw "User not found";
-
                 return user;
             });
         });
@@ -121,7 +119,7 @@ let exportedMethods = {
         });
     },
     
-    isPasswordValid((user, password) {
+    isPasswordValid(user, password) {
         return new Promise((fulfill, reject) => {
             if( !user ) reject("User not given");
             if( !password ) reject("Password not given");

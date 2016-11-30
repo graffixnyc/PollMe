@@ -1,7 +1,9 @@
-//const userRoutes = require("./users");
+const usersRoutes = require("./users");
+const pollsRoutes = require("./polls");
 
 const constructorMethod = (app) => {
-    //app.use("/", userRoutes);
+    app.use("/", usersRoutes);
+    app.use("/", pollsRoutes);
 
     app.use("*", (req, res) => {
         res.redirect("/");
