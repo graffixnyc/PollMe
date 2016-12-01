@@ -1,5 +1,5 @@
 const mongoCollections = require("../config/mongoCollections");
-const votesAndMetrics =mongoCollections.votesAndMetrics;
+const votesAndMetrics = mongoCollections.votesAndMetrics;
 
 const users = require("./users");
 const uuid = require('node-uuid');
@@ -10,20 +10,34 @@ let exportedMethods = {
             return voteCollection
                 .findOne({_id: pollId})
                 .then((vote) => {
-                    if (!vote) 
+                    if (!vote)
                         throw "Poll not found";
                     return vote;
                 });
         });
     },
     countVote(pollId,ansChoice1,ansChoice2,ansChoice3,ansChoice4,userId ) {
-        // First we need to get the user's information like gender and age, then we need to see if votes for this poll already exsist, 
-        // if so then we need to update by calling updateVote, 
-        // if not then we need to create a new record to hold the votes by calling addNewVote. 
-        // then we need to update the user collection pollsVotedIn 
+        // First we need to get the user's information like gender and age, then we need to see if votes for this poll already exsist,
+        // if so then we need to update by calling updateVote,
+        // if not then we need to create a new record to hold the votes by calling addNewVote.
+        // then we need to update the user collection pollsVotedIn
     },
     addNewVote(pollId,ansChoice1,ansChoice2,ansChoice3,ansChoice4,userId ) {
         //Need error checking here
+        try{
+          if(arguments.length != 6){
+            throw new Error("The number of argument is wrong");
+          }
+          if(typeof pollId != 'string'){
+            throw new Error("pollId should be string");
+          }
+          if(typeof ansChoice1 != 'string' || typeof ansChoice2 != 'string' || typeof ansChoice3 != 'string' || typeof ansChoice4 != 'string'){
+            throw new Error("ansChoice should be string");
+          }
+          if(typeof userId != 'string'){
+            throw new Error("userId should be string");
+          }
+          
         return votes().then((voteCollection) => {
                 let newVote = {
                     _id: pollId,
@@ -40,15 +54,18 @@ let exportedMethods = {
                         .then((newInsertInformation) => {
                             return newInsertInformation.insertedId;
                         })
-                        
+
                         .then((newId) => {
                             return this.getVoteById(newId);
                         }).then((newId) =>{
-                            console.log (userId + ":" + newId._id);     
+                            console.log (userId + ":" + newId._id);
                             return users.addVoteCreatedToUser(userId,newId._id)
-                            
+
                         });
         });
+      }catch(e){
+        console.log(e);
+      }
     },
     removeVote(id) {
         return votes().then((voteCollection) => {
