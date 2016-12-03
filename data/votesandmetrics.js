@@ -23,7 +23,7 @@ let exportedMethods = {
              if (!poll) {
                     this.createNewVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender);
                 } else {
-                    //call update vote
+                    //call updateVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender)
                 }
         });
     },
