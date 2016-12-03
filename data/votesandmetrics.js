@@ -35,7 +35,7 @@ let exportedMethods = {
     createNewVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender) {
         // answer choice will be either 0 or 1, if it's 1 then thats the answer they selected, 
         // i.e ansChoice1 =0 , ansChoice2 =0, ansChoice3 =1, ansChoice4 =0 means they voted for ansChoice3
-        //  NOTE:  Only one ansChoiceX paramater passed in should be 1, the others should be 0
+        //  NOTE:  Only one ansChoiceX paramater passed in should be 1, the others should ALL be 0
 
         //Need error checking here
         try {
