@@ -30,7 +30,7 @@ let exportedMethods = {
 
     /*  If there are no recorded votes so far we need to call this function which will create the vote record in mongo
         We can hard code totalVotes to 1 and the other metrics fields to 1 (i.e. Male: 1 or female: 1) since this function only gets called if there are
-        no votes yet 
+        no votes yet on a poll
     */
     addNewVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender) {
         // answer choice will be either 0 or 1, if it's 1 then thats the answer they selected, 
@@ -45,8 +45,8 @@ let exportedMethods = {
             if (typeof pollId != 'string') {
                 throw new Error("pollId should be string");
             }
-            if (typeof ansChoice1 != 'string' || typeof ansChoice2 != 'string' || typeof ansChoice3 != 'string' || typeof ansChoice4 != 'string') {
-                throw new Error("ansChoice should be string");
+            if (typeof ansChoice1 != 'number' || typeof ansChoice2 != 'number' || typeof ansChoice3 != 'number' || typeof ansChoice4 != 'number') {
+                throw new Error("ansChoice should be number");
             }
             if (typeof userId != 'string') {
                 throw new Error("userId should be string");
