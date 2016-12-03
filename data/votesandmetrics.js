@@ -16,12 +16,12 @@ let exportedMethods = {
                 });
         });
     },
-    countVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId) {
+    countVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId,userGender) {
         //Serach for the pollid in the votes collection, if it does not exsit then we know we need to call addNewVote to create the document
         // if it does exsit then we call update
         return votesAndMetrics.find({ _id: pollId }).then((votes) => {
             if (!votes) {
-                //call add new vote
+                addNewVote(pollId,ansChoice1,ansChoice2,ansChoice3,ansChoice4,userId,userGender);
             } else {
                 //call update vote
             }
@@ -33,8 +33,8 @@ let exportedMethods = {
         no votes yet 
     */
     addNewVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender) {
-        //answer choice will be either 0 or 1, if it's 1 then thats the answer they selected, 
-        //i.e ansChoice1 =0 , ansChoice2 =0, ansChoice3 =1, ansChoice4 =0 means they voted for ansChoice3
+        // answer choice will be either 0 or 1, if it's 1 then thats the answer they selected, 
+        // i.e ansChoice1 =0 , ansChoice2 =0, ansChoice3 =1, ansChoice4 =0 means they voted for ansChoice3
         //  NOTE:  Only one ansChoiceX paramater passed in should be 1, the others should be 0
 
         let ansChoice1TotalVotesMale = 0;
