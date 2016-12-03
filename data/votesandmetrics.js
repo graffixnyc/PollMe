@@ -6,7 +6,7 @@ const uuid = require('node-uuid');
 
 let exportedMethods = {
     getVotesByPollId(pollId) {
-        return votes().then((voteCollection) => {
+        return votesAndMetrics().then((voteCollection) => {
             return voteCollection
                 .findOne({ _id: pollId })
                 .then((vote) => {
@@ -20,12 +20,12 @@ let exportedMethods = {
         //Serach for the pollid in the votes collection (since the ID is the same as the pollID that the votes belong to, 
         //if it does not exsit then we know we need to call addNewVote to create the document
         // if it does exsit then we call update
-        return votesAndMetrics.find({ _id: pollId }).then((votes) => {
-            if (!votes) {
-                addNewVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender);
-            } else {
-                //call update vote
-            }
+        return this.getVotesByPollId(pollId).then((poll) =>{
+             if (!poll) {
+                    addNewVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender);
+                } else {
+                    //call update vote
+                }
         });
     },
 
@@ -98,7 +98,7 @@ let exportedMethods = {
                     break;
             }
 
-            return votes().then((voteCollection) => {
+            return votesAndMetrics().then((voteCollection) => {
                 let newVote = {
                     _id: pollId,
                     totalVotesForPoll: 1,
@@ -126,7 +126,7 @@ let exportedMethods = {
         }
     },
     removeVote(id) {
-        return votes().then((voteCollection) => {
+        return votesAndMetrics().then((voteCollection) => {
             return voteCollection
                 .removeOne({ _id: id })
                 .then((deletionInfo) => {
@@ -140,7 +140,7 @@ let exportedMethods = {
     // This function should get called if there is already a vote record crested for the poll to update the total votes
     // and demographics  Haven't started this yet
     updateVote(id, updatedVote) {
-        return votes().then((voteCollection) => {
+        return votesAndMetrics().then((voteCollection) => {
             let updatedVoteData = {};
 
             if (updatedVote.tags) {
