@@ -8,7 +8,7 @@ dbConnection().then(db => {
     return db.dropDatabase().then(() => {
         return dbConnection;
     }).then((db) => {
-        return votesAndMetrics.countVote("ef31262d-ec86-4053-8baa-ea34a58061cb", 0,0,0,1 ,"7457b1c8-5210-4aad-bbfa-444d3e157671","M");
+        return votesAndMetrics.countVote("af31d83e-8a77-4b73-83ab-356d3e9e0066", 0,0,0,1 ,"27ff7b6f-50ce-4223-ad84-c2d5f696043e","M");
     }).then(() => {
         console.log("Done seeding database");
         db.close();
@@ -18,7 +18,9 @@ dbConnection().then(db => {
 });
 
 
-//7457b1c8-5210-4aad-bbfa-444d3e157671:ef31262d-ec86-4053-8baa-ea34a58061cb
+//27ff7b6f-50ce-4223-ad84-c2d5f696043e:af31d83e-8a77-4b73-83ab-356d3e9e0066
+
+
 
 
 

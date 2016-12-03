@@ -6,6 +6,7 @@ const uuid = require('node-uuid');
 
 let exportedMethods = {
     getVotesByPollId(pollId) {
+        console.log ("POLL ID: " + pollId)
         return votesAndMetrics().then((voteCollection) => {
             return voteCollection
                 .findOne({ _id: pollId })
@@ -20,7 +21,7 @@ let exportedMethods = {
         //Serach for the pollid in the votes collection (since the ID is the same as the pollID that the votes belong to, 
         //if it does not exsit then we know we need to call addNewVote to create the document
         // if it does exsit then we call update
-        return this.getVotesByPollId(pollId).then((poll) =>{
+        this.getVotesByPollId(pollId).then((poll) =>{
              if (!poll) {
                     addNewVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender);
                 } else {
