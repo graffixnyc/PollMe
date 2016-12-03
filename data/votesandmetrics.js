@@ -17,7 +17,8 @@ let exportedMethods = {
         });
     },
     countVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender) {
-        //Serach for the pollid in the votes collection, if it does not exsit then we know we need to call addNewVote to create the document
+        //Serach for the pollid in the votes collection (since the ID is the same as the pollID that the votes belong to, 
+        //if it does not exsit then we know we need to call addNewVote to create the document
         // if it does exsit then we call update
         return votesAndMetrics.find({ _id: pollId }).then((votes) => {
             if (!votes) {
