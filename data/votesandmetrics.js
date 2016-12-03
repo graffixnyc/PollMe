@@ -11,8 +11,7 @@ let exportedMethods = {
             return voteCollection
                 .findOne({ _id: pollId })
                 .then((vote) => {
-                    if (!vote)
-                        throw "No Votes found or invalid poll id";
+                    
                     return vote;
                 });
         });
@@ -21,9 +20,9 @@ let exportedMethods = {
         //Serach for the pollid in the votes collection (since the ID is the same as the pollID that the votes belong to, 
         //if it does not exsit then we know we need to call addNewVote to create the document
         // if it does exsit then we call update
-        this.getVotesByPollId(pollId).then((poll) =>{
+      return  this.getVotesByPollId(pollId).then((poll) =>{
              if (!poll) {
-                    addNewVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender);
+                    this.addNewVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender);
                 } else {
                     //call update vote
                 }
@@ -41,7 +40,7 @@ let exportedMethods = {
 
         //Need error checking here
         try {
-            if (arguments.length != 6) {
+            if (arguments.length != 7) {
                 throw new Error("The number of argument is wrong");
             }
             if (typeof pollId != 'string') {
@@ -115,7 +114,7 @@ let exportedMethods = {
                     })
 
                     .then((newId) => {
-                        return this.getVoteById(newId);
+                        return this.getVotesByPollId(newId);
                     }).then((newId) => {
                         console.log(userId + ":" + newId._id);
                         return users.addPollVotedInToUser(userId, newId._id)
