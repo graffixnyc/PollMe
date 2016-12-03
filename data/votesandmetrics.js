@@ -16,12 +16,12 @@ let exportedMethods = {
                 });
         });
     },
-    countVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId,userGender) {
+    countVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender) {
         //Serach for the pollid in the votes collection, if it does not exsit then we know we need to call addNewVote to create the document
         // if it does exsit then we call update
         return votesAndMetrics.find({ _id: pollId }).then((votes) => {
             if (!votes) {
-                addNewVote(pollId,ansChoice1,ansChoice2,ansChoice3,ansChoice4,userId,userGender);
+                addNewVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender);
             } else {
                 //call update vote
             }
@@ -37,15 +37,6 @@ let exportedMethods = {
         // i.e ansChoice1 =0 , ansChoice2 =0, ansChoice3 =1, ansChoice4 =0 means they voted for ansChoice3
         //  NOTE:  Only one ansChoiceX paramater passed in should be 1, the others should be 0
 
-        let ansChoice1TotalVotesMale = 0;
-        let ansChoice2TotalVotesMale = 0;
-        let ansChoice3TotalVotesMale = 0;
-        let ansChoice4TotalVotesMale = 0;
-        let ansChoice1TotalVotesFemale = 0;
-        let ansChoice2TotalVotesFemale = 0;
-        let ansChoice3TotalVotesFemale = 0;
-        let ansChoice4TotalVotesFemale = 0; 
-
         //Need error checking here
         try {
             if (arguments.length != 6) {
@@ -60,6 +51,16 @@ let exportedMethods = {
             if (typeof userId != 'string') {
                 throw new Error("userId should be string");
             }
+
+            let ansChoice1TotalVotesMale = 0;
+            let ansChoice2TotalVotesMale = 0;
+            let ansChoice3TotalVotesMale = 0;
+            let ansChoice4TotalVotesMale = 0;
+            let ansChoice1TotalVotesFemale = 0;
+            let ansChoice2TotalVotesFemale = 0;
+            let ansChoice3TotalVotesFemale = 0;
+            let ansChoice4TotalVotesFemale = 0;
+
             //this is to see which answer choice has the value of 1, from here we would then find the users's gender and then set the count to 1
             switch (1) {
                 case ansChoice1:
@@ -115,7 +116,7 @@ let exportedMethods = {
                         return this.getVoteById(newId);
                     }).then((newId) => {
                         console.log(userId + ":" + newId._id);
-                        return users.addVoteCreatedToUser(userId, newId._id)
+                        return users.addPollVotedInToUser(userId, newId._id)
 
                     });
             });
