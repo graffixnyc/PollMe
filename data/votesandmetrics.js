@@ -16,13 +16,13 @@ let exportedMethods = {
                 });
         });
     },
-    countVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId) {  
+    countVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId) {
         //Serach for the pollid in the votes collection, if it does not exsit then we know we need to call addNewVote to create the document
         // if it does exsit then we call update
-        return votesAndMetrics.find({_id: pollId}).then((votes)=>{
-            if (!votes){
+        return votesAndMetrics.find({ _id: pollId }).then((votes) => {
+            if (!votes) {
                 //call add new vote
-            }else{
+            } else {
                 //call update vote
             }
         });
@@ -32,7 +32,7 @@ let exportedMethods = {
         We can hard code totalVotes to 1 and the other metrics fields to 1 (i.e. Male: 1 or female: 1) since this function only gets called if there are
         no votes yet 
     */
-    addNewVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId) {
+    addNewVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender) {
         //Need error checking here
         //We also need to get the users details like gender and also update the pollsVotedIn in the users collection
         //answer choice will be either 0 or 1, if it's 1 then thats the answer they selected, 
@@ -51,31 +51,58 @@ let exportedMethods = {
             if (typeof userId != 'string') {
                 throw new Error("userId should be string");
             }
-
+            let ansChoice1TotalVotesMale = 0;
+            let ansChoice2TotalVotesMale = 0;
+            let ansChoice3TotalVotesMale = 0;
+            let ansChoice4TotalVotesMale = 0;
+            let ansChoice1TotalVotesFemale = 0;
+            let ansChoice2TotalVotesFemale = 0;
+            let ansChoice3TotalVotesFemale = 0;
+            let ansChoice4TotalVotesFemale = 0;
             //this is to see which answer choice has the value of 1, from here we would then find the users's gender and then set the count to 1
-            switch(1){
+            switch (1) {
                 case ansChoice1:
-                // if user is M set ansChoice1TotalVotesMale = 1 else set ansChoice1TotalVotesFemale = 1
-                break;
+                    // if user is M set ansChoice1TotalVotesMale = 1 else set ansChoice1TotalVotesFemale = 1
+                    if (userGender == "M") {
+                        ansChoice1TotalVotesMale = 1;
+                    } else {
+                        ansChoice1TotalVotesFemale = 1;
+                    }
+                    break;
                 case ansChoice2:
-                // if user is M set ansChoice2TotalVotesMale = 1 else set ansChoice2TotalVotesFemale = 1
-                break;
+                    // if user is M set ansChoice2TotalVotesMale = 1 else set ansChoice2TotalVotesFemale = 1
+                    if (userGender == "M") {
+                        ansChoice2TotalVotesMale = 1;
+                    } else {
+                        ansChoice2TotalVotesFemale = 1;
+                    }
+                    break;
                 case ansChoice3:
-                // if user is M set ansChoice3TotalVotesMale = 1 else set ansChoice3TotalVotesFemale = 1
-                break;
+                    // if user is M set ansChoice3TotalVotesMale = 1 else set ansChoice3TotalVotesFemale = 1
+                    if (userGender == "M") {
+                        ansChoice3TotalVotesMale = 1;
+                    } else {
+                        ansChoice3TotalVotesFemale = 1;
+                    }
+                    break;
                 case ansChoice4:
-                // if user is M set ansChoice4TotalVotesMale = 1 else set ansChoice4TotalVotesFemale = 1
-                break;
+                    // if user is M set ansChoice4TotalVotesMale = 1 else set ansChoice4TotalVotesFemale = 1
+                    if (userGender == "M") {
+                        ansChoice4TotalVotesMale = 1;
+                    } else {
+                        ansChoice4TotalVotesFemale = 1;
+                    }
+                    break;
             }
 
             return votes().then((voteCollection) => {
                 let newVote = {
                     _id: pollId,
                     totalVotesForPoll: 1,
-                    ansChoice1: {totalVotes: ansChoice1, totalVotesMale: ansChoice1TotalVotesMale, totalVotesFemale: ansChoice1TotalVotesFemale },
-                    ansChoice2: {totalVotes: ansChoice2, totalVotesMale: ansChoice2TotalVotesMale, totalVotesFemale: ansChoice2TotalVotesFemale },
-                    ansChoice3: {totalVotes: ansChoice3, totalVotesMale: ansChoice3TotalVotesMale, totalVotesFemale: ansChoice3TotalVotesFemale },
-                    ansChoice4: {totalVotes: ansChoice4, totalVotesMale: ansChoice4TotalVotesMale, totalVotesFemale: ansChoice4TotalVotesFemale },
+                    ansChoice1: { totalVotes: ansChoice1, totalVotesMale: ansChoice1TotalVotesMale, totalVotesFemale: ansChoice1TotalVotesFemale },
+                    ansChoice2: { totalVotes: ansChoice2, totalVotesMale: ansChoice2TotalVotesMale, totalVotesFemale: ansChoice2TotalVotesFemale },
+                    ansChoice3: { totalVotes: ansChoice3, totalVotesMale: ansChoice3TotalVotesMale, totalVotesFemale: ansChoice3TotalVotesFemale },
+                    ansChoice4: { totalVotes: ansChoice4, totalVotesMale: ansChoice4TotalVotesMale, totalVotesFemale: ansChoice4TotalVotesFemale },
                 };
                 return voteCollection
                     .insertOne(newVote)
