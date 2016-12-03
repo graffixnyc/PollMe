@@ -11,7 +11,7 @@ let exportedMethods = {
                 .findOne({ _id: pollId })
                 .then((vote) => {
                     if (!vote)
-                        throw "No Votes found";
+                        throw "No Votes found or invalid poll id";
                     return vote;
                 });
         });
@@ -55,16 +55,16 @@ let exportedMethods = {
             //this is to see which answer choice has the value of 1, from here we would then find the users's gender and then set the count to 1
             switch(1){
                 case ansChoice1:
-                // if M set ansChoice1TotalVotesMale = 1 else set ansChoice1TotalVotesFemale = 1
+                // if user is M set ansChoice1TotalVotesMale = 1 else set ansChoice1TotalVotesFemale = 1
                 break;
                 case ansChoice2:
-                // if M set ansChoice2TotalVotesMale = 1 else set ansChoice2TotalVotesFemale = 1
+                // if user is M set ansChoice2TotalVotesMale = 1 else set ansChoice2TotalVotesFemale = 1
                 break;
                 case ansChoice3:
-                // if M set ansChoice3TotalVotesMale = 1 else set ansChoice3TotalVotesFemale = 1
+                // if user is M set ansChoice3TotalVotesMale = 1 else set ansChoice3TotalVotesFemale = 1
                 break;
                 case ansChoice4:
-                // if M set ansChoice4TotalVotesMale = 1 else set ansChoice4TotalVotesFemale = 1
+                // if user is M set ansChoice4TotalVotesMale = 1 else set ansChoice4TotalVotesFemale = 1
                 break;
             }
 
