@@ -56,10 +56,10 @@ let exportedMethods = {
                 let newVote = {
                     _id: pollId,
                     totalVotesForPoll: 1,
-                    ansChoice1: {ansChoice1TotalVotes: ansChoice1TotalVotes, ansChoice1TotalVotesMale: ansChoice1TotalVotesMale, ansChoice1TotalFemale, ansChoice1TotalVotesFemale },
-                    ansChoice2: {ansChoice2TotalVotes: ansChoice2TotalVotes, ansChoice2TotalVotesMale: ansChoice2TotalVotesMale, ansChoice2TotalFemale, ansChoice2TotalVotesFemale },
-                    ansChoice3: {ansChoice3TotalVotes: ansChoice3TotalVotes, ansChoice3TotalVotesMale: ansChoice3TotalVotesMale, ansChoice3TotalFemale, ansChoice3TotalVotesFemale },
-                    ansChoice4: {ansChoice4TotalVotes: ansChoice4TotalVotes, ansChoice4TotalVotesMale: ansChoice4TotalVotesMale, ansChoice4TotalFemale, ansChoice4TotalVotesFemale },
+                    ansChoice1: {totalVotes: ansChoice1TotalVotes, totalVotesMale: ansChoice1TotalVotesMale, totalVotesFemale: ansChoice1TotalVotesFemale },
+                    ansChoice2: {totalVotes: ansChoice2TotalVotes, totalVotesMale: ansChoice2TotalVotesMale, totalVotesFemale: ansChoice2TotalVotesFemale },
+                    ansChoice3: {totalVotes: ansChoice3TotalVotes, totalVotesMale: ansChoice3TotalVotesMale, totalVotesFemale: ansChoice3TotalVotesFemale },
+                    ansChoice4: {totalVotes: ansChoice4TotalVotes, totalVotesMale: ansChoice4TotalVotesMale, totalVotesFemale: ansChoice4TotalVotesFemale },
                 };
                 return voteCollection
                     .insertOne(newVote)
