@@ -144,28 +144,6 @@ let exportedMethods = {
             });
         });
     },
-    changeCategory(oldCategory, newCategory) {
-        let findDocuments = {
-            category: oldCategory
-        };
-
-        let firstUpdate = {
-            $pull: oldCategory
-        };
-
-        let secondUpdate = {
-            $addToSet: newCategory
-        };
-
-        return pollCollection
-            .updateMany(findDocuments, firstUpdate)
-            .then((result) => {
-                return pollCollection.updateMany(findDocuments, secondUpdate);
-            })
-            .then((secondUpdate) => {
-                return this.getPollsByCategory(newCategory);
-            });
-    }
 }
 
 module.exports = exportedMethods;

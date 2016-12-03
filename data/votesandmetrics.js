@@ -21,6 +21,9 @@ let exportedMethods = {
         // if so then we need to update by calling updateVote,
         // if not then we need to create a new record to hold the votes by calling addNewVote.
         // then we need to update the user collection pollsVotedIn
+       return users.getUserById(userId).then((user) => {
+           
+       });
     },
     
     /*
