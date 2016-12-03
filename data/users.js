@@ -20,7 +20,7 @@ let exportedMethods = {
     },
     checkLogin(email, hashedPassword) {
         return users().then((userCollection) => {
-            return userCollection.findOne({ $and: [{email: email },{hashedPassword:hashedPassword}]}).then((user) => {
+            return userCollection.findOne({ $and: [{ email: email }, { hashedPassword: hashedPassword }] }).then((user) => {
                 if (!user) reject("User not found Or Login Incorrect");
 
                 return user;
@@ -51,7 +51,6 @@ let exportedMethods = {
                 pollsCreated: [],
                 pollsVotedIn: []
             };
-
             return userCollection.insertOne(newUser).then((newInsertInformation) => {
                 return newInsertInformation.insertedId;
             }).then((newId) => {
@@ -92,28 +91,28 @@ let exportedMethods = {
     },
     addPollCreatedToUser(userId, pollId) {
         return users().then((userCollection) => {
-        return this.getUserById(userId).then((currentUser) => {
-            return userCollection.updateOne({ _id: userId }, {
-                $push: {
-                    pollsCreated: {
-                        pollId: pollId
+            return this.getUserById(userId).then((currentUser) => {
+                return userCollection.updateOne({ _id: userId }, {
+                    $push: {
+                        pollsCreated: {
+                            pollId: pollId
+                        }
                     }
-                }
+                });
             });
-        });
         });
     },
     addPollVotedInToUser(userId, pollId) {
         return users().then((userCollection) => {
-        return this.getUserById(userId).then((currentUser) => {
-            return userCollection.updateOne({ _id: userId }, {
-                $addToSet: {
-                    pollsVotedIn: {
-                        pollId: pollId
+            return this.getUserById(userId).then((currentUser) => {
+                return userCollection.updateOne({ _id: userId }, {
+                    $addToSet: {
+                        pollsVotedIn: {
+                            pollId: pollId
+                        }
                     }
-                }
+                });
             });
-        });
         });
     },
     removePollFromUser(userId, pollId) {
@@ -127,12 +126,12 @@ let exportedMethods = {
             });
         });
     },
-    
+
     isPasswordValid(user, password) {
         return new Promise((fulfill, reject) => {
-            if( !user ) reject("User not given");
-            if( !password ) reject("Password not given");
-            bcrypt.compare(password, user.password, function(err, res) {
+            if (!user) reject("User not given");
+            if (!password) reject("Password not given");
+            bcrypt.compare(password, user.password, function (err, res) {
                 if (err) reject(err);
                 fulfill(res);
             });
