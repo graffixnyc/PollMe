@@ -3,10 +3,7 @@ const data = require("../data/");
 const users = data.users;
 const polls = data.polls;
 const votesAndMetrics =data.votesAndMetrics;
-
-dbConnection().then(db => {
-        return votesAndMetrics.countVote("4edd9b63-ab58-40e5-a189-6ef4a436fd36", 0,0,0,1 ,"1f4a7d5a-87de-4d29-b5b8-c0f696d6ae74","M");
-    }).then(() => {
+  return votesAndMetrics.countVote("4edd9b63-ab58-40e5-a189-6ef4a436fd36", 0,0,0,1 ,"1f4a7d5a-87de-4d29-b5b8-c0f696d6ae74","M").then(() => {
         console.log("Done seeding database");
         db.close();
     

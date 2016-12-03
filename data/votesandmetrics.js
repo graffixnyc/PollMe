@@ -11,7 +11,6 @@ let exportedMethods = {
             return voteCollection
                 .findOne({ _id: pollId })
                 .then((vote) => {
-                    
                     return vote;
                 });
         });
