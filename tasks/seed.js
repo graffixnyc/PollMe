@@ -2,6 +2,7 @@ const dbConnection = require("../config/mongoConnection");
 const data = require("../data/");
 const users = data.users;
 const polls = data.polls;
+const bcrypt = require('bcryptjs');
 
 dbConnection().then(db => {
     return db.dropDatabase().then(() => {

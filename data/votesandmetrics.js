@@ -5,7 +5,7 @@ const users = require("./users");
 const uuid = require('node-uuid');
 
 let exportedMethods = {
-    getVotesByPollId(pollId) {
+    getVoteDocumentByPollId(pollId) {
         console.log ("POLL ID: " + pollId)
         return votesAndMetrics().then((voteCollection) => {
             return voteCollection
@@ -19,20 +19,20 @@ let exportedMethods = {
         //Serach for the pollid in the votes collection (since the ID is the same as the pollID that the votes belong to, 
         //if it does not exsit then we know we need to call addNewVote to create the document
         // if it does exsit then we call update
-      return  this.getVotesByPollId(pollId).then((poll) =>{
+      return  this.getVoteDocumentByPollId(pollId).then((poll) =>{
              if (!poll) {
-                    this.addNewVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender);
+                    this.createNewVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender);
                 } else {
                     //call update vote
                 }
         });
     },
 
-    /*  If there are no recorded votes so far we need to call this function which will create the vote record in mongo
+    /*  If there are no recorded votes so far we need to call this function which will create the votesAndMetrics document in mongo
         We can hard code totalVotes to 1 and the other metrics fields to 1 (i.e. Male: 1 or female: 1) since this function only gets called if there are
         no votes yet on a poll
     */
-    addNewVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender) {
+    createNewVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender) {
         // answer choice will be either 0 or 1, if it's 1 then thats the answer they selected, 
         // i.e ansChoice1 =0 , ansChoice2 =0, ansChoice3 =1, ansChoice4 =0 means they voted for ansChoice3
         //  NOTE:  Only one ansChoiceX paramater passed in should be 1, the others should be 0
