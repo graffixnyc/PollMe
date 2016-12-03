@@ -113,7 +113,7 @@ let exportedMethods = {
                     })
 
                     .then((newId) => {
-                        return this.getVotesByPollId(newId);
+                        return this.getVoteDocumentByPollId(newId);
                     }).then((newId) => {
                         console.log(userId + ":" + newId._id);
                         return users.addPollVotedInToUser(userId, newId._id)
@@ -138,7 +138,7 @@ let exportedMethods = {
 
     // This function should get called if there is already a vote record crested for the poll to update the total votes
     // and demographics  Haven't started this yet
-    updateVote(id, updatedVote) {
+    updateVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender) {
         return votesAndMetrics().then((voteCollection) => {
             let updatedVoteData = {};
 
