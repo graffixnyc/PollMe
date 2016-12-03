@@ -55,11 +55,11 @@ let exportedMethods = {
             return votes().then((voteCollection) => {
                 let newVote = {
                     _id: pollId,
-                    totalVotes: 1,
-                    ansChoice1: [],
-                    ansChoice2: [],
-                    ansChoice3: [],
-                    ansChoice4: [],
+                    totalVotesForPoll: 1,
+                    ansChoice1: {ansChoice1TotalVotes: ansChoice1TotalVotes, ansChoice1TotalVotesMale: ansChoice1TotalVotesMale, ansChoice1TotalFemale, ansChoice1TotalVotesFemale },
+                    ansChoice2: {ansChoice2TotalVotes: ansChoice2TotalVotes, ansChoice2TotalVotesMale: ansChoice2TotalVotesMale, ansChoice2TotalFemale, ansChoice2TotalVotesFemale },
+                    ansChoice3: {ansChoice3TotalVotes: ansChoice3TotalVotes, ansChoice3TotalVotesMale: ansChoice3TotalVotesMale, ansChoice3TotalFemale, ansChoice3TotalVotesFemale },
+                    ansChoice4: {ansChoice4TotalVotes: ansChoice4TotalVotes, ansChoice4TotalVotesMale: ansChoice4TotalVotesMale, ansChoice4TotalFemale, ansChoice4TotalVotesFemale },
                 };
                 return voteCollection
                     .insertOne(newVote)
