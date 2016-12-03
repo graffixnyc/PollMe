@@ -18,9 +18,9 @@ let exportedMethods = {
             });
         });
     },
-    checkLogin(id, hashedPassword) {
+    checkLogin(email, hashedPassword) {
         return users().then((userCollection) => {
-            return userCollection.findOne({ $and: [{_id: id },{hashedPassword:hashedPassword}]}).then((user) => {
+            return userCollection.findOne({ $and: [{email: email },{hashedPassword:hashedPassword}]}).then((user) => {
                 if (!user) reject("User not found Or Login Incorrect");
 
                 return user;
