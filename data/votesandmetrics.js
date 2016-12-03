@@ -22,6 +22,12 @@ let exportedMethods = {
         // if not then we need to create a new record to hold the votes by calling addNewVote.
         // then we need to update the user collection pollsVotedIn
     },
+    
+    /*
+        If there are no recorded votes so far we need to call this function which will create the vote record in mongo
+        We can hard code totalVotes to 1 and the other metrics fields to 1 (i.e. Male: 1 or female: 1) since this function only gets called if there are
+        no votes yet 
+    */
     addNewVote(pollId,ansChoice1,ansChoice2,ansChoice3,ansChoice4,userId ) {
         //Need error checking here
         try{
@@ -41,9 +47,7 @@ let exportedMethods = {
         return votes().then((voteCollection) => {
                 let newVote = {
                     _id: pollId,
-                    category: category,
-                    postedDate: postedDate,
-                    question: question,
+                    totalVotes: 1,
                     ansChoice1: [],
                     ansChoice2: [],
                     ansChoice3: [],
@@ -78,6 +82,9 @@ let exportedMethods = {
                 });
         });
     },
+
+    // This function should get called if there is already a vote record crested for the poll to update the total votes
+    // and demographics  Haven't started this yet
     updateVote(id, updatedVote) {
         return votes().then((voteCollection) => {
             let updatedVoteData = {};
