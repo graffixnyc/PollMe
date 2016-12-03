@@ -33,11 +33,20 @@ let exportedMethods = {
         no votes yet 
     */
     addNewVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender) {
-        //Need error checking here
-        //We also need to get the users details like gender and also update the pollsVotedIn in the users collection
         //answer choice will be either 0 or 1, if it's 1 then thats the answer they selected, 
         //i.e ansChoice1 =0 , ansChoice2 =0, ansChoice3 =1, ansChoice4 =0 means they voted for ansChoice3
         //  NOTE:  Only one ansChoiceX paramater passed in should be 1, the others should be 0
+
+        let ansChoice1TotalVotesMale = 0;
+        let ansChoice2TotalVotesMale = 0;
+        let ansChoice3TotalVotesMale = 0;
+        let ansChoice4TotalVotesMale = 0;
+        let ansChoice1TotalVotesFemale = 0;
+        let ansChoice2TotalVotesFemale = 0;
+        let ansChoice3TotalVotesFemale = 0;
+        let ansChoice4TotalVotesFemale = 0; 
+
+        //Need error checking here
         try {
             if (arguments.length != 6) {
                 throw new Error("The number of argument is wrong");
@@ -51,14 +60,6 @@ let exportedMethods = {
             if (typeof userId != 'string') {
                 throw new Error("userId should be string");
             }
-            let ansChoice1TotalVotesMale = 0;
-            let ansChoice2TotalVotesMale = 0;
-            let ansChoice3TotalVotesMale = 0;
-            let ansChoice4TotalVotesMale = 0;
-            let ansChoice1TotalVotesFemale = 0;
-            let ansChoice2TotalVotesFemale = 0;
-            let ansChoice3TotalVotesFemale = 0;
-            let ansChoice4TotalVotesFemale = 0;
             //this is to see which answer choice has the value of 1, from here we would then find the users's gender and then set the count to 1
             switch (1) {
                 case ansChoice1:
