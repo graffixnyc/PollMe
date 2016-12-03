@@ -18,6 +18,15 @@ let exportedMethods = {
             });
         });
     },
+    checkLogin(id, hashedPassword) {
+        return users().then((userCollection) => {
+            return userCollection.findOne({ $and: [{_id: id },{hashedPassword:hashedPassword}]}).then((user) => {
+                if (!user) reject("User not found Or Login Incorrect");
+
+                return user;
+            });
+        });
+    },
     getUserByUsername(username) {
         return users().then((userCollection) => {
             return userCollection.findOne({ username: username }).then((user) => {
@@ -38,7 +47,7 @@ let exportedMethods = {
                 city: city,
                 state: state,
                 age: age,
-                hashedPassword: hashedPassword,
+                password: hashedPassword,
                 pollsCreated: [],
                 pollsVotedIn: []
             };
