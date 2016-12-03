@@ -11,19 +11,23 @@ let exportedMethods = {
                 .findOne({ _id: pollId })
                 .then((vote) => {
                     if (!vote)
-                        throw "Poll not found";
+                        throw "No Votes found";
                     return vote;
                 });
         });
     },
-    countVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId) {
-        // First we need to get the user's information like gender and age, then we need to see if votes for this poll already exsist,
-        // if so then we need to update by calling updateVote,
-        // if not then we need to create a new record to hold the votes by calling addNewVote.
-        // then we need to update the user collection pollsVotedIn
-        return users.getUserById(userId).then((user) => {
-
+    countVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId) {  
+        //Serach for the pollid in the votes collection, if it does not exsit then we know we need to call addNewVote, if it does exsit then we cann update
+        return votesAndMetrics.find({_id: pollId}).then((votes)=>{
+            if (!votes){
+                //call add new vote
+            }else{
+                //call update vote
+            }
         });
+        //return users.getUserById(userId).then((user) => {
+            //{"totalVotes": { $gt: 0 }}
+        //});
     },
 
     /*
@@ -32,7 +36,7 @@ let exportedMethods = {
         no votes yet 
     */
     addNewVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId) {
-        //Need error checking here
+        //Need error checking here, We also need to get the users details like gender and also update the pollsVotedIn in the users collection
         try {
             if (arguments.length != 6) {
                 throw new Error("The number of argument is wrong");
@@ -115,28 +119,6 @@ let exportedMethods = {
             });
         });
     },
-    changeCategory(oldCategory, newCategory) {
-        let findDocuments = {
-            category: oldCategory
-        };
-
-        let firstUpdate = {
-            $pull: oldCategory
-        };
-
-        let secondUpdate = {
-            $addToSet: newCategory
-        };
-
-        return voteCollection
-            .updateMany(findDocuments, firstUpdate)
-            .then((result) => {
-                return voteCollection.updateMany(findDocuments, secondUpdate);
-            })
-            .then((secondUpdate) => {
-                return this.getVotesByCategory(newCategory);
-            });
-    }
 }
 
 module.exports = exportedMethods;
