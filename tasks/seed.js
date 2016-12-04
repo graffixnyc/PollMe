@@ -20,9 +20,9 @@ dbConnection().then(db => {
             .then(() => {
                 return polls.addPoll("Technology", "11/27/2016","What is a better laptop?","MacBook Pro 13","Dell XPS 13","Lenovo Yoga","HP Envy", id);
             })
-            .then(() => {
-                return polls.addPoll(12, "11/27/2016","What is a better laptop?","MacBook Pro 13","Dell XPS 13","Lenovo Yoga","HP Envy", id);
-            });
+             //.then(() => {
+              //   return polls.addPoll(12, "11/27/2016","What is a better laptop?","MacBook Pro 13","Dell XPS 13","Lenovo Yoga","HP Envy", id);
+             //});
     }).then(() => {
         console.log("Done seeding database");
         db.close();
