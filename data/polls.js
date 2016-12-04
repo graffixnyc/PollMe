@@ -144,6 +144,19 @@ let exportedMethods = {
             });
         });
     },
+    addCommentToPoll(pollId, poster, comment) {
+      return polls().then((pollCollection) => {
+          return pollCollection.updateOne({ _id: pollId }, {
+              $addToSet: {
+                  comments: {
+                       _id: uuid.v4(),
+                      poster: poster,
+                      comment: comment
+                  }
+              }
+          });
+      });
+  }
 }
 
 module.exports = exportedMethods;
