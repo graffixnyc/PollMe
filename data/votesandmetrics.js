@@ -23,7 +23,7 @@ let exportedMethods = {
         // if it does exsit then we call update
         return votesAndMetrics().then((voteCollection) => {
             return voteCollection.findOne({ _id: pollId }).then((votes) => {
-                return s;
+                return votes;
             });
         }).then((votes) => {
             //return  this.getVoteDocumentByPollId(pollId).then((poll) =>{
