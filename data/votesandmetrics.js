@@ -22,12 +22,12 @@ let exportedMethods = {
         //if it does not exsit then we know we need to call addNewVote to create the document
         // if it does exsit then we call update
         return votesAndMetrics().then((voteCollection) => {
-            return voteCollection.findOne({ _id: pollId }).then((vote) => {
-                return vote;
+            return voteCollection.findOne({ _id: pollId }).then((votes) => {
+                return s;
             });
-        }).then((vote) => {
+        }).then((votes) => {
             //return  this.getVoteDocumentByPollId(pollId).then((poll) =>{
-            if (!vote) {
+            if (!votes) {
                 this.createNewVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender);
             } else {
                 //call updateVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender)
