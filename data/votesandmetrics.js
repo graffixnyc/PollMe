@@ -139,6 +139,9 @@ let exportedMethods = {
     // This function should get called if there is already a vote record crested for the poll to update the total votes
     // and demographics  Haven't started this yet
     updateVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender) {
+        // in this function we need to first get the document then do some checking like we did
+        // in createNewVoteDocument, then increment the totalVotesForPoll, the totalVotes for that ansChoice 
+        // and the total vote of gender 
         return votesAndMetrics().then((voteCollection) => {
             let updatedVoteData = {};
 
