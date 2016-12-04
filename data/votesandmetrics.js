@@ -5,12 +5,14 @@ const users = require("./users");
 const uuid = require('node-uuid');
 
 let exportedMethods = {
-    getVoteDocumentByPollId(pollId) {
+    getVotesForPoll(pollId) {
         //console.log ("POLL ID: " + pollId)
         return votesAndMetrics().then((voteCollection) => {
             return voteCollection
                 .findOne({ _id: pollId })
                 .then((vote) => {
+                    if (!vote)
+                        Promise.reject("No Votes Found for selected Poll");
                     return vote;
                 });
         });
@@ -19,15 +21,21 @@ let exportedMethods = {
         //Serach for the pollid in the votes collection (since the ID is the same as the pollID that the votes belong to, 
         //if it does not exsit then we know we need to call addNewVote to create the document
         // if it does exsit then we call update
-      return  this.getVoteDocumentByPollId(pollId).then((poll) =>{
-             if (!poll) {
-                    this.createNewVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender);
-                } else {
-                    //call updateVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender)
-                }
-        });
-    },
+        return votesAndMetrics().then((voteCollection) => {
+            return voteCollection.findOne({ _id: pollId }).then((vote) => {
+                return vote;
+            });
+        }).then((vote) => {
+            //return  this.getVoteDocumentByPollId(pollId).then((poll) =>{
+            if (!vote) {
+                this.createNewVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender);
+            } else {
+                //call updateVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender)
+                console.log("Document already created");
+            }
+        })
 
+    },
     /*  If there are no recorded votes so far we need to call this function which will create the votesAndMetrics document in mongo
         We can hard code totalVotes to 1 and the other metrics fields to 1 (i.e. Male: 1 or female: 1) since this function only gets called if there are
         no votes yet on a poll
