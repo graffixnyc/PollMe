@@ -19,9 +19,11 @@ let exportedMethods = {
         });
     },
     checkLogin(email, hashedPassword) {
+        console.log ("hp: " + hashedPassword); 
         return users().then((userCollection) => {
-            return userCollection.findOne({ $and: [{ email: email }, { hashedPassword: hashedPassword }] }).then((user) => {
-                if (!user) reject("User not found Or Login Incorrect");
+            return userCollection.findOne({ $and: [{ email: email }, { password: hashedPassword }] }).then((user) => {
+                if (!user) 
+                    throw "User not found Or Login Incorrect";
 
                 return user;
             });

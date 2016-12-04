@@ -3,23 +3,20 @@ const data = require("../data/");
 const users = data.users;
 const polls = data.polls;
 const votesAndMetrics =data.votesAndMetrics;
-  return votesAndMetrics.countVote("48b24db4-b700-4aa4-b6ee-eb819aa2d627", 0,0,0,1 ,"16429151-fd34-4f70-a8be-257970da8a86","M").then(() => {
+const bcrypt = require('bcryptjs');
+  return votesAndMetrics.countVote("77db0d5a-338f-494d-8b5e-4febc5976ede", 0,0,0,1 ,"fd71fa87-b38c-4a1e-a4c8-2f67c35161e5","M").then(() => {
         console.log("Done seeding database");
-        db.close();
+     
     
 }, (error) => {
     console.error(error);
 });
 
 
-//27ff7b6f-50ce-4223-ad84-c2d5f696043e:af31d83e-8a77-4b73-83ab-356d3e9e0066
-//  16429151-fd34-4f70-a8be-257970da8a86:48b24db4-b700-4aa4-b6ee-eb819aa2d627
-
-
-
-
-
-
+//   return users.checkLogin("graffixnyc@gmail.com",bcrypt.hashSync("testingfornow") ).then((user) => {
+       
+//         console.log(user.firstName);
+//   });
 
 
 
