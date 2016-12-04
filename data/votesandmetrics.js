@@ -6,7 +6,7 @@ const uuid = require('node-uuid');
 
 let exportedMethods = {
     getVoteDocumentByPollId(pollId) {
-        console.log ("POLL ID: " + pollId)
+        //console.log ("POLL ID: " + pollId)
         return votesAndMetrics().then((voteCollection) => {
             return voteCollection
                 .findOne({ _id: pollId })
