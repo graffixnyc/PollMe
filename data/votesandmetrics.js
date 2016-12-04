@@ -140,7 +140,7 @@ let exportedMethods = {
     // and demographics  Haven't started this yet
     updateVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender) {
         // in this function we need to first get the document then do some checking like we did
-        // in createNewVoteDocument, then increment the totalVotesForPoll, the totalVotes for that ansChoice 
+        // in createNewVoteDocument, then increment: the totalVotesForPoll, the totalVotes for the ansChoice the user selected 
         // and the total vote of gender 
         return votesAndMetrics().then((voteCollection) => {
             let updatedVoteData = {};
