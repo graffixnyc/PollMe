@@ -11,8 +11,8 @@ let exportedMethods = {
                 .findOne({ _id: pollId })
                 .then((vote) => {
                     if (!vote) {
-                        Promise.reject(new Error("No Votes for selected Poll")).then(function (error) {
-                            // not called
+                        return Promise.reject(new Error("No Votes for selected Poll")).then(function (error) {
+                            //not called
                         }, function (error) {
                             console.log(error);
                         });
