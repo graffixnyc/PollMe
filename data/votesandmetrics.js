@@ -6,28 +6,23 @@ const uuid = require('node-uuid');
 
 let exportedMethods = {
     getVotesForPoll(pollId) {
-        //console.log ("POLL ID: " + pollId)
         return votesAndMetrics().then((voteCollection) => {
             return voteCollection
                 .findOne({ _id: pollId })
                 .then((vote) => {
                     if (!vote)
-                        Promise.reject("No Votes Found for selected Poll");
+                       return Promise.reject("No Votes Found for selected Poll");
                     return vote;
                 });
         });
     },
     countVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender) {
-        //Serach for the pollid in the votes collection (since the ID is the same as the pollID that the votes belong to, 
+        //Serach for the pollid in the votes collection (since the _id is the same as the pollID that the votes belong to, 
         //if it does not exsit then we know we need to call addNewVote to create the document
         // if it does exsit then we call update
-        return votesAndMetrics().then((voteCollection) => {
-            return voteCollection.findOne({ _id: pollId }).then((votes) => {
-                return votes;
-            });
-        }).then((votes) => {
-            //return  this.getVoteDocumentByPollId(pollId).then((poll) =>{
+        return this.getVotesForPoll(pollId).then((votes) => {
             if (!votes) {
+                console.log("Creating Vote Document");
                 this.createNewVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender);
             } else {
                 //call updateVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender)
@@ -37,9 +32,8 @@ let exportedMethods = {
 
     },
     /*  If there are no recorded votes so far we need to call this function which will create the votesAndMetrics document in mongo
-        We can hard code totalVotes to 1 and the other metrics fields to 1 (i.e. Male: 1 or female: 1) since this function only gets called if there are
-        no votes yet on a poll
-    */
+        We can hard code totalVotes to 1 and the other metrics fields to 1 (i.e. Male: 1 or female: 1) since this function only gets called 
+        if there are no votes yet on a poll */
     createNewVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender) {
         // answer choice will be either 0 or 1, if it's 1 then thats the answer they selected, 
         // i.e ansChoice1 =0 , ansChoice2 =0, ansChoice3 =1, ansChoice4 =0 means they voted for ansChoice3
@@ -121,7 +115,7 @@ let exportedMethods = {
                     })
 
                     .then((newId) => {
-                        return this.getVoteDocumentByPollId(newId);
+                        return this.getVotesForPoll(newId);
                     }).then((newId) => {
                         console.log(userId + ":" + newId._id);
                         return users.addPollVotedInToUser(userId, newId._id)
