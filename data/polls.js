@@ -40,33 +40,39 @@ let exportedMethods = {
             return pollCollection
                 .findOne({ _id: id })
                 .then((poll) => {
-                    if (!poll)
-                        throw "Poll not found";
-                    return poll;
+                    if (!poll) {
+                        Promise.reject(new Error("No Poll found")).then(function (error) {
+                            // not called
+                        }, function (error) {
+                            console.log(error);
+                        });
+                    } else {
+                        return poll;
+                    }
                 });
         });
     },
     addPoll(category, postedDate, question, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId) {
         //Need error checking here
         try {
-             if (arguments.length != 8) {
-                 throw new Error("The number of argument is wrong");
-             }
-             if (typeof category != 'string') {
-                 throw new Error("category should be string");
-             }
-             if (typeof postedDate != 'string') {
-                 throw new Error("postedDate should be string");
-             }
-             if (typeof question != 'string') {
-                 throw new Error("question should be string");
-             }
-             if (typeof ansChoice1 != 'string' || typeof ansChoice2 != 'string' || typeof ansChoice3 != 'string' || typeof ansChoice4 != 'string') {
-                 throw new Error("ansChoice should be string");
-             }
-             if (typeof userId != 'string') {
-                 throw new Error("userId should be string");
-             }
+            if (arguments.length != 8) {
+                throw new Error("The number of argument is wrong");
+            }
+            if (typeof category != 'string') {
+                throw new Error("category should be string");
+            }
+            if (typeof postedDate != 'string') {
+                throw new Error("postedDate should be string");
+            }
+            if (typeof question != 'string') {
+                throw new Error("question should be string");
+            }
+            if (typeof ansChoice1 != 'string' || typeof ansChoice2 != 'string' || typeof ansChoice3 != 'string' || typeof ansChoice4 != 'string') {
+                throw new Error("ansChoice should be string");
+            }
+            if (typeof userId != 'string') {
+                throw new Error("userId should be string");
+            }
 
             return polls().then((pollCollection) => {
                 let newPoll = {
@@ -145,18 +151,18 @@ let exportedMethods = {
         });
     },
     addCommentToPoll(pollId, poster, comment) {
-      return polls().then((pollCollection) => {
-          return pollCollection.updateOne({ _id: pollId }, {
-              $addToSet: {
-                  comments: {
-                       _id: uuid.v4(),
-                      poster: poster,
-                      comment: comment
-                  }
-              }
-          });
-      });
-  }
+        return polls().then((pollCollection) => {
+            return pollCollection.updateOne({ _id: pollId }, {
+                $addToSet: {
+                    comments: {
+                        _id: uuid.v4(),
+                        poster: poster,
+                        comment: comment
+                    }
+                }
+            });
+        });
+    }
 }
 
 module.exports = exportedMethods;
