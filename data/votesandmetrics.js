@@ -65,9 +65,10 @@ let exportedMethods = {
             let ansChoice4TotalVotesFemale = 0;
 
             //this is to see which answer choice has the value of 1, from here we would then find the users's gender and then set the count to 1
+            // if user is M set ansChoiceXTotalVotesMale = 1 else set ansChoiceXTotalVotesFemale = 1
             switch (1) {
                 case ansChoice1:
-                    // if user is M set ansChoice1TotalVotesMale = 1 else set ansChoice1TotalVotesFemale = 1
+
                     if (userGender == "M") {
                         ansChoice1TotalVotesMale = 1;
                     } else {
@@ -75,7 +76,6 @@ let exportedMethods = {
                     }
                     break;
                 case ansChoice2:
-                    // if user is M set ansChoice2TotalVotesMale = 1 else set ansChoice2TotalVotesFemale = 1
                     if (userGender == "M") {
                         ansChoice2TotalVotesMale = 1;
                     } else {
@@ -83,7 +83,6 @@ let exportedMethods = {
                     }
                     break;
                 case ansChoice3:
-                    // if user is M set ansChoice3TotalVotesMale = 1 else set ansChoice3TotalVotesFemale = 1
                     if (userGender == "M") {
                         ansChoice3TotalVotesMale = 1;
                     } else {
@@ -91,7 +90,6 @@ let exportedMethods = {
                     }
                     break;
                 case ansChoice4:
-                    // if user is M set ansChoice4TotalVotesMale = 1 else set ansChoice4TotalVotesFemale = 1
                     if (userGender == "M") {
                         ansChoice4TotalVotesMale = 1;
                     } else {
