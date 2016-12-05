@@ -11,7 +11,7 @@ let exportedMethods = {
                 .findOne({ _id: pollId })
                 .then((vote) => {
                     if (!vote)
-                       return Promise.reject("No Votes Found for selected Poll");
+                        return Promise.reject("No Votes Found for selected Poll");
                     return vote;
                 });
         });
