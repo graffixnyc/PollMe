@@ -19,13 +19,18 @@ let exportedMethods = {
         });
     },
     checkLogin(email, hashedPassword) {
-        console.log ("hp: " + hashedPassword); 
+        console.log("hp: " + hashedPassword);
         return users().then((userCollection) => {
-            return userCollection.findOne({ $and: [{ email: email }, { password: hashedPassword }] }).then((user) => {
-                if (!user) 
-                    throw "User not found Or Login Incorrect";
-
-                return user;
+            return userCollection.findOne({ email: email }).then((user) => {
+                if (!user) {
+                    throw "User not found";
+                } else {
+                    if (bcrypt.compareSync(user.password, hashedPassword)) {
+                        return user;
+                    }else{
+                        console.log ("Password Fail")
+                    }
+                }
             });
         });
     },
