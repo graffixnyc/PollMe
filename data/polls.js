@@ -128,6 +128,7 @@ let exportedMethods = {
                     console.log(`Total Votes: ${votes.totalVotesForPoll}`);
                 });
             } else {
+                //This may need to be modified to work correctly
                 return polls().then((pollCollection) => {
                     let updatedPollData = {};
 
