@@ -23,29 +23,24 @@ let exportedMethods = {
         });
     },
     countVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender) {
-        //Serach for the pollid in the votes collection (since the _id is the same as the pollID that the votes belong to, 
-        //if it does not exsit then we know we need to call addNewVote to create the document
-        // if it does exsit then we call update
+        //Serach for the pollid in the votesAndMetrics collection since the _id is the same as the pollID that the votes belong to. 
         return this.getVotesForPoll(pollId).then((votes) => {
             if (!votes) {
+                //No Votes found for poll, so we create the votesAndMetrics document
                 console.log("Creating Vote Document");
                 this.createNewVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender);
             } else {
+                //Poll has votes recorded already, so we need to update the votesAndMetrics document
                 //call updateVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender)
                 console.log("Document already created");
             }
         })
 
     },
-    /*  If there are no recorded votes so far we need to call this function which will create the votesAndMetrics document in mongo
-        We can hard code totalVotes to 1 and the other metrics fields to 1 (i.e. Male: 1 or female: 1) since this function only gets called 
-        if there are no votes yet on a poll */
     createNewVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender) {
         // answer choice will be either 0 or 1, if it's 1 then thats the answer they selected, 
         // i.e ansChoice1 =0 , ansChoice2 =0, ansChoice3 =1, ansChoice4 =0 means they voted for ansChoice3
         //  NOTE:  Only one ansChoiceX paramater passed in should be 1, the others should ALL be 0
-
-        //Need error checking here
         try {
             if (arguments.length != 7) {
                 throw new Error("The number of argument is wrong");
@@ -104,7 +99,6 @@ let exportedMethods = {
                     }
                     break;
             }
-
             return votesAndMetrics().then((voteCollection) => {
                 let newVote = {
                     _id: pollId,
@@ -114,19 +108,14 @@ let exportedMethods = {
                     ansChoice3: { totalVotes: ansChoice3, totalVotesMale: ansChoice3TotalVotesMale, totalVotesFemale: ansChoice3TotalVotesFemale },
                     ansChoice4: { totalVotes: ansChoice4, totalVotesMale: ansChoice4TotalVotesMale, totalVotesFemale: ansChoice4TotalVotesFemale },
                 };
-                return voteCollection
-                    .insertOne(newVote)
-                    .then((newInsertInformation) => {
-                        return newInsertInformation.insertedId;
-                    })
-
-                    .then((newId) => {
-                        return this.getVotesForPoll(newId);
-                    }).then((newId) => {
-                        console.log(userId + ":" + newId._id);
-                        return users.addPollVotedInToUser(userId, newId._id)
-
-                    });
+                return voteCollection.insertOne(newVote).then((newInsertInformation) => {
+                    return newInsertInformation.insertedId;
+                }).then((newId) => {
+                    return this.getVotesForPoll(newId);
+                }).then((newId) => {
+                    console.log(userId + ":" + newId._id);
+                    return users.addPollVotedInToUser(userId, newId._id)
+                });
             });
         } catch (e) {
             console.log(e);
@@ -143,35 +132,28 @@ let exportedMethods = {
                 });
         });
     },
-
     // This function should get called if there is already a vote record created for the poll to update the total votes
-    // and demographics  Haven't started this yet
+    // and demographics  
+    // NEEDS TO BE DONE
     updateVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender) {
         // in this function we need to first get the document then do some checking like we did
         // in createNewVoteDocument, then increment: the totalVotesForPoll, the totalVotes for the ansChoice the user selected 
         // and the total vote of gender 
         return votesAndMetrics().then((voteCollection) => {
             let updatedVoteData = {};
-
             if (updatedVote.tags) {
                 updatedVoteData.tags = updatedVote.tags;
             }
-
             if (updatedVote.title) {
                 updatedVoteData.title = updatedVote.title;
             }
-
             if (updatedVote.body) {
                 updatedVoteData.body = updatedVote.body;
             }
-
             let updateCommand = {
                 $set: updatedVoteData
             };
-
-            return voteCollection.updateOne({
-                _id: id
-            }, updateCommand).then((result) => {
+            return voteCollection.updateOne({ _id: id }, updateCommand).then((result) => {
                 return this.getVoteById(id);
             });
         });
