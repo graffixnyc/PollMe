@@ -10,9 +10,15 @@ let exportedMethods = {
             return voteCollection
                 .findOne({ _id: pollId })
                 .then((vote) => {
-                    if (!vote)
-                        return Promise.reject("No Votes Found for selected Poll");
-                    return vote;
+                    if (!vote) {
+                        Promise.reject(new Error("No Votes for selected Poll")).then(function (error) {
+                            // not called
+                        }, function (error) {
+                            console.log(error);
+                        });
+                    } else {
+                        return vote;
+                    }
                 });
         });
     },

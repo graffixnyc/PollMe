@@ -4,8 +4,8 @@ const users = data.users;
 const polls = data.polls;
 const votesAndMetrics =data.votesAndMetrics;
 const bcrypt = require('bcryptjs');
-  return votesAndMetrics.countVote("dbe48b40-9bf2-42e6-b631-8d0ea4b03d4b", 0,0,0,1 ,"21749010-514f-40fc-92b1-e3e9b20ac85f","M").then(() => {
-    return votesAndMetrics.countVote("20fd8f59-04fb-4a7a-8ad5-8adad6c0067c", 1,0,0,0 ,"21749010-514f-40fc-92b1-e3e9b20ac85f","M").then(() => {
+  return votesAndMetrics.countVote("49af3d96-8a42-4697-9216-3d501caac8d8", 0,0,0,1 ,"cdb2965b-d723-41db-a4b3-2885fa1f9c27","M").then(() => {
+    return votesAndMetrics.countVote("a89f9cee-d4d8-436f-9c8c-6a2c6d9af1a2", 1,0,0,0 ,"cdb2965b-d723-41db-a4b3-2885fa1f9c27","M").then(() => {
         
      
     
