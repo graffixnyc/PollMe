@@ -14,9 +14,9 @@ router.get("/profile", function (request, response) {
         request.redirect('/user/' + request.user.username);
     else {
         if(request.flash().error)
-            response.render('pollme/loginpage', { error: request.flash().error, redirectPage: "/profile" });
+            response.render('pollme/login_signup', { error: request.flash().error, redirectPage: "/profile" });
         else
-            response.render('pollme/loginpage', { redirectPage: "/profile" });
+            response.render('pollme/login_signup', { redirectPage: "/profile" });
     }
 });
 
