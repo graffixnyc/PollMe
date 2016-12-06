@@ -5,5 +5,5 @@ const votesAndMetrics = require("./votesandmetrics")
 module.exports = {
     users: users,
     polls: polls,
-    votesAndMetrics, votesAndMetrics
+    votesAndMetrics: votesAndMetrics
 };

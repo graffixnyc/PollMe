@@ -38,9 +38,9 @@ router.post("/voteonpoll", function (request, response) {
     else {
         //Render a login page
         if(request.flash().error)
-            response.render('pollme/loginpage', { error: request.flash().error, redirectPage: "/" });
+            response.render('pollme/login_signup', { error: request.flash().error, redirectPage: "/" });
         else
-            response.render('pollme/loginpage', { redirectPage: "/" });
+            response.render('pollme/login_signup', { redirectPage: "/" });
     }
 });
 
@@ -55,9 +55,9 @@ router.post("/commentonpoll", function (request, response) {
     else {
         //Render a login page
         if(request.flash().error)
-            response.render('pollme/loginpage', { error: request.flash().error, redirectPage: "/" });
+            response.render('pollme/login_signup', { error: request.flash().error, redirectPage: "/" });
         else
-            response.render('pollme/loginpage', { redirectPage: "/" });
+            response.render('pollme/login_signup', { redirectPage: "/" });
     }
 });
 

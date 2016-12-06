@@ -22,7 +22,15 @@ router.get("/profile", function (request, response) {
 
 
 router.get("/user/:username", function (request, response) {
-    
+    if(!request.params.username)
+        //error handling
+        
+    usersData.getUserByUsername(request.params.username).then((user) => {
+        
+    }, (err) => {
+     //error handling   
+        
+    });
     
 });
 
