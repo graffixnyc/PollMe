@@ -84,6 +84,7 @@ let exportedMethods = {
     
     createHashedPassword(password) {
         return new Promise((fulfill, reject) => {
+            if(!password) reject("Password not given");
             bcrypt.genSalt(10, function(err, salt) {
                 bcrypt.hash(password, salt, function(err, hash) {
                     if (err) reject(err);
