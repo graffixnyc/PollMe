@@ -45,20 +45,19 @@ let exportedMethods = {
             });
         });
     },
-    addUser(username, firstName, lastName, email, gender, city, state, age, password) {
+    addUser(username, firstName, lastName, email, gender, city, state, age, hashedPassword) {
         //need error checking here
+        
         if(username === undefined || username === "") return Promise.reject("No username given");
-        if(firstname === undefined || firstname === "") return Promise.reject("No first name given");
-        if(lastname === undefined || lastname === "") return Promise.reject("No last name given");
+        if(firstName === undefined || firstName === "") return Promise.reject("No first name given");
+        if(lastName === undefined || lastName === "") return Promise.reject("No last name given");
         if(email === undefined || email === "") return Promise.reject("No email given");
         if(gender === undefined || gender === "") return Promise.reject("No gender given");
         if(city === undefined || city === "") return Promise.reject("No city given");
         if(state === undefined || state === "") return Promise.reject("No state given");
         if(age === undefined || age === "") return Promise.reject("No age given");
-        if(password === undefined || password === "") return Promise.reject("No password given");
+        if(hashedPassword === undefined || hashedPassword === "") return Promise.reject("No password given");
         
-        return bcrypt.genSalt(10, function(err, salt) {
-            return bcrypt.hash(password, salt, function(err, hash) {
                 return users().then((userCollection) => {
                     let newUser = {
                         _id: uuid.v4(),
@@ -70,7 +69,7 @@ let exportedMethods = {
                         city: city,
                         state: state,
                         age: age,
-                        password: hash,
+                        password: hashedPassword,
                         pollsCreated: [],
                         pollsVotedIn: []
                     };
@@ -80,10 +79,21 @@ let exportedMethods = {
                         return this.getUserById(newId);
                     });
                 });
-            });
-        });
                 
     },
+    
+    createHashedPassword(password) {
+        return new Promise((fulfill, reject) => {
+            bcrypt.genSalt(10, function(err, salt) {
+                bcrypt.hash(password, salt, function(err, hash) {
+                    if (err) reject(err);
+                    fulfill(hash);        
+                });
+            });
+        });
+        
+    },
+    
     removeUser(id) {
         return users().then((userCollection) => {
             return userCollection.removeOne({ _id: id }).then((deletionInfo) => {

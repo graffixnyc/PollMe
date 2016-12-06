@@ -54,14 +54,14 @@
               <label>
                 First Name<span class="req">*</span>
               </label>
-              <input type="text" required autocomplete="on" />
+              <input type="text" name="firstname" required autocomplete="on" />
             </div>
         
             <div class="field-wrap">
               <label>
                 Last Name<span class="req">*</span>
               </label>
-              <input type="text"required autocomplete="on"/>
+              <input type="text" name="lastname" required autocomplete="on"/>
             </div>
           </div>
 
@@ -70,21 +70,21 @@
             <label>
               Username<span class="req">*</span>
             </label>
-            <input type="text"required autocomplete="on"/>
+            <input type="text" name="signUpUsername" required autocomplete="on"/>
           </div>
                       
           <div class="field-wrap">
             <label>
               Email Address<span class="req">*</span>
             </label>
-            <input type="email"required autocomplete="on"/>
+            <input type="email" name="email" required autocomplete="on"/>
           </div>
 
           <div class="field-wrap">
             <label>
               Gender<span class="req">*</span>
             </label>
-            <input type="text" name="gender" />
+            <input type="text" name="gender" required autocomplete="on"/>
             <!--<input type="radio" name="gender" value="Male"/>-->
           </div>
 
@@ -92,7 +92,7 @@
             <label>
               Age<span class="req">*</span>
             </label>
-            <input type="text" name="age" />
+            <input type="text" name="age" required autocomplete="on"/>
           </div>
 
 
@@ -101,14 +101,14 @@
               <label>
                 City<span class="req">*</span>
               </label>
-              <input type="text" required autocomplete="on" />
+              <input type="text" name="city" required autocomplete="on" />
             </div>
         
             <div class="field-wrap">
               <label>
                 State<span class="req">*</span>
               </label>
-              <input type="text"required autocomplete="on"/>
+              <input type="text" name="state" required autocomplete="on"/>
             </div>
           </div>
           
@@ -116,7 +116,7 @@
             <label>
               Set A Password<span class="req">*</span>
             </label>
-            <input type="password"required autocomplete="on"/>
+            <input type="password" name="signUpPassword" required autocomplete="on"/>
           </div>
           
             {{#if redirectPage }}

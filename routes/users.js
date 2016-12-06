@@ -9,9 +9,9 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 router.get("/profile", function (request, response) {
-
+    
     if(request.isAuthenticated())
-        request.redirect('/user/' + request.user.username);
+        response.redirect('/user/' + request.user.username);
     else {
         if(request.flash().error)
             response.render('pollme/login_signup', { error: request.flash().error, redirectPage: "/profile" });
@@ -22,14 +22,20 @@ router.get("/profile", function (request, response) {
 
 
 router.get("/user/:username", function (request, response) {
-    if(!request.params.username)
+    if(!request.params.username) {
         //error handling
         
+    }
     usersData.getUserByUsername(request.params.username).then((user) => {
+        if(!user) {
+         //error handling   
+        }
+        
+        response.render('pollme/userprofile', { user: user });
         
     }, (err) => {
      //error handling   
-        
+     console.log(err);   
     });
     
 });
@@ -60,13 +66,26 @@ router.get("/signup", function (request, response) {
 router.post("/signup", function (request, response) {
     
     let newUser = request.body;
-    usersData.addUser(newUser.username, newUser.firstname, newUser.lastname, newUser.email, newUser.gender, newUser.city, newUser.state, newUser.age, newUser.password).then((user) => {
-       response.redirect("/user/" + user.username); 
+    usersData.createHashedPassword(newUser.signUpPassword).then((hashedPassword) => {
+        usersData.addUser(newUser.signUpUsername, newUser.firstname, newUser.lastname, newUser.email, newUser.gender, newUser.city, newUser.state, newUser.age, hashedPassword).then((user) => {
+            request.login(user, function(err) {
+                if (err) { console.log(err); }
+                response.redirect(request.body.redirectPageSignUp);
+            });
+
+        }, (err) => {
+            //error handling
+            console.log(err);
+        });
     }, (err) => {
         //error handling
-        
+        console.log(err);
     });
-    
+});
+
+router.get('/logout', function(request, response){
+  request.logout();
+  response.redirect('/');
 });
 
 module.exports = router;
