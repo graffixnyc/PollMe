@@ -18,6 +18,9 @@ let exportedMethods = {
             });
         });
     },
+    
+    /*
+     * We don't need this, isPasswordValid performs the check
     checkLogin(email, hashedPassword) {
         console.log("hp: " + hashedPassword);
         return users().then((userCollection) => {
@@ -34,6 +37,7 @@ let exportedMethods = {
             });
         });
     },
+    */
     getUserByUsername(username) {
         return users().then((userCollection) => {
             return userCollection.findOne({ username: username }).then((user) => {
