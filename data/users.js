@@ -41,29 +41,35 @@ let exportedMethods = {
             });
         });
     },
-    addUser(username, firstName, lastName, email, gender, city, state, age, hashedPassword) {
+    addUser(username, firstName, lastName, email, gender, city, state, age, password) {
         //need error checking here
-        return users().then((userCollection) => {
-            let newUser = {
-                _id: uuid.v4(),
-                username: username,
-                firstName: firstName,
-                lastName: lastName,
-                email: email,
-                gender: gender,
-                city: city,
-                state: state,
-                age: age,
-                password: hashedPassword,
-                pollsCreated: [],
-                pollsVotedIn: []
-            };
-            return userCollection.insertOne(newUser).then((newInsertInformation) => {
-                return newInsertInformation.insertedId;
-            }).then((newId) => {
-                return this.getUserById(newId);
+        
+        return bcrypt.genSalt(10, function(err, salt) {
+            return bcrypt.hash(password, salt, function(err, hash) {
+                return users().then((userCollection) => {
+                    let newUser = {
+                        _id: uuid.v4(),
+                        username: username,
+                        firstName: firstName,
+                        lastName: lastName,
+                        email: email,
+                        gender: gender,
+                        city: city,
+                        state: state,
+                        age: age,
+                        password: hash,
+                        pollsCreated: [],
+                        pollsVotedIn: []
+                    };
+                    return userCollection.insertOne(newUser).then((newInsertInformation) => {
+                        return newInsertInformation.insertedId;
+                    }).then((newId) => {
+                        return this.getUserById(newId);
+                    });
+                });
             });
         });
+                
     },
     removeUser(id) {
         return users().then((userCollection) => {

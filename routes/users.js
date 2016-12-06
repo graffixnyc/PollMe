@@ -60,7 +60,7 @@ router.get("/signup", function (request, response) {
 router.post("/signup", function (request, response) {
     
     let newUser = request.body;
-    usersData.addUser(newUser.username, newUser.firstname, newUser.lastname, newUser.email, newUser.gender, newUser.city, newUser.state, newUser.age, newUser.hashedPassword).then((user) => {
+    usersData.addUser(newUser.username, newUser.firstname, newUser.lastname, newUser.email, newUser.gender, newUser.city, newUser.state, newUser.age, newUser.password).then((user) => {
        response.redirect("/user/" + user.username); 
     });
     
