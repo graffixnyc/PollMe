@@ -47,6 +47,15 @@ let exportedMethods = {
     },
     addUser(username, firstName, lastName, email, gender, city, state, age, password) {
         //need error checking here
+        if(username === undefined || username === "") return Promise.reject("No username given");
+        if(firstname === undefined || firstname === "") return Promise.reject("No first name given");
+        if(lastname === undefined || lastname === "") return Promise.reject("No last name given");
+        if(email === undefined || email === "") return Promise.reject("No email given");
+        if(gender === undefined || gender === "") return Promise.reject("No gender given");
+        if(city === undefined || city === "") return Promise.reject("No city given");
+        if(state === undefined || state === "") return Promise.reject("No state given");
+        if(age === undefined || age === "") return Promise.reject("No age given");
+        if(password === undefined || password === "") return Promise.reject("No password given");
         
         return bcrypt.genSalt(10, function(err, salt) {
             return bcrypt.hash(password, salt, function(err, hash) {
