@@ -1,0 +1,65 @@
+<div class="single-poll">
+    <div id="poll-question">Here will pass the question from database.{{poll.question}}</div>
+    <div id="votes-total">00{{vote.totalVotesForPoll}} votes</div><br>
+
+    <table id="votes-choice">
+        <thead>
+            <tr class="row-title">
+                <th>Choice 1</th>
+                <th>Choice 2</th>
+                <th>Choice 3</th>
+                <th>Choice 4</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="col-title">Total</td>
+                <td>{{vote.ansChoice1.totalVotes}}</td>
+                <td>{{vote.ansChoice2.totalVotes}}</td>
+                <td>{{vote.ansChoice3.totalVotes}}</td>
+                <td>{{vote.ansChoice4.totalVotes}}</td>
+            </tr>
+            <tr>
+                <td class="col-title">From Male</td>
+                <td>{{vote.ansChoice1.totalVotesMale}}</td>
+                <td>{{vote.ansChoice2.totalVotesMale}}</td>
+                <td>{{vote.ansChoice3.totalVotesMale}}</td>
+                <td>{{vote.ansChoice4.totalVotesMale}}</td>
+            </tr>
+            <tr>
+                <td class="col-title">From Female</td>
+                <td>{{vote.ansChoice1.totalVotesFemale}}</td>
+                <td>{{vote.ansChoice2.totalVotesFemale}}</td>
+                <td>{{vote.ansChoice3.totalVotesFemale}}</td>
+                <td>{{vote.ansChoice4.totalVotesFemale}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="vote-on-poll">
+        <input type="radio" id="choice1" name="selector">
+        <label for="choice1">{{poll.ansChoice1}}</label><br>
+
+        <input type="radio" id="choice2" name="selector">
+        <label for="choice2">{{poll.ansChoice2}}</label><br>
+
+        <input type="radio" id="choice3" name="selector">
+        <label for="choice3">{{poll.ansChoice3}}</label><br>
+
+        <input type="radio" id="choice4" name="selector">
+        <label for="choice4">{{poll.ansChoice4}}</label><br>
+    </div>
+    
+    <div id="show-comments">
+        <h3>Comments</h3><br>
+        {{#each comments}}
+            <div class="comments-content">{{this}}</div><br>
+        {{/each}}
+    </div>
+
+    <form id="post-comment" method="post">
+        <h3>Comments:</h3><br>
+        <textarea id="comment-post" name="comment"></textarea><br>
+        <input type="submit" id="submit-comment" value="Submit">
+    </form>
+</div>
