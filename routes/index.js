@@ -3,6 +3,10 @@ const pollsRoutes = require("./polls");
 
 const constructorMethod = (app) => {
     app.use("/", function (request, response) {
+        response.render("pollme/login_signup");
+    })
+
+    app.use("/test", function (request, response) {
         response.render("pollme/user_home");
     })
     
