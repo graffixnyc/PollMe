@@ -7,7 +7,7 @@ const constructorMethod = (app) => {
     })
 
     app.use("/test", function (request, response) {
-        response.render("pollme/user_home");
+        response.render("pollme/single_poll");
     })
     
     app.use("/", usersRoutes);
