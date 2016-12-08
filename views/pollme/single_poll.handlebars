@@ -1,57 +1,85 @@
+<header>
+        <div class="logo">
+            <a href="#">PollMe</a>
+        </div>
+        <div class="menu">
+            <nav>
+                <ul>
+                    <li><a href="/">Home</li>
+                    <li><a href="#">Create Polls</li>
+                    <li class="dropdown">Hi {{user.username}}
+                        <div class="dropdown-content">
+                            <a class="submenu" href="/polls/{{user.id}}">My Polls</a>
+                            <a class="submenu" href="#">Edit Profile</a>
+                            <a class="submenu" href="/logout">Log Out</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+</header>
 <div class="single-poll">
     <div id="poll-question">Here will pass the question from database.{{poll.question}}</div>
     <div id="votes-total">00{{vote.totalVotesForPoll}} votes</div><br>
 
-    <table id="votes-choice">
+    <table class=="poll-table">
         <thead>
             <tr class="row-title">
-                <th>Choice 1</th>
-                <th>Choice 2</th>
-                <th>Choice 3</th>
-                <th>Choice 4</th>
+                <th></th>
+                <th class="table-head">Choice 1</th>
+                <th class="table-head">Choice 2</th>
+                <th class="table-head">Choice 3</th>
+                <th class="table-head">Choice 4</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td class="col-title">Total</td>
-                <td>{{vote.ansChoice1.totalVotes}}</td>
-                <td>{{vote.ansChoice2.totalVotes}}</td>
-                <td>{{vote.ansChoice3.totalVotes}}</td>
-                <td>{{vote.ansChoice4.totalVotes}}</td>
+                <td class="table-head">Total</td>
+                <td class="table-body">00{{vote.ansChoice1.totalVotes}}</td>
+                <td class="table-body">00{{vote.ansChoice2.totalVotes}}</td>
+                <td class="table-body">00{{vote.ansChoice3.totalVotes}}</td>
+                <td class="table-body">00{{vote.ansChoice4.totalVotes}}</td>
             </tr>
             <tr>
-                <td class="col-title">From Male</td>
-                <td>{{vote.ansChoice1.totalVotesMale}}</td>
-                <td>{{vote.ansChoice2.totalVotesMale}}</td>
-                <td>{{vote.ansChoice3.totalVotesMale}}</td>
-                <td>{{vote.ansChoice4.totalVotesMale}}</td>
+                <td class="table-head">From Male</td>
+                <td class="table-body">00{{vote.ansChoice1.totalVotesMale}}</td>
+                <td class="table-body">00{{vote.ansChoice2.totalVotesMale}}</td>
+                <td class="table-body">00{{vote.ansChoice3.totalVotesMale}}</td>
+                <td class="table-body">00{{vote.ansChoice4.totalVotesMale}}</td>
             </tr>
             <tr>
-                <td class="col-title">From Female</td>
-                <td>{{vote.ansChoice1.totalVotesFemale}}</td>
-                <td>{{vote.ansChoice2.totalVotesFemale}}</td>
-                <td>{{vote.ansChoice3.totalVotesFemale}}</td>
-                <td>{{vote.ansChoice4.totalVotesFemale}}</td>
+                <td class="table-head">From Female</td>
+                <td class="table-body">00{{vote.ansChoice1.totalVotesFemale}}</td>
+                <td class="table-body">00{{vote.ansChoice2.totalVotesFemale}}</td>
+                <td class="table-body">00{{vote.ansChoice3.totalVotesFemale}}</td>
+                <td class="table-body">00{{vote.ansChoice4.totalVotesFemale}}</td>
             </tr>
         </tbody>
     </table>
 
     <div id="vote-on-poll">
+        <br>
+        <h3>Which are you voting on</h3><br>
+        <label class="choice">Choice 1</label>
         <input type="radio" id="choice1" name="selector">
-        <label for="choice1">{{poll.ansChoice1}}</label><br>
+        <label class="choice" for="choice1">Passing choice1{{poll.ansChoice1}}</label><br>
 
+        <label class="choice">Choice 2</label>
         <input type="radio" id="choice2" name="selector">
-        <label for="choice2">{{poll.ansChoice2}}</label><br>
+        <label class="choice" for="choice2">Passing choice1{{poll.ansChoice2}}</label><br>
 
+        <label class="choice">Choice 3</label>
         <input type="radio" id="choice3" name="selector">
-        <label for="choice3">{{poll.ansChoice3}}</label><br>
+        <label class="choice" for="choice3">Passing choice1{{poll.ansChoice3}}</label><br>
 
+        <label class="choice">Choice 4</label>
         <input type="radio" id="choice4" name="selector">
-        <label for="choice4">{{poll.ansChoice4}}</label><br>
+        <label class="choice" for="choice4">Passing choice1{{poll.ansChoice4}}</label><br>
     </div>
     
     <div id="show-comments">
-        <h3>Comments</h3><br>
+        <br>
+        <h3>Comments List</h3><br>
         {{#each comments}}
             <div class="comments-content">{{this}}</div><br>
         {{/each}}
@@ -63,3 +91,8 @@
         <input type="submit" id="submit-comment" value="Submit">
     </form>
 </div>
+<footer>
+        <div class="copyright">
+            <p>&copy; PollMe Team || Patrick Hill | Yasuo Kobayashi | Haoyang Li | Seito Ryu | Jason Sarwar</p>
+        </div>
+</footer>
