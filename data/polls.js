@@ -14,7 +14,7 @@ let exportedMethods = {
     },
     getPollsByCategory(category) {
         if (!category)
-            return Promise.reject("No tag provided");
+            return Promise.reject("No category provided");
 
         return polls().then((pollCollection) => {
 
