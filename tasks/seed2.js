@@ -29,6 +29,14 @@ const bcrypt = require('bcryptjs');
 //         console.log(polls.length);
 //        }
 //   });
+
+//  return polls.getPollsByCategory("Technology").then((polls) => {
+//        if (!polls){
+
+//        }else{
+//         console.log(polls.length);
+//        }
+//   });
 // b7f8fc28-9b41-4c4c-ab63-8a62214c58a5:74bd807d-8294-4325-b195-fa657dad41bb
 // b7f8fc28-9b41-4c4c-ab63-8a62214c58a5:f350d60d-e065-4bb1-b173-af4903fff63a
 // b7f8fc28-9b41-4c4c-ab63-8a62214c58a5:e4281c72-1a83-4a60-b8db-a5fa45efe9dc
