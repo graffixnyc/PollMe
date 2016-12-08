@@ -1,9 +1,24 @@
+<header>
+        <div class="logo">
+            <a href="#">PollMe</a>
+        </div>
+        <div class="menu">
+            <nav>
+                <ul>
+                    <li><a href="/">Home</li>
+                    <li><a href="#">Create Polls</li>
+                    <li class="dropdown">Hi {{user.username}}
+                        <div class="dropdown-content">
+                            <a class="submenu" href="#">Edit Profile</a>
+                            <a class="submenu" href="/polls/{{user.id}}">My Polls</a>
+                            <a class="submenu" href="/logout">Log Out</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+</header>
 <div class="user-home">
-    <div class="user-home-header">
-        <div id="user-home-username">Hi {{user.username}}</div>
-        <a class="log-out" href="/logout">Log Out</a></div>
-    </div>
-
     <form class="search-box">
         <input id="keyword" type="text" name="keyword" placeholder="Search by category...">
         <input id="search-button" type="submit" value="Search">
@@ -35,3 +50,8 @@
         </tbody>
     </table>
 </div>
+<footer>
+        <div class="copyright">
+            <p>&copy; PollMe Team || Patrick Hill | Yasuo Kobayashi | Haoyang Li | Seito Ryu | Jason Sarwar</p>
+        </div>
+</footer>
