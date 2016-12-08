@@ -1,39 +1,73 @@
-<div class="single-poll">
-    <div class="create-poll">
-        <h2>New Poll</h2>
+<header>
+        <div class="logo">
+            <a href="#">PollMe</a>
+        </div>
+        <div class="menu">
+            <nav>
+                <ul>
+                    <li><a href="/">Home</li>
+                    <li><a href="#">Create Polls</li>
+                    <li class="dropdown">Hi {{user.username}}
+                        <div class="dropdown-content">
+                            <a class="submenu" href="#">Edit Profile</a>
+                            <a class="submenu" href="/polls/{{user.id}}">My Polls</a>
+                            <a class="submenu" href="/logout">Log Out</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+</header>
+
+<div class="user-home">
+    <form class="search-box" style="border-color: #f6f6f6; border-style: none; box-shadow: 0 0 0;">
+        New Poll
+    </form>
+
+    <div>
         <form id = "new-poll" method="post">
-            <table id="poll-create-maintable">
+            <table id="poll-create-maintable" class="poll-table">
                 <tr>
-                    <td class="col-title">Question</td>
-                    <td><input class="original-input" type="text" name="qusetion" required autocomplete="off"/></td>
+                    <td class="table-head"">Question</td>
+                    <td><input class="table-body" style="width:100%" type="text" name="qusetion" required autocomplete="off"/></td>
                 </tr>
                 <tr>
-                    <td class="col-title">Category</td>
-                    <td><select class="category-list" name="category-list" style="width:156px;">
+                    <td class="table-head">Category</td>
+                    <td><select class="table-body" style="width:100%" name="category-list" style="width:156px;">
                         <option value={{categories}}>
                         </select></td>
                 </tr>
                 <tr>
-                    <td class="col-title">Choice1</td>
-                    <td><input class="original-input" type="text" name="choice1" required autocomplete="off"/></td>
+                    <td class="table-head">Choice1</td>
+                    <td><input class="table-body" style="width:100%" type="text" name="choice1" required autocomplete="off"/></td>
                 </tr>
                 <tr>
-                    <td class="col-title">Choice2</td>
-                    <td><input class="original-input" type="text" name="choice2" required autocomplete="off"/></td>
+                    <td class="table-head">Choice2</td>
+                    <td><input class="table-body" style="width:100%" type="text" name="choice2" required autocomplete="off"/></td>
                 </tr>
                 <tr>
-                    <td class="col-title">Choice3</td>
-                    <td><input class="original-input" type="text" name="choice3" required autocomplete="off"/></td>
+                    <td class="table-head">Choice3</td>
+                    <td><input class="table-body" style="width:100%" type="text" name="choice3" required autocomplete="off"/></td>
                 </tr>
                 <tr>
-                    <td class="col-title">Choice4</td>
-                    <td><input class="original-input" type="text" name="choice4" required autocomplete="off"/></td>
+                    <td class="table-head">Choice4</td>
+                    <td><input class="table-body" style="width:100%" type="text" name="choice4" required autocomplete="off"/></td>
                 </tr>
+        <tr>
+            <td>
+            </td>
+            <td class="search-box">
+                <input id="search-button" style="width:90px" type="submit" value="Submit">
+                <input id="search-button" style="width:90px" type="submit" value="Cancel">
+            </td>
+        </tr>
             </table>
         </form>
     </div>
-    <div id = "new-poll">
-		<a href="#" class="linkbutton" onclick="savereg()">Submit</a>
-		<a href="#" class="linkbutton" onclick="javascript:$('#dlg').dialog('close')">Cancel</a>
-    </div>
 </div>
+
+<footer>
+        <div class="copyright">
+            <p>&copy; PollMe Team || Patrick Hill | Yasuo Kobayashi | Haoyang Li | Seito Ryu | Jason Sarwar</p>
+        </div>
+</footer>
