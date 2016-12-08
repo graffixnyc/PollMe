@@ -1,18 +1,6 @@
 <div class="single-poll">
-    <div class="form" style="float:right">
-        <ul class="tab-group">
-            <table>
-                <tr style="width = 100%">
-                    <td></td><td></td><td></td><td></td><td></td>
-            <td><li class="tab active"><a class="a_log" href="#login">>My    Poll</a></li></td>
-            <td><li class="tab"><a class="a_log" href="#signup">Edi   t</a></li></td>
-                </tr>
-            </table>
-        </ul>
-    </div>
-    <div class="tab-content">
         <div id="signup" style="float:right;">   
-          <form action="/singup" method="post">
+          <form method="post">
           <div class="top-row">
             <div class="field-wrap">
               <label>
@@ -28,8 +16,6 @@
               <input class="original-input" name="lastname" type="text"required autocomplete="on" value={{$lastName}}>
             </div>
         </div>
-            
-                  
               <div class="field-wrap">
                 <label>
                   Username<span class="req">*</span>
@@ -86,5 +72,4 @@
               <button type="submit" class="button button-block">Submit</button>
               </form>
             </div>
-          </div>
     </div>

@@ -1,0 +1,75 @@
+<div class="single-poll">
+        <div id="signup" style="float:right;">   
+          <form method="post">
+          <div class="top-row">
+            <div class="field-wrap">
+              <label>
+                First Name<span class="req">*</span>
+              </label>
+              <input class="original-input" name="firstname" type="text" required autocomplete="on" value={{$firstName}}>
+            </div>
+        
+            <div class="field-wrap">
+              <label>
+                Last Name<span class="req">*</span>
+              </label>
+              <input class="original-input" name="lastname" type="text"required autocomplete="on" value={{$lastName}}>
+            </div>
+        </div>                  
+              <div class="field-wrap">
+                <label>
+                  Username<span class="req">*</span>
+                </label>
+                <input class="original-input" name="signUpUsername" type="text"required autocomplete="on" value={{$userName}}>
+              </div>
+                          
+              <div class="field-wrap">
+                <label>
+                  Email Address<span class="req">*</span>
+                </label>
+                <input class="original-input" name="email" type="email"required autocomplete="on" value={{$email}}>
+              </div>
+            
+              <div class="field-wrap">
+                <label>
+                  Gender<span class="req">*</span>
+                </label>
+                <input type="radio" name="male" id="Male">
+                <label for="Male">Male</label>
+                <input type="radio" name="female" id="Female">
+                <label for="Female">Female</label>
+              </div>
+            
+              <div class="field-wrap">
+                <label>
+                  Age<span class="req">*</span>
+                </label>
+                <input class="original-input" name="age" type="text" name="age" value={{$age}} >
+              </div>
+            
+              <div class="top-row">
+                <div class="field-wrap">
+                  <label>
+                    City<span class="req">*</span>
+                  </label>
+                  <input class="original-input" name="city" type="text" required autocomplete="on"  value={{$city}}>
+                </div>
+            
+                <div class="field-wrap">
+                  <label>
+                    State<span class="req">*</span>
+                  </label>
+                  <input class="original-input" name="state" type="text"required autocomplete="on" value={{$state}}>
+                </div>
+              </div>
+              
+              <div class="field-wrap">
+                <label>
+                  Set A Password<span class="req">*</span>
+                </label>
+                <input class="original-input" name="signUpPassword" type="password" required autocomplete="on"  value={{$password}}>
+              </div>
+              <button type="submit" class="button button-block">Submit</button>
+              </form>
+          </div>
+    </div>
