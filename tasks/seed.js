@@ -18,7 +18,7 @@ dbConnection().then(db => {
                 return polls.addPoll("Education", "11/27/2016","What Class Should I take next semester?","CS 546","CS 522","CS 545","CS 522", id);
             })
             .then(() => {
-                return polls.addPoll("Technology", "11/27/2016","What is a better laptop?","MacBook Pro 13","Dell XPS 13","Lenovo Yoga","HP Envy", id);
+                return polls.addPoll("Technology", "11/27/2016","What is a better laptop phone?","MacBook Pro 13","Dell XPS 13","Lenovo Yoga","HP Envy", id);
             })
              //.then(() => {
               //   return polls.addPoll(12, "11/27/2016","What is a better laptop?","MacBook Pro 13","Dell XPS 13","Lenovo Yoga","HP Envy", id);
