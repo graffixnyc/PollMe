@@ -2,9 +2,10 @@ const usersRoutes = require("./users");
 const pollsRoutes = require("./polls");
 
 const constructorMethod = (app) => {
-    app.use("/", function (request, response) {
-        response.render("pollme/login_signup");
-    })
+    //THIS is what is causing the routes to not work right
+    // app.use("/", function (request, response) {
+    //     response.render("pollme/login_signup");
+    // })
 
     app.use("/test", function (request, response) {
         response.render("pollme/single_poll");
@@ -14,7 +15,9 @@ const constructorMethod = (app) => {
     app.use("/", pollsRoutes);
 
     app.use("*", (req, res) => {
-        res.redirect("/");
+        //res.redirect("/");
+        res.render("pollme/login_signup");
+
     })
 };
 
