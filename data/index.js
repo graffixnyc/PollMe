@@ -5,6 +5,7 @@ const votesAndMetrics = require("./votesandmetrics")
 const constructorMethod = (app) => {
     app.use("/users", users);
     app.use("/polls", polls);
+    app.use("/votesandmetrics", votesAndMetrics);
     app.use("*", (req, res) => {
         res.status(404).json({ error: "Not found" });
     });
