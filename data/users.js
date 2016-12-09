@@ -12,7 +12,7 @@ let exportedMethods = {
     getUserById(id) {
         return users().then((userCollection) => {
             return userCollection.findOne({ _id: id }).then((user) => {
-                if (!user) reject("User not found");
+                if (!user) return Promise.reject("User not found");
 
                 return user;
             });

@@ -85,12 +85,15 @@ let exportedMethods = {
             if (arguments.length != 8) {
                 throw new Error("The number of argument is wrong");
             }
+            /*
             if (typeof category != 'string') {
                 throw new Error("category should be string");
             }
+            
             if (typeof postedDate != 'string') {
                 throw new Error("postedDate should be string");
             }
+            */
             if (typeof question != 'string') {
                 throw new Error("question should be string");
             }
@@ -202,7 +205,13 @@ let exportedMethods = {
                 }
             });
         });
+    },
+    getAllCategories() {
+        return polls().then((pollCollection) => {
+           return pollCollection.distinct("category", {}, {});
+        });
     }
+    
 }
 
 module.exports = exportedMethods;
