@@ -40,17 +40,38 @@ router.get("/user/:username", function (request, response) {
     
 });
 
-router.post("/login", function(request, response, next) {
-  passport.authenticate('local', function(err, user, info) {
-    if(info.message) request.flash('error', info.message);
-    if (err) { return next(err); }
-    if (!user) { return response.redirect(request.body.redirectPage); }
-    req.logIn(user, function(err) {
-      if (err) { return next(err); }
-      return response.redirect(request.body.redirectPage);
+// router.post("/login", function(request, response, next) {
+//   passport.authenticate('local', function(err, user, info) {
+//     if(info.message) request.flash('error', info.message);
+//     if (err) { return next(err); }
+//     if (!user) { return response.redirect(request.body.redirectPage); }
+//     req.logIn(user, function(err) {
+//       if (err) { return next(err); }
+//       return response.redirect(request.body.redirectPage);
+//     });
+//   })(request, response, next);
+// });
+
+//Update the post /login with passport
+router.post('/login', passport.authenticate('local', {
+    successRedirect: '/private',
+    failureRedirect: '/',
+    failureFlash: true
+}));
+
+//Pakage the validation function into passport.js module.
+router.get('/private', isLoggedIn, function(req, res) {
+    res.render('pollme/user_home', {
+    user: req.user 
     });
-  })(request, response, next);
 });
+
+function isLoggedIn(req, res, next) {
+    if(req.isAuthenticated())
+        return next();
+    else 
+        res.redirect('/');
+}
 
 router.get("/signup", function (request, response) {
     

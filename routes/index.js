@@ -7,8 +7,8 @@ const constructorMethod = (app) => {
     //     response.render("pollme/login_signup");
     // })
 
-    app.use("/test", function (request, response) {
-        response.render("pollme/single_poll");
+    app.get("/", function (request, response) {
+        response.render("pollme/login_signup", {message: request.flash('loginMessage')});
     })
     
     app.use("/", usersRoutes);
@@ -17,7 +17,6 @@ const constructorMethod = (app) => {
     app.use("*", (req, res) => {
         //res.redirect("/");
         res.render("pollme/login_signup");
-
     })
 };
 
