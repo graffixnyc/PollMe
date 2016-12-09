@@ -9,7 +9,8 @@ const constructorMethod = (app) => {
     // })
 
     app.get("/", function (request, response) {
-        response.render("pollme/login_signup", {message: request.flash('loginMessage')});
+        // need to change this to the page Haoyang and Seito create
+        //response.render("pollme/login_signup", {message: request.flash('loginMessage')});
     })
     
     app.use("/", usersRoutes);
