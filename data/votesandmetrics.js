@@ -10,6 +10,7 @@ let exportedMethods = {
             return voteCollection
                 .findOne({ _id: pollId })
                 .then((vote) => {
+                    console.log(vote);
                     if (!vote) {
                         return Promise.reject(new Error("No Votes for selected Poll")).then(function (error) {
                             //not called
