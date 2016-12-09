@@ -7,6 +7,15 @@ const pollsData = data.polls;
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
+ router.get("/", function (request, response) {
+        // need to change this to the page Haoyang and Seito create
+        pollsData.getAllPolls().then((polls) => {
+            response.render("pollme/home_before_login", {poll: polls});
+        })
+        .catch((error) => {
+            response.status(500).json({error: error});
+        });
+    });
 
 router.get("/addpoll", function (request, response) {
     if(req.isAuthenticated()) {
