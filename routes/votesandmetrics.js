@@ -21,11 +21,11 @@ router.get("/addpoll", function (request, response) {
             response.render('pollme/loginpage', { redirectPage: "/makepoll" });
     }
 });
+// Move this method in polls.js
+// router.get("/poll/:id", function (request, response) {
     
-router.get("/poll/:id", function (request, response) {
     
-    
-});
+// });
 
 router.post("/voteonpoll", function (request, response) {
     

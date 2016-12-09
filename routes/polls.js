@@ -4,6 +4,7 @@ const router = express.Router();
 const data = require('../data');
 const usersData = data.users;
 const pollsData = data.polls;
+const votesmatrixData = data.votesAndMetrics;
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
@@ -21,10 +22,25 @@ router.get("/addpoll", function (request, response) {
             response.render('pollme/loginpage', { redirectPage: "/makepoll" });
     }
 });
-    
+
 router.get("/poll/:id", function (request, response) {
-    
-    
+    // Create a result set to contain data from different collections.
+    let pollResult = {};
+    pollsData.getPollById(request.params.id).then((pollInfo) => {
+        pollResult.poll = pollInfo;
+    })
+    .then(() => {
+        usersData.getUserById(pollResult.poll.createdByUser).then((user) => {
+            pollResult.user = user;
+        });
+        votesmatrixData.getVotesForPoll(request.params.id).then((voteInfo) => {
+            pollResult.vote = voteInfo;
+        });
+        response.render("pollme/single_poll", {poll: pollResult});
+    })
+    .catch(() => {
+        res.status(404).json({error: "Error!Poll not found"});
+    })
 });
 
 // router.get("/polls", function (request, response) {
