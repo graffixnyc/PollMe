@@ -19,10 +19,7 @@ router.get("/", function (request, response) {
 });
 
 router.get("/createpoll", function (request, response) {
-    pollsData.getAllCategories().then((categories) => {
-        console.log(categories);
-        console.log(categories[0]);
-    });
+    
     var categories = ["Movies", "Video Games"];
     if(request.isAuthenticated()) {
         //Render the make poll page or something like that
@@ -39,9 +36,11 @@ router.get("/createpoll", function (request, response) {
 });
 
 router.post("/createpoll", function (request, response) {
+    var now = new Date();
+
     var newPoll = request.body;
     if(request.isAuthenticated()) {
-        pollsData.addPoll(newPoll.category, Date.now(), newPoll.question, newPoll.choice1, newPoll.choice2, newPoll.choice3, newPoll.choice4, request.user._id).then((poll) => {
+        pollsData.addPoll(newPoll.category, now.toDateString(), newPoll.question, newPoll.choice1, newPoll.choice2, newPoll.choice3, newPoll.choice4, request.user._id).then((poll) => {
             response.redirect("/poll/" + poll._id);
         }, (err) => {
             console.log(err);
