@@ -187,18 +187,6 @@ textarea {
   opacity: 0.94;
 }
 
-#poll-question {
-  margin: 1em 0 0.5em 0;
-  color: Black;
-	/*color: #343434;*/
-	font-weight: normal;
-	font-family: 'Ultra', sans-serif;   
-	font-size: 36px;
-	line-height: 42px;
-	/*text-transform: uppercase;*/
-	text-shadow: 0 2px white, 0 3px #777;
-}
-
 header {
   height: 100px;
   position: fixed;
@@ -383,15 +371,40 @@ footer {
   text-decoration: none;
 }
 
+#poll-question {
+  margin: 1em 0 0.5em 0;
+	/*color: #343434;*/
+	line-height: 42px;
+	/*text-transform: uppercase;*/
+	text-shadow: 0 2px white, 0 3px #777;
+  font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif";
+	font-size: 46px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 700;
+	line-height: 26.4px;
+  color: cadetblue;
+}
+
+#votes-total {
+  font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif";
+	font-size: 24px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
+  color: cornflowerblue;
+}
+
 .table-head {
-  background: url(http://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#777, #444);
-	border-left: 1px solid #555;
+  background: url(http://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(lightgray, gray);
+	/*border-left: 1px solid #555;
 	border-right: 1px solid #777;
 	border-top: 1px solid #555;
-	border-bottom: 1px solid #333;
+	border-bottom: 1px solid #333;*/
 	box-shadow: inset 0 1px 0 #999;
 	color: #fff;
-  font-size:20px;
+  font-size:15px;
   font-weight: bold;
 	padding: 10px 15px;
 	position: relative;
@@ -408,7 +421,20 @@ footer {
 	position: relative;
 	transition: all 300ms;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 15px;
+  color:cornflowerblue;
+  font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif";
+	font-size: 20px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
+  color: cornflowerblue;
+}
+
+.ask {
+  color: cadetblue;
+  font-size: 26px;
 }
 
 .dropdown {
@@ -439,7 +465,42 @@ footer {
 
 .choice {
   font-size: 20px;
-  color: black;
+  color: cadetblue;
 }
 
+.choice-info {
+  color: cornflowerblue;
+  font-size: 20px;
+}
 
+#submit-comment {
+   border-top: 1px solid #37b37b;
+   background: #65a9d7;
+   background: -webkit-gradient(linear, left top, left bottom, from(#3e779d), to(#65a9d7));
+   background: -webkit-linear-gradient(top, #3e779d, #65a9d7);
+   background: -moz-linear-gradient(top, #3e779d, #65a9d7);
+   background: -ms-linear-gradient(top, #3e779d, #65a9d7);
+   background: -o-linear-gradient(top, #3e779d, #65a9d7);
+   padding: 5px 10px;
+   -webkit-border-radius: 8px;
+   -moz-border-radius: 8px;
+   border-radius: 8px;
+   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   box-shadow: rgba(0,0,0,1) 0 1px 0;
+   text-shadow: rgba(0,0,0,.4) 0 1px 0;
+   color: white;
+   font-size: 14px;
+   font-family: 'Lucida Grande', Helvetica, Arial, Sans-Serif;
+   text-decoration: none;
+   vertical-align: middle;
+   }
+#submit-comment:hover {
+   border-top-color: #28597a;
+   background: #28597a;
+   color: #ccc;
+   }
+#submit-comment:active {
+   border-top-color: #1b435e;
+   background: #1b435e;
+   }
