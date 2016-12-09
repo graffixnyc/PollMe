@@ -34,17 +34,21 @@
         </div>
 
         <p class="forgot"><a href="#">Forgot Password?</a></p>
-        {{#if redirectPage }}
-        <input type="hidden" name="redirectPage" id="redirectPage" value={{ redirectPage }}> {{/if}}
+        {{!--{{#if redirectPage }}--}}
+        {{!--<input type="hidden" name="redirectPage" id="redirectPage" value={{ redirectPage }}> {{/if}}--}}
+        {{!--Show the valication results of passport--}}
+        {{#if message}}
+                <div class="alert alert-danger">{{message}}</div>
+        {{/if}}
         <button type="submit" class="button button-block">Log In</button>
       </form>
-      {{#if error }}
+      {{!--{{#if error }}
       <div class="form-group">
         <div class="alert alert-danger">
           {{ error }}
         </div>
       </div>
-      {{/if}}
+      {{/if}}--}}
     </div>
 
     <div id="signup" style="float:right;">
