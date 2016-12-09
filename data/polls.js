@@ -36,6 +36,20 @@ let exportedMethods = {
         });
 
     },
+    searchPollsByKeywordAndCategory(query, category) {
+        if (!query)
+            return Promise.reject("No search term given");
+         if (!category)
+            return Promise.reject("No category given");
+        return polls().then((pollCollection) => {
+            var regex = new RegExp([".*", query,".*"].join(""), "i");
+            console.log (regex)
+            return pollCollection
+                .find({ $and:[{$or:[{"question" : regex},{"category" : regex},{"ansChoice1" : regex},{"ansChoice2" : regex},{"ansChoice3" : regex},{"ansChoice4" : regex}]},{"category": category}]})
+                .toArray();
+        });
+
+    },
     getPollsByUser(userId) {
         if (!userId)
             return Promise.reject("No userId provided");
