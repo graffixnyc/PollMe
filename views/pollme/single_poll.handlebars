@@ -7,9 +7,9 @@
                 <ul>
                     <li><a href="/">Home</li>
                     <li><a href="#">Create Polls</li>
-                    <li class="dropdown">Hi {{user.username}}
+                    <li class="dropdown">Hi {{poll.user.username}}
                         <div class="dropdown-content">
-                            <a class="submenu" href="/polls/{{user.id}}">My Polls</a>
+                            <a class="submenu" href="/polls/{{user._id}}">My Polls</a>
                             <a class="submenu" href="#">Edit Profile</a>
                             <a class="submenu" href="/logout">Log Out</a>
                         </div>
@@ -19,8 +19,8 @@
         </div>
 </header>
 <div class="single-poll">
-    <div id="poll-question">Here will pass the question from database.{{poll.question}}</div>
-    <div id="votes-total">00{{vote.totalVotesForPoll}} votes</div><br>
+    <div id="poll-question">{{poll.poll.question}}</div><br>
+    <div id="votes-total">{{poll.vote.totalVotesForPoll}} Votes</div><br>
 
     <table class=="poll-table">
         <thead>
@@ -35,58 +35,58 @@
         <tbody>
             <tr>
                 <td class="table-head">Total</td>
-                <td class="table-body">00{{vote.ansChoice1.totalVotes}}</td>
-                <td class="table-body">00{{vote.ansChoice2.totalVotes}}</td>
-                <td class="table-body">00{{vote.ansChoice3.totalVotes}}</td>
-                <td class="table-body">00{{vote.ansChoice4.totalVotes}}</td>
+                <td class="table-body">{{poll.vote.ansChoice1.totalVotes}}</td>
+                <td class="table-body">{{poll.vote.ansChoice2.totalVotes}}</td>
+                <td class="table-body">{{poll.vote.ansChoice3.totalVotes}}</td>
+                <td class="table-body">{{poll.vote.ansChoice4.totalVotes}}</td>
             </tr>
             <tr>
                 <td class="table-head">From Male</td>
-                <td class="table-body">00{{vote.ansChoice1.totalVotesMale}}</td>
-                <td class="table-body">00{{vote.ansChoice2.totalVotesMale}}</td>
-                <td class="table-body">00{{vote.ansChoice3.totalVotesMale}}</td>
-                <td class="table-body">00{{vote.ansChoice4.totalVotesMale}}</td>
+                <td class="table-body">{{poll.vote.ansChoice1.totalVotesMale}}</td>
+                <td class="table-body">{{poll.vote.ansChoice2.totalVotesMale}}</td>
+                <td class="table-body">{{poll.vote.ansChoice3.totalVotesMale}}</td>
+                <td class="table-body">{{poll.vote.ansChoice4.totalVotesMale}}</td>
             </tr>
             <tr>
                 <td class="table-head">From Female</td>
-                <td class="table-body">00{{vote.ansChoice1.totalVotesFemale}}</td>
-                <td class="table-body">00{{vote.ansChoice2.totalVotesFemale}}</td>
-                <td class="table-body">00{{vote.ansChoice3.totalVotesFemale}}</td>
-                <td class="table-body">00{{vote.ansChoice4.totalVotesFemale}}</td>
+                <td class="table-body">{{poll.vote.ansChoice1.totalVotesFemale}}</td>
+                <td class="table-body">{{poll.vote.ansChoice2.totalVotesFemale}}</td>
+                <td class="table-body">{{poll.vote.ansChoice3.totalVotesFemale}}</td>
+                <td class="table-body">{{poll.vote.ansChoice4.totalVotesFemale}}</td>
             </tr>
         </tbody>
     </table>
 
     <div id="vote-on-poll">
         <br>
-        <h3>Which are you voting on</h3><br>
+        <h3 class="ask">Which are you voting on?</h3><br>
         <label class="choice">Choice 1</label>
         <input type="radio" id="choice1" name="selector">
-        <label class="choice" for="choice1">Passing choice1{{poll.ansChoice1}}</label><br>
+        <label class="choice-info" for="choice1">{{poll.poll.ansChoice1}}</label><br>
 
         <label class="choice">Choice 2</label>
         <input type="radio" id="choice2" name="selector">
-        <label class="choice" for="choice2">Passing choice1{{poll.ansChoice2}}</label><br>
+        <label class="choice-info" for="choice2">{{poll.poll.ansChoice2}}</label><br>
 
         <label class="choice">Choice 3</label>
         <input type="radio" id="choice3" name="selector">
-        <label class="choice" for="choice3">Passing choice1{{poll.ansChoice3}}</label><br>
+        <label class="choice-info" for="choice3">{{poll.poll.ansChoice3}}</label><br>
 
         <label class="choice">Choice 4</label>
         <input type="radio" id="choice4" name="selector">
-        <label class="choice" for="choice4">Passing choice1{{poll.ansChoice4}}</label><br>
+        <label class="choice-info" for="choice4">{{poll.poll.ansChoice4}}</label><br>
     </div>
     
     <div id="show-comments">
         <br>
-        <h3>Comments List</h3><br>
-        {{#each comments}}
+        <h3 class="ask">Comments List</h3><br>
+        {{#each poll.poll.comments}}
             <div class="comments-content">{{this}}</div><br>
         {{/each}}
     </div>
 
     <form id="post-comment" method="post">
-        <h3>Comments:</h3><br>
+        <h3 class="ask">What's in your mind?</h3><br>
         <textarea id="comment-post" name="comment"></textarea><br>
         <input type="submit" id="submit-comment" value="Submit">
     </form>
