@@ -4,18 +4,19 @@ const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
-const flash = require('req-flash');
+// const flash = require('req-flash');
+const flash = require("connect-flash");
 const app = express();
 const static = express.static(__dirname + '/public');
 
-const configRoutes = require("./routes");
+// const configRoutes = require("./routes");
 
 const exphbs = require('express-handlebars');
 
 const Handlebars = require('handlebars');
 
-const data = require("./data");
-const usersData = data.users;
+// const data = require("./data");
+// const usersData = data.users;
 
 const handlebarsInstance = exphbs.create({
     defaultLayout: 'main',
@@ -43,37 +44,37 @@ const rewriteUnsupportedBrowserMethods = (req, res, next) => {
     next();
 };
 
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-      return usersData.getUserByUsername(username).then((user) => {
-          if (!user) { 
-            return done(null, false, { message: 'Incorrect username' });
-          }
-          return usersData.isPasswordValid(user, password).then((result) => {
-            if (result === false)
-                return done(null, false, { message: 'Incorrect password' });
-            else  
-                return done(null, userinfo);
-            }, (err) => {
-                if (err) { return done(err); } 
-          });
-      }, (err) => {
-         if (err) { return done(err); } 
-      });
-  }
-));
+// passport.use(new LocalStrategy(
+//   function(username, password, done) {
+//       return usersData.getUserByUsername(username).then((user) => {
+//           if (!user) { 
+//             return done(null, false, { message: 'Incorrect username' });
+//           }
+//           return usersData.isPasswordValid(user, password).then((result) => {
+//             if (result === false)
+//                 return done(null, false, { message: 'Incorrect password' });
+//             else  
+//                 return done(null, userinfo);
+//             }, (err) => {
+//                 if (err) { return done(err); } 
+//           });
+//       }, (err) => {
+//          if (err) { return done(err); } 
+//       });
+//   }
+// ));
 
-passport.serializeUser(function(user, done) {
-    done(null, user._id);
-});
+// passport.serializeUser(function(user, done) {
+//     done(null, user._id);
+// });
 
-passport.deserializeUser(function(id, done) {
-   usersData.getUserById(id).then((user) => {
-    done(null, user);
-   }, (err) => {
-    done(err, null);
-   });
-});
+// passport.deserializeUser(function(id, done) {
+//    usersData.getUserById(id).then((user) => {
+//     done(null, user);
+//    }, (err) => {
+//     done(err, null);
+//    });
+// });
 
 app.use("/public", static);
 app.use(cookieParser('keyboard cat'));
@@ -93,7 +94,8 @@ app.use(rewriteUnsupportedBrowserMethods);
 app.engine('handlebars', handlebarsInstance.engine);
 app.set('view engine', 'handlebars');
 
-configRoutes(app);
+require('./routes/index')(app, passport);
+require('./routes/passport')(passport);
 
 app.listen(3000, () => {
     console.log("We've now got a server!");
