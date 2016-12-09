@@ -123,10 +123,11 @@ let exportedMethods = {
                     })
 
                     .then((newId) => {
+                        console.log(newId);
                         return this.getPollById(newId);
-                    }).then((newId) => {
-                        console.log(userId + ":" + newId._id);
-                        return users.addPollCreatedToUser(userId, newId._id)
+                    }).then((poll) => {
+                        console.log(userId + ":" + poll._id);
+                        return users.addPollCreatedToUser(userId, poll._id)
 
                     });
             });
