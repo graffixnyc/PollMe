@@ -1,7 +1,7 @@
 const mongoCollections = require("../config/mongoCollections");
 const polls = mongoCollections.polls;
 const users = require("./users");
-const votesAndMetrics = require("./votesAndMetrics");
+const votesAndMetrics = require("./votesandmetrics");
 const uuid = require('node-uuid');
 
 let exportedMethods = {
