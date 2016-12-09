@@ -24,7 +24,7 @@ let exportedMethods = {
         });
 
     },
-     searchPolls(query) {
+     searchPollsByKeyword(query) {
         if (!query)
             return Promise.reject("No search term given");
         return polls().then((pollCollection) => {
