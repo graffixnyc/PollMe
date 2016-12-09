@@ -130,63 +130,71 @@ let exportedMethods = {
                 });
         });
     },
-   //Needs testing and most likely modification
+    //Needs testing and most likely modification
     updateVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender) {
-        return polls.getPollById(pollId).then((poll)=>{
+        return polls.getPollById(pollId).then((poll) => {
             var totalVotesForPoll = poll.totalVotesForPoll + 1;
-            var totalVotesForAnsChoice =0;
-            var totalVotesMaleForAnsChoice =0;
-            var totalVotesFemaleForAnsChoice =0;
-            if (userGender=="M"){
-                totalVotesMaleForAnsChoice =1;
-            }else{
-                totalVotesFemaleForAnsChoice =1;
+            var totalVotesForAnsChoice = 0;
+            var totalVotesMaleForAnsChoice = 0;
+            var totalVotesFemaleForAnsChoice = 0;
+            if (userGender == "M") {
+                totalVotesMaleForAnsChoice = 1;
+            } else {
+                totalVotesFemaleForAnsChoice = 1;
             }
-            
-            switch (1){
+
+            switch (1) {
                 case ansChoice1:
                     totalVotesForAnsChoice = poll.ansChoice1.totalVotes + 1;
                     totalVotesMaleForAnsChoice += poll.ansChoice1.totalVotesMale;
                     totalVotesFemaleForAnsChoice += poll.ansChoice1.totalVotesFemale;
                     //this needs to be done
-                    return voteCollection.updateOne({ _id: pollId }, {totalVotesForPoll: totalVotesForPoll, $set: { 'ansChoice1.$.totalVotes': totalVotesForAnsChoice},
-                    $set: { 'ansChoice1.$.totalVotesMale': totalVotesMaleForAnsChoice},$set: { 'ansChoice1.$.totalVotesFemale': totalVotesFemaleForAnsChoice}}  ).then((result) => {
-                    return this.getPollById(pollId);
+                    return voteCollection.updateOne({ _id: pollId }, {
+                        totalVotesForPoll: totalVotesForPoll, $set: { 'ansChoice1.$.totalVotes': totalVotesForAnsChoice },
+                        $set: { 'ansChoice1.$.totalVotesMale': totalVotesMaleForAnsChoice }, $set: { 'ansChoice1.$.totalVotesFemale': totalVotesFemaleForAnsChoice }
+                    }).then((result) => {
+                        return this.getPollById(pollId);
                     });
-                  
+
                 case ansChoice2:
-                totalVotesForAnsChoice = poll.ansChoice2.totalVotes + 1;
+                    totalVotesForAnsChoice = poll.ansChoice2.totalVotes + 1;
                     totalVotesMaleForAnsChoice += poll.ansChoice2.totalVotesMale;
                     totalVotesFemaleForAnsChoice += poll.ansChoice2.totalVotesFemale;
                     //this needs to be done
-                    return voteCollection.updateOne({ _id: pollId }, {totalVotesForPoll: totalVotesForPoll, $set: { 'ansChoice2.$.totalVotes': totalVotesForAnsChoice},
-                    $set: { 'ansChoice2.$.totalVotesMale': totalVotesMaleForAnsChoice},$set: { 'ansChoice2.$.totalVotesFemale': totalVotesFemaleForAnsChoice}}  ).then((result) => {
-                    return this.getPollById(pollId);
+                    return voteCollection.updateOne({ _id: pollId }, {
+                        totalVotesForPoll: totalVotesForPoll, $set: { 'ansChoice2.$.totalVotes': totalVotesForAnsChoice },
+                        $set: { 'ansChoice2.$.totalVotesMale': totalVotesMaleForAnsChoice }, $set: { 'ansChoice2.$.totalVotesFemale': totalVotesFemaleForAnsChoice }
+                    }).then((result) => {
+                        return this.getPollById(pollId);
                     });
-                
+
                 case ansChoice3:
-                 totalVotesForAnsChoice = poll.ansChoice3.totalVotes + 1;
+                    totalVotesForAnsChoice = poll.ansChoice3.totalVotes + 1;
                     totalVotesMaleForAnsChoice += poll.ansChoice3.totalVotesMale;
                     totalVotesFemaleForAnsChoice += poll.ansChoice3.totalVotesFemale;
                     //this needs to be done
-                    return voteCollection.updateOne({ _id: pollId }, {totalVotesForPoll: totalVotesForPoll, $set: { 'ansChoice3.$.totalVotes': totalVotesForAnsChoice},
-                    $set: { 'ansChoice3.$.totalVotesMale': totalVotesMaleForAnsChoice},$set: { 'ansChoice3.$.totalVotesFemale': totalVotesFemaleForAnsChoice}}  ).then((result) => {
-                    return this.getPollById(pollId);
+                    return voteCollection.updateOne({ _id: pollId }, {
+                        totalVotesForPoll: totalVotesForPoll, $set: { 'ansChoice3.$.totalVotes': totalVotesForAnsChoice },
+                        $set: { 'ansChoice3.$.totalVotesMale': totalVotesMaleForAnsChoice }, $set: { 'ansChoice3.$.totalVotesFemale': totalVotesFemaleForAnsChoice }
+                    }).then((result) => {
+                        return this.getPollById(pollId);
                     });
 
                 case ansChoice4:
-                 totalVotesForAnsChoice = poll.ansChoice4.totalVotes + 1;
+                    totalVotesForAnsChoice = poll.ansChoice4.totalVotes + 1;
                     totalVotesMaleForAnsChoice += poll.ansChoice4.totalVotesMale;
                     totalVotesFemaleForAnsChoice += poll.ansChoice4.totalVotesFemale;
                     //this needs to be done
-                  return voteCollection.updateOne({ _id: pollId }, {totalVotesForPoll: totalVotesForPoll, $set: { 'ansChoice4.$.totalVotes': totalVotesForAnsChoice},
-                    $set: { 'ansChoice4.$.totalVotesMale': totalVotesMaleForAnsChoice},$set: { 'ansChoice4.$.totalVotesFemale': totalVotesFemaleForAnsChoice}}  ).then((result) => {
-                    return this.getPollById(getPollById);
+                    return voteCollection.updateOne({ _id: pollId }, {
+                        totalVotesForPoll: totalVotesForPoll, $set: { 'ansChoice4.$.totalVotes': totalVotesForAnsChoice },
+                        $set: { 'ansChoice4.$.totalVotesMale': totalVotesMaleForAnsChoice }, $set: { 'ansChoice4.$.totalVotesFemale': totalVotesFemaleForAnsChoice }
+                    }).then((result) => {
+                        return this.getPollById(getPollById);
                     });
-               
+
             }
-         })
-         //.then(()=>{
+        })
+        //.then(()=>{
         // // in this function we need to first get the document then do some checking like we did
         // // in createNewVoteDocument, then increment: the totalVotesForPoll, the totalVotes for the ansChoice the user selected 
         // // and the total vote of gender 
