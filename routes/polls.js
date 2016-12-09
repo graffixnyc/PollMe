@@ -27,14 +27,14 @@ router.get("/poll/:id", function (request, response) {
     
 });
 
-// router.get("/polls", function (request, response) {
-//     polls.getAllPolls().then((polls)=>{
-//             console.log(JSON.stringify(polls));
-//                 // need to change this to the page Haoyang and Seito create
-//                 //res.render('locations/single', { polls: polls});
-//          })
+router.get("/polls", function (request, response) {
+    polls.getAllPolls().then((polls)=>{
+            console.log(JSON.stringify(polls));
+                // need to change this to the page Haoyang and Seito create
+                //res.render('locations/single', { polls: polls});
+         })
     
-// });
+});
 
 router.post("/voteonpoll", function (request, response) {
     
