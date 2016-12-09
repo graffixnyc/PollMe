@@ -151,7 +151,7 @@ let exportedMethods = {
                     //this needs to be done
                     return voteCollection.updateOne({ _id: pollId }, {totalVotesForPoll: totalVotesForPoll, $set: { 'ansChoice1.$.totalVotes': totalVotesForAnsChoice},
                     $set: { 'ansChoice1.$.totalVotesMale': totalVotesMaleForAnsChoice},$set: { 'ansChoice1.$.totalVotesFemale': totalVotesFemaleForAnsChoice}}  ).then((result) => {
-                    return this.getVoteById(id);
+                    return this.getPollById(pollId);
                     });
                   
                 case ansChoice2:
@@ -161,7 +161,7 @@ let exportedMethods = {
                     //this needs to be done
                     return voteCollection.updateOne({ _id: pollId }, {totalVotesForPoll: totalVotesForPoll, $set: { 'ansChoice2.$.totalVotes': totalVotesForAnsChoice},
                     $set: { 'ansChoice2.$.totalVotesMale': totalVotesMaleForAnsChoice},$set: { 'ansChoice2.$.totalVotesFemale': totalVotesFemaleForAnsChoice}}  ).then((result) => {
-                    return this.getVoteById(id);
+                    return this.getPollById(pollId);
                     });
                 
                 case ansChoice3:
@@ -171,7 +171,7 @@ let exportedMethods = {
                     //this needs to be done
                     return voteCollection.updateOne({ _id: pollId }, {totalVotesForPoll: totalVotesForPoll, $set: { 'ansChoice3.$.totalVotes': totalVotesForAnsChoice},
                     $set: { 'ansChoice3.$.totalVotesMale': totalVotesMaleForAnsChoice},$set: { 'ansChoice3.$.totalVotesFemale': totalVotesFemaleForAnsChoice}}  ).then((result) => {
-                    return this.getVoteById(id);
+                    return this.getPollById(pollId);
                     });
 
                 case ansChoice4:
@@ -181,7 +181,7 @@ let exportedMethods = {
                     //this needs to be done
                   return voteCollection.updateOne({ _id: pollId }, {totalVotesForPoll: totalVotesForPoll, $set: { 'ansChoice4.$.totalVotes': totalVotesForAnsChoice},
                     $set: { 'ansChoice4.$.totalVotesMale': totalVotesMaleForAnsChoice},$set: { 'ansChoice4.$.totalVotesFemale': totalVotesFemaleForAnsChoice}}  ).then((result) => {
-                    return this.getVoteById(id);
+                    return this.getPollById(getPollById);
                     });
                
             }
