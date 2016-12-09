@@ -19,7 +19,6 @@ router.get("/", function (request, response) {
 });
 
 router.get("/createpoll", function (request, response) {
-<<<<<<< HEAD
     pollsData.getAllCategories().then((categories) => {
         console.log(categories);
         console.log(categories[0]);
@@ -29,12 +28,6 @@ router.get("/createpoll", function (request, response) {
         //Render the make poll page or something like that
         //request.user.username has username of user
         response.render('pollme/create_poll', {user: request.user, categories: categories});
-=======
-    if (request.isAuthenticated()) {
-        //Render the make poll page or something like that
-        //request.user.username has username of user
-        response.render('pollme/create_poll', { user: request.user });
->>>>>>> d1e206adb7cb486fddce060180c2e85fd99c184e
     }
     else {
         //Render a login page
@@ -47,13 +40,8 @@ router.get("/createpoll", function (request, response) {
 
 router.post("/createpoll", function (request, response) {
     var newPoll = request.body;
-<<<<<<< HEAD
     if(request.isAuthenticated()) {
         pollsData.addPoll(newPoll.category, Date.now(), newPoll.question, newPoll.choice1, newPoll.choice2, newPoll.choice3, newPoll.choice4, request.user._id).then((poll) => {
-=======
-    if (request.isAuthenticated()) {
-        pollsData.addPoll(newPoll.category, Date.now(), newPoll.question, newPoll.choice1, newPoll.choice2, newPoll.choice3, newPoll.choice4, request.user.username).then((poll) => {
->>>>>>> d1e206adb7cb486fddce060180c2e85fd99c184e
             response.redirect("/poll/" + poll._id);
         }, (err) => {
             console.log(err);
