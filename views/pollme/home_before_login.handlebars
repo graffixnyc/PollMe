@@ -1,0 +1,62 @@
+<header>
+        <div class="logo">
+            <a href="#">PollMe</a>
+        </div>
+        <div class="menu">
+            <nav>
+                <ul>
+                    <li><a href="/">Home</li>
+                    <li><a href="#">Create Polls</li>
+                    <li><a href="#">Log In</li>
+                </ul>
+            </nav>
+        </div>
+</header>
+{{!--<img id="home-img" src="/public/css/images/hand4.jpg" />--}}
+<div class="home-before">
+    <form class="search-box">
+        <input id="keyword" type="text" name="keyword" placeholder="Search by keyword...">
+        <select id="by-category" name="by-category">
+            <option value="null">--Select Category--</option>
+            <option value="technology">Techonology</option>
+            <option value="education">Education</option>
+            <option value="sports">Sports</option>
+            <option value="health">Health</option>
+            <option value="lifestyle">Lifestyle</option>
+            <option value="finance">Finance</option>
+            <option value="business">Business</option>
+            <option value="travel">Travel</option>
+            <option value="political">Political</option>
+            <option value="music">Music</option>
+            <option value="food">Food</option>
+            <option value="book">Book</option>
+            <option value="shopping">shopping</option>
+        </select>
+        <input id="search-button" type="submit" value="Search">
+    </form>
+
+    <table class="poll-table">
+        <thead>
+            <tr>
+                <th class="table-head">Question</th>
+                <th class="table-head">Category</th>
+                <th class="table-head">Date</th>
+                <th class="table-head">Votes</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each poll}}
+            <tr>
+                <td class="table-body"><a class="track-single" href="/poll/{{id}}">{{question}}</a></td>
+                <td class="table-body">{{category}}</td>
+                <td class="table-body">{{postedDate}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+<footer>
+        <div class="copyright">
+            <p>&copy; PollMe Team || Patrick Hill | Yasuo Kobayashi | Haoyang Li | Seito Ryu | Jason Sarwar</p>
+        </div>
+</footer>
