@@ -106,6 +106,9 @@ let exportedMethods = {
     },
     updateUser(id, updatedUser) {
         return this.getUserById(id).then((currentUser) => {
+            if (currentUser.gender != updatedUser.gender){
+                //code here to go through the polls they have voted in and adjust metrics
+            }
             let updatedUser = {
                 firstName: updatedUser.firstName,
                 lastName: updatedUser.lastName,
