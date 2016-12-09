@@ -27,22 +27,27 @@ router.get("/createpoll", function (request, response) {
     else {
         //Render a login page
         if(request.flash().error)
-            response.render('pollme/loginpage', { error: request.flash().error, redirectPage: "/makepoll" });
+            response.render('pollme/login_signup', { error: request.flash().error, redirectPage: "/createpoll" });
         else
-            response.render('pollme/loginpage', { redirectPage: "/createpoll" });
+            response.render('pollme/login_signup', { redirectPage: "/createpoll" });
     }
 });
 
 router.post("/createpoll", function (request, response) {
+    var newPoll = request.body;
     if(request.isAuthenticated()) {
-        
+        pollsData.addPoll(newPoll.category, Date.now(), newPoll.question, newPoll.choice1, newPoll.choice2, newPoll.choice3, newPoll.choice4, request.user.username).then((poll) => {
+            response.redirect("/poll/" + poll._id);
+        }, (err) => {
+            console.log(err);   
+        });
     }
     else {
         //Render a login page
         if(request.flash().error)
-            response.render('pollme/loginpage', { error: request.flash().error, redirectPage: "/makepoll" });
+            response.render('pollme/login_signup', { error: request.flash().error, redirectPage: "/createpoll" });
         else
-            response.render('pollme/loginpage', { redirectPage: "/createpoll" });
+            response.render('pollme/login_signup', { redirectPage: "/createpoll" });
     }
 });
 

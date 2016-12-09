@@ -7,7 +7,7 @@ const pollsData = data.polls;
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-
+/*
 router.get("/addpoll", function (request, response) {
     if(req.isAuthenticated()) {
         //Render the make poll page or something like that
@@ -22,6 +22,7 @@ router.get("/addpoll", function (request, response) {
             response.render('pollme/loginpage', { redirectPage: "/makepoll" });
     }
 });
+*/
 // Move this method in polls.js
 // router.get("/poll/:id", function (request, response) {
     

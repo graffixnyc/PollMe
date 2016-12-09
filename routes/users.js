@@ -105,19 +105,9 @@ router.post("/signup", function (request, response) {
 });
 
 router.get('/editprofile', function(request, response){
-  if(request.isAuthenticated()) {
-        
-      usersData.getUserByUsername(request.user.username).then((user) => {
-        if(!user) {
-         //error handling   
-        }
-        
-        response.render('pollme/mypage_edit', { user: user });
-        
-        }, (err) => {
-            //error handling   
-            console.log(err);   
-        });
+    
+    if(request.isAuthenticated()) {    
+        response.render('pollme/mypage_edit', { user: request.user });
       
     }
     else {
