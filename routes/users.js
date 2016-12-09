@@ -104,6 +104,31 @@ router.post("/signup", function (request, response) {
     });
 });
 
+router.get('/editprofile', function(request, response){
+  if(request.isAuthenticated()) {
+        
+      usersData.getUserByUsername(request.user.username).then((user) => {
+        if(!user) {
+         //error handling   
+        }
+        
+        response.render('pollme/mypage_edit', { user: user });
+        
+        }, (err) => {
+            //error handling   
+            console.log(err);   
+        });
+      
+    }
+    else {
+        if(request.flash().error)
+            response.render('pollme/login_signup', { error: request.flash().error, redirectPage: "/profile" });
+        else
+            response.render('pollme/login_signup', { redirectPage: "/editprofile" });
+    }
+});
+
+
 router.get('/logout', function(request, response){
   request.logout();
   response.redirect('/');

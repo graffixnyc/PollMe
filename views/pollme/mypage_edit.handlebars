@@ -27,28 +27,28 @@
               <label>
                 First Name<span class="req">*</span>
               </label>
-              <input class="original-input" name="firstname" type="text" required autocomplete="on" value={{$firstName}}>
+              <input class="original-input" name="firstname" type="text" required autocomplete="on" value={{user.firstName}}>
             </div>
         
             <div class="field-wrap">
               <label>
                 Last Name<span class="req">*</span>
               </label>
-              <input class="original-input" name="lastname" type="text"required autocomplete="on" value={{$lastName}}>
+              <input class="original-input" name="lastname" type="text" required autocomplete="on" value={{user.lastName}}>
             </div>
         </div>
               <div class="field-wrap">
                 <label>
                   Username<span class="req">*</span>
                 </label>
-                <input class="original-input" name="signUpUsername" type="text"required autocomplete="on" value={{$userName}}>
+                <input class="original-input" name="signUpUsername" type="text"required autocomplete="on" value={{user.username}}>
               </div>
                           
               <div class="field-wrap">
                 <label>
                   Email Address<span class="req">*</span>
                 </label>
-                <input class="original-input" name="email" type="email"required autocomplete="on" value={{$email}}>
+                <input class="original-input" name="email" type="email"required autocomplete="on" value={{user.email}}>
               </div>
             
         <div class="field-wrap">
@@ -65,7 +65,7 @@
           <label>
               Age<span class="req">*</span>
             </label>
-          <input class="original-input" name="age" type="text" name="age" />
+          <input class="original-input" name="age" type="text" name="age" value={{user.age}}/>
         </div>
 
         <div class="top-row">
@@ -73,7 +73,7 @@
             <label>
                 City<span class="req">*</span>
               </label>
-            <input class="original-input" name="city" type="text" required autocomplete="on" />
+            <input class="original-input" name="city" type="text" required autocomplete="on" value={{user.city}}/>
           </div>
 
           <div class="field-wrap">

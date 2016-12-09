@@ -12,6 +12,7 @@ router.get("/addpoll", function (request, response) {
     if(req.isAuthenticated()) {
         //Render the make poll page or something like that
         //request.user.username has username of user
+        
     }
     else {
         //Render a login page
