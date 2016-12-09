@@ -31,7 +31,7 @@ let exportedMethods = {
             var regex = new RegExp([".*", query, ".*"].join(""), "i");
             console.log(regex)
             return pollCollection
-                .find({ $or: [{ "question": regex }, { "category": regex }, { "ansChoice1": regex }, { "ansChoice2": regex }, { "ansChoice3": regex }, { "ansChoice4": regex }] })
+                .find({ $or: [{ "question": regex }, { "ansChoice1": regex }, { "ansChoice2": regex }, { "ansChoice3": regex }, { "ansChoice4": regex }] })
                 .toArray();
         });
 
@@ -45,7 +45,7 @@ let exportedMethods = {
             var regex = new RegExp([".*", query, ".*"].join(""), "i");
             console.log(regex)
             return pollCollection
-                .find({ $and: [{ $or: [{ "question": regex }, { "category": regex }, { "ansChoice1": regex }, { "ansChoice2": regex }, { "ansChoice3": regex }, { "ansChoice4": regex }] }, { "category": category }] })
+                .find({ $and: [{ $or: [{ "question": regex },{ "ansChoice1": regex }, { "ansChoice2": regex }, { "ansChoice3": regex }, { "ansChoice4": regex }] }, { "category": category }] })
                 .toArray();
         });
 
