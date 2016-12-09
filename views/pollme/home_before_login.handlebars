@@ -18,6 +18,10 @@
         <input id="keyword" type="text" name="keyword" placeholder="Search by keyword...">
         <select id="by-category" name="by-category">
             <option value="null">--Select Category--</option>
+            {{#each poll}}
+                <option value="{{category}}">{{category}}</option>
+            {{/each}}
+            {{!--<option value="null">--Select Category--</option>
             <option value="technology">Techonology</option>
             <option value="education">Education</option>
             <option value="sports">Sports</option>
@@ -30,7 +34,7 @@
             <option value="music">Music</option>
             <option value="food">Food</option>
             <option value="book">Book</option>
-            <option value="shopping">shopping</option>
+            <option value="shopping">shopping</option>--}}
         </select>
         <input id="search-button" type="submit" value="Search">
     </form>
