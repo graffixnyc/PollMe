@@ -125,9 +125,12 @@ let exportedMethods = {
                     .then((newId) => {
                         console.log(newId);
                         return this.getPollById(newId);
+                    
                     }).then((poll) => {
                         console.log(userId + ":" + poll._id);
-                        return users.addPollCreatedToUser(userId, poll._id)
+                        return users.addPollCreatedToUser(userId, poll._id).then(() => {
+                           return poll._id;
+                        });
 
                     });
             });
