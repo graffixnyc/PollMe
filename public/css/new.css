@@ -374,7 +374,6 @@ footer {
 #poll-question {
   margin: 1em 0 0.5em 0;
 	/*color: #343434;*/
-	line-height: 42px;
 	/*text-transform: uppercase;*/
 	text-shadow: 0 2px white, 0 3px #777;
   font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif";
@@ -382,7 +381,7 @@ footer {
 	font-style: normal;
 	font-variant: normal;
 	font-weight: 700;
-	line-height: 26.4px;
+	line-height: 60px;
   color: cadetblue;
 }
 
