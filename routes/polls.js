@@ -20,6 +20,8 @@ router.get("/", function (request, response) {
 
 router.get("/createpoll", function (request, response) {
 
+    console.log(request.user);
+    
     var categories = ["Movies", "Video Games"];
     if(request.isAuthenticated()) {
         //Render the make poll page or something like that
@@ -36,6 +38,7 @@ router.get("/createpoll", function (request, response) {
 });
 
 router.post("/createpoll", function (request, response) {
+    
     var now = new Date();
 
     var newPoll = request.body;
