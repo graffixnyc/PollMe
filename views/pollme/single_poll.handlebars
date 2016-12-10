@@ -81,7 +81,10 @@
         <br>
         <h3 class="ask">Comments List</h3><br>
         {{#each poll.poll.comments}}
-            <div class="comments-content">{{this}}</div><br>
+            <div class="comments-content">
+                Poster: {{this.poster}} <br>
+                Comment: {{this.comment}}
+            </div><br>
         {{/each}}
     </div>
 
