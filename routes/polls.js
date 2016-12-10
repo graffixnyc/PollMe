@@ -98,7 +98,7 @@ router.post("/voteonpoll", function(request, response) {
 
 router.post("/search", function(request, response) {
     //If they do not eneter a search term or category to search
-    if (!request.body.keyword && request.body.category==="null") {
+    if (!request.body.keyword && request.body.category=="null") {
         Promise.reject("You must specify a search term or category to search");
         // If they enter a search term but no category  
     } else if (request.body.keyword && request.body.category=="null") {
