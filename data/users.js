@@ -132,13 +132,14 @@ let exportedMethods = {
             });
         });
     },
-    addPollVotedInToUser(userId, pollId) {
+    addPollVotedInToUser(userId, pollId, ansChoiceUserSelected) {
         return users().then((userCollection) => {
             return this.getUserById(userId).then((currentUser) => {
                 return userCollection.updateOne({ _id: userId }, {
                     $addToSet: {
                         pollsVotedIn: {
-                            pollId: pollId
+                            pollId: pollId,
+                            ansChoiceSelected: ansChoiceUserSelected
                         }
                     }
                 });
