@@ -14,7 +14,7 @@ const constructorMethod = (app, passport) => {
 
     app.use("*", (req, res) => {
         //res.redirect("/");
-        res.render("pollme/login_signup", {message: request.flash('loginMessage')});
+        res.render("pollme/login_signup", {message: req.flash('loginMessage')});
     })
 };
 
