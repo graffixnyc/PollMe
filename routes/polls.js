@@ -107,17 +107,17 @@ router.post("/voteonpoll", function(request, response) {
 
 router.post("/search", function(request, response) {
     //If they do not eneter a search term or category to search
-    if (!request.params.category && !req.params.query) {
+    if (!request.params.by-category && !req.params.keyword) {
         Promise.reject("You must specify a search term or category to search");
         // If they enter a search term but no category  
-    } else if (request.params.query && !request.params.category) {
-        return polls.searchPollsByKeyword(req.params.query)
+    } else if (request.params.keyword && !request.params.by-category) {
+        return polls.searchPollsByKeyword(req.params.keyword)
         //If they search category but no keyword
-    } else if (request.params.category && !request.params.query) {
-        return polls.searchPollsByCategory(req.params.category)
+    } else if (request.params.by-category && !request.params.keyword) {
+        return polls.searchPollsByCategory(req.params.by-category)
         //If they search by keyword and category
     } else {
-        return polls.searchPollsByKeywordAndCategory(req.params.query, req.params.category)
+        return polls.searchPollsByKeywordAndCategory(req.params.keyword, req.params.by-category)
     }
 });
 
