@@ -160,7 +160,10 @@ let exportedMethods = {
                         totalVotesForPoll: totalVotesForPoll, $set: { 'ansChoice1.$.totalVotes': totalVotesForAnsChoice },
                         $set: { 'ansChoice1.$.totalVotesMale': totalVotesMaleForAnsChoice }, $set: { 'ansChoice1.$.totalVotesFemale': totalVotesFemaleForAnsChoice }
                     }).then((result) => {
-                        return this.getPollById(pollId);
+                        return this.getPollById(pollId).then((poll) => {
+                            return users.addPollVotedInToUser(userId, poll._id, ansChoiceUserSelected)
+                            
+                        });
                     });
 
                 case ansChoice2:
@@ -173,7 +176,10 @@ let exportedMethods = {
                         totalVotesForPoll: totalVotesForPoll, $set: { 'ansChoice2.$.totalVotes': totalVotesForAnsChoice },
                         $set: { 'ansChoice2.$.totalVotesMale': totalVotesMaleForAnsChoice }, $set: { 'ansChoice2.$.totalVotesFemale': totalVotesFemaleForAnsChoice }
                     }).then((result) => {
-                        return this.getPollById(pollId);
+                        return this.getPollById(pollId).then((poll) => {
+                            return users.addPollVotedInToUser(userId, poll._id, ansChoiceUserSelected)
+                            
+                        });
                     });
 
                 case ansChoice3:
@@ -186,7 +192,10 @@ let exportedMethods = {
                         totalVotesForPoll: totalVotesForPoll, $set: { 'ansChoice3.$.totalVotes': totalVotesForAnsChoice },
                         $set: { 'ansChoice3.$.totalVotesMale': totalVotesMaleForAnsChoice }, $set: { 'ansChoice3.$.totalVotesFemale': totalVotesFemaleForAnsChoice }
                     }).then((result) => {
-                        return this.getPollById(pollId);
+                        return this.getPollById(pollId).then((poll) => {
+                            return users.addPollVotedInToUser(userId, poll._id, ansChoiceUserSelected)
+                            
+                        });
                     });
 
                 case ansChoice4:
