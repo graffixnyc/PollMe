@@ -57,7 +57,7 @@
         </tbody>
     </table>
 
-    <div id="vote-on-poll">
+    <form id="vote-on-poll" method="post" action="/voteon">
         <br>
         <h3 class="ask">Which are you voting on?</h3><br>
         <label class="choice">Choice 1</label>
@@ -75,7 +75,9 @@
         <label class="choice">Choice 4</label>
         <input type="radio" id="choice4" name="selector">
         <label class="choice-info" for="choice4">{{poll.poll.ansChoice4}}</label><br>
-    </div>
+        <br>
+        <input type="submit" class="submit-comment" value="Submit">
+    </form>
     
     <div id="show-comments">
         <br>
@@ -93,7 +95,7 @@
         <textarea id="comment-post" name="comment"></textarea><br>
         <input type="hidden" name="pollid" value="{{poll.poll._id}}">
         <input type="hidden" name="poster" value="{{poll.user._id}}">
-        <input type="submit" id="submit-comment" value="Submit">
+        <input type="submit" class="submit-comment" value="Submit">
     </form>
 </div>
 <footer>

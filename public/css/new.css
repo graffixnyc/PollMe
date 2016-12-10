@@ -472,7 +472,7 @@ footer {
   font-size: 20px;
 }
 
-#submit-comment {
+.submit-comment {
    border-top: 1px solid #37b37b;
    background: #65a9d7;
    background: -webkit-gradient(linear, left top, left bottom, from(#3e779d), to(#65a9d7));
@@ -494,12 +494,12 @@ footer {
    text-decoration: none;
    vertical-align: middle;
    }
-#submit-comment:hover {
+.submit-comment:hover {
    border-top-color: #28597a;
    background: #28597a;
    color: #ccc;
    }
-#submit-comment:active {
+.submit-comment:active {
    border-top-color: #1b435e;
    background: #1b435e;
    }
