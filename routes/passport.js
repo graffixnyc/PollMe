@@ -29,12 +29,12 @@ module.exports = function(passport) {
                         if (res === true)
                             return done(null, user);
                         else
-                            return done(null, false, req.flash('loginMessage', 'Password Not Match'));
+                            return done(null, false, req.flash('loginMessage', 'Incorrect Password'));
                     }
                 });
             }).catch((error) => {
                 console.log(error);
-                return done(null, false, req.flash('loginMessage', 'No user found'));
+                return done(null, false, req.flash('loginMessage', 'Incorrect Username'));
             });
         }
     ));

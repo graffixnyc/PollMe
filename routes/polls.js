@@ -126,16 +126,18 @@ router.post("/search", function(request, response) {
 
 router.post("/commentonpoll", function(request, response) {
 
-    //I guess the poll id should in the request somewhere
     console.log(request.body);
     if (request.isAuthenticated()) {
         // Allowed to comment on poll
         // request.user.username has username of user
-        pollsData.addCommentToPoll(request.body.pollid, request.body.poster, request.body.comment).then(() => {
+        if(request.body.comment && request.body.comment !== "")
+            pollsData.addCommentToPoll(request.body.pollid, request.body.poster, request.body.comment).then(() => {
+                response.redirect("/poll/" + request.body.pollid);
+            }, (err) => {
+                console.log(err);
+            });
+        else
             response.redirect("/poll/" + request.body.pollid);
-        }, (err) => {
-            console.log(err);
-        });
     }
     else {
         //Render a login page
