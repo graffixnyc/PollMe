@@ -102,21 +102,24 @@ router.post("/search", function(request, response) {
         Promise.reject("You must specify a search term or category to search");
         // If they enter a search term but no category  
     } else if (request.body.keyword && request.body.category=="null") {
-        return polls.searchPollsByKeyword(request.body.keyword).then((searchResults)=>{
+        return pollsData.searchPollsByKeyword(request.body.keyword).then((searchResults)=>{
             //render page here
             //res.render('locations/single', { searchResults: searchResults});
+            response.render("pollme/home_before_login", {poll: searchResults});
         });
         //If they search category but no keyword
     } else if (request.body.category  && !request.body.keyword) {
-        return polls.searchPollsByCategory(request.body.category).then((searchResults)=>{
+        return pollsData.getPollsByCategory(request.body.category).then((searchResults)=>{
             //render page here
             //res.render('locations/single', { searchResults: searchResults});
+            response.render("pollme/home_before_login", {poll: searchResults});
         });
         //If they search by keyword and category
     } else {
-        return polls.searchPollsByKeywordAndCategory(request.body.keyword, request.body.category).then((searchResults)=>{
+        return pollsData.searchPollsByKeywordAndCategory(request.body.keyword, request.body.category).then((searchResults)=>{
             //render page here
             //res.render('locations/single', { searchResults: searchResults});
+            response.render("pollme/home_before_login", {poll: searchResults});
         });
     }
 });
