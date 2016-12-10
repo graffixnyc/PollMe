@@ -28,7 +28,7 @@ const bcrypt = require('bcryptjs');
   });
 
 
-//  return polls.searchPolls("phone").then((polls) => {
+//  return polls.searchPollsByKeyword("phone").then((polls) => {
 //        if (!polls){
 
 //        }else{

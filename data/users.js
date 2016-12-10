@@ -18,26 +18,6 @@ let exportedMethods = {
             });
         });
     },
-
-    /*
-     * We don't need this, isPasswordValid performs the check
-    checkLogin(email, hashedPassword) {
-        console.log("hp: " + hashedPassword);
-        return users().then((userCollection) => {
-            return userCollection.findOne({ email: email }).then((user) => {
-                if (!user) {
-                    throw "User not found";
-                } else {
-                    if (bcrypt.compareSync(user.password, hashedPassword)) {
-                        return user;
-                    }else{
-                        console.log ("Password Fail")
-                    }
-                }
-            });
-        });
-    },
-    */
     getUserByUsername(username) {
         return users().then((userCollection) => {
             return userCollection.findOne({ username: username }).then((user) => {

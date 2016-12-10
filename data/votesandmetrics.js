@@ -134,10 +134,10 @@ let exportedMethods = {
     //Needs testing and most likely modification
     updateVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender) {
         return polls.getPollById(pollId).then((poll) => {
-            var totalVotesForPoll = poll.totalVotesForPoll + 1;
-            var totalVotesForAnsChoice = 0;
-            var totalVotesMaleForAnsChoice = 0;
-            var totalVotesFemaleForAnsChoice = 0;
+            let totalVotesForPoll = poll.totalVotesForPoll + 1;
+            let totalVotesForAnsChoice = 0;
+            let totalVotesMaleForAnsChoice = 0;
+            let totalVotesFemaleForAnsChoice = 0;
             if (userGender == "M") {
                 totalVotesMaleForAnsChoice = 1;
             } else {
