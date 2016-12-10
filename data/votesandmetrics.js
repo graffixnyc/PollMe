@@ -64,12 +64,13 @@ let exportedMethods = {
             let ansChoice2TotalVotesFemale = 0;
             let ansChoice3TotalVotesFemale = 0;
             let ansChoice4TotalVotesFemale = 0;
+            let ansChoiceUserSelected = "";
 
             //this is to see which answer choice has the value of 1, from here we would then find the users's gender and then set the count to 1
             // if user is M set ansChoiceXTotalVotesMale = 1 else set ansChoiceXTotalVotesFemale = 1
             switch (1) {
                 case ansChoice1:
-
+                    ansChoiceUserSelected = "ansChoice1";
                     if (userGender == "M") {
                         ansChoice1TotalVotesMale = 1;
                     } else {
@@ -77,6 +78,7 @@ let exportedMethods = {
                     }
                     break;
                 case ansChoice2:
+                    ansChoiceUserSelected = "ansChoice2";
                     if (userGender == "M") {
                         ansChoice2TotalVotesMale = 1;
                     } else {
@@ -84,6 +86,7 @@ let exportedMethods = {
                     }
                     break;
                 case ansChoice3:
+                    ansChoiceUserSelected = "ansChoice3";
                     if (userGender == "M") {
                         ansChoice3TotalVotesMale = 1;
                     } else {
@@ -91,6 +94,7 @@ let exportedMethods = {
                     }
                     break;
                 case ansChoice4:
+                    ansChoiceUserSelected = "ansChoice4";
                     if (userGender == "M") {
                         ansChoice4TotalVotesMale = 1;
                     } else {
@@ -113,7 +117,7 @@ let exportedMethods = {
                     return this.getVotesForPoll(newId);
                 }).then((newId) => {
                     console.log(userId + ":" + newId._id);
-                    return users.addPollVotedInToUser(userId, newId._id)
+                    return users.addPollVotedInToUser(userId, newId._id, ansChoiceUserSelected)
                 });
             });
         } catch (e) {
@@ -134,6 +138,7 @@ let exportedMethods = {
     //Needs testing and most likely modification
     updateVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender) {
         return polls.getPollById(pollId).then((poll) => {
+            let ansChoiceUserSelected = "";
             let totalVotesForPoll = poll.totalVotesForPoll + 1;
             let totalVotesForAnsChoice = 0;
             let totalVotesMaleForAnsChoice = 0;
@@ -146,6 +151,7 @@ let exportedMethods = {
 
             switch (1) {
                 case ansChoice1:
+                    ansChoiceUserSelected = "ansChoice1";
                     totalVotesForAnsChoice = poll.ansChoice1.totalVotes + 1;
                     totalVotesMaleForAnsChoice += poll.ansChoice1.totalVotesMale;
                     totalVotesFemaleForAnsChoice += poll.ansChoice1.totalVotesFemale;
@@ -154,10 +160,14 @@ let exportedMethods = {
                         totalVotesForPoll: totalVotesForPoll, $set: { 'ansChoice1.$.totalVotes': totalVotesForAnsChoice },
                         $set: { 'ansChoice1.$.totalVotesMale': totalVotesMaleForAnsChoice }, $set: { 'ansChoice1.$.totalVotesFemale': totalVotesFemaleForAnsChoice }
                     }).then((result) => {
-                        return this.getPollById(pollId);
+                        return this.getPollById(pollId).then((poll) => {
+                            return users.addPollVotedInToUser(userId, poll._id, ansChoiceUserSelected)
+                            
+                        });
                     });
 
                 case ansChoice2:
+                    ansChoiceUserSelected = "ansChoice2";
                     totalVotesForAnsChoice = poll.ansChoice2.totalVotes + 1;
                     totalVotesMaleForAnsChoice += poll.ansChoice2.totalVotesMale;
                     totalVotesFemaleForAnsChoice += poll.ansChoice2.totalVotesFemale;
@@ -166,10 +176,14 @@ let exportedMethods = {
                         totalVotesForPoll: totalVotesForPoll, $set: { 'ansChoice2.$.totalVotes': totalVotesForAnsChoice },
                         $set: { 'ansChoice2.$.totalVotesMale': totalVotesMaleForAnsChoice }, $set: { 'ansChoice2.$.totalVotesFemale': totalVotesFemaleForAnsChoice }
                     }).then((result) => {
-                        return this.getPollById(pollId);
+                        return this.getPollById(pollId).then((poll) => {
+                            return users.addPollVotedInToUser(userId, poll._id, ansChoiceUserSelected)
+                            
+                        });
                     });
 
                 case ansChoice3:
+                    ansChoiceUserSelected = "ansChoice3";
                     totalVotesForAnsChoice = poll.ansChoice3.totalVotes + 1;
                     totalVotesMaleForAnsChoice += poll.ansChoice3.totalVotesMale;
                     totalVotesFemaleForAnsChoice += poll.ansChoice3.totalVotesFemale;
@@ -178,10 +192,14 @@ let exportedMethods = {
                         totalVotesForPoll: totalVotesForPoll, $set: { 'ansChoice3.$.totalVotes': totalVotesForAnsChoice },
                         $set: { 'ansChoice3.$.totalVotesMale': totalVotesMaleForAnsChoice }, $set: { 'ansChoice3.$.totalVotesFemale': totalVotesFemaleForAnsChoice }
                     }).then((result) => {
-                        return this.getPollById(pollId);
+                        return this.getPollById(pollId).then((poll) => {
+                            return users.addPollVotedInToUser(userId, poll._id, ansChoiceUserSelected)
+                            
+                        });
                     });
 
                 case ansChoice4:
+                    ansChoiceUserSelected = "ansChoice4";
                     totalVotesForAnsChoice = poll.ansChoice4.totalVotes + 1;
                     totalVotesMaleForAnsChoice += poll.ansChoice4.totalVotesMale;
                     totalVotesFemaleForAnsChoice += poll.ansChoice4.totalVotesFemale;
@@ -190,7 +208,10 @@ let exportedMethods = {
                         totalVotesForPoll: totalVotesForPoll, $set: { 'ansChoice4.$.totalVotes': totalVotesForAnsChoice },
                         $set: { 'ansChoice4.$.totalVotesMale': totalVotesMaleForAnsChoice }, $set: { 'ansChoice4.$.totalVotesFemale': totalVotesFemaleForAnsChoice }
                     }).then((result) => {
-                        return this.getPollById(getPollById);
+                        return this.getPollById(pollId).then((poll) => {
+                            return users.addPollVotedInToUser(userId, poll._id, ansChoiceUserSelected)
+                            
+                        });
                     });
 
             }
