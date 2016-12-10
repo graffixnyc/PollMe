@@ -93,7 +93,7 @@ let exportedMethods = {
                 //and then increment the total number of votes for their new gender.  
                 return polls.getPollsByUser(id).then((polls) => {
                     for (let i = 0; i < polls.length; i++) {
-                        return votesAndMetrics.getVotesForPoll(polls(i)._id).then((votes) => {
+                        return votesAndMetrics.getVotesForPoll(polls[i]._id).then((votes) => {
 
                         })
                     }
