@@ -21,12 +21,12 @@ router.get("/", function (request, response) {
 router.get("/createpoll", function (request, response) {
 
     console.log(request.user);
-    
-    var categories = ["Movies", "Video Games"];
+
+    // var categories = ["Movies", "Video Games"];
     if(request.isAuthenticated()) {
         //Render the make poll page or something like that
         //request.user.username has username of user
-        response.render('pollme/create_poll', {user: request.user, categories: categories});
+        response.render('pollme/create_poll', {user: request.user});
     }
     else {
         //Render a login page
@@ -38,7 +38,7 @@ router.get("/createpoll", function (request, response) {
 });
 
 router.post("/createpoll", function (request, response) {
-    
+
     var now = new Date();
 
     var newPoll = request.body;
@@ -115,7 +115,7 @@ router.post("/commentonpoll", function (request, response) {
          pollsData.addCommentToPoll(request.body.pollid, request.body.poster, request.body.comment).then(() => {
             response.redirect("/poll/" + request.body.pollid);
          }, (err) => {
-            console.log(err);   
+            console.log(err);
          });
     }
     else {
