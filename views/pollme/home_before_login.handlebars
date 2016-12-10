@@ -7,16 +7,16 @@
             <ul>
                 <li><a href="/">Home</li>
                     <li><a href="createpoll">Create Polls</li>
-                    <li><a href="login">Log In</li>
+                    <li><a href="login">Log In</a></li>
                 </ul>
             </nav>
         </div>
 </header>
 {{!--<img id="home-img" src="/public/css/images/hand4.jpg" />--}}
 <div class="home-before">
-    <form class="search-box">
+    <form class="search-box" action="search" method="POST">
         <input id="keyword" type="text" name="keyword" placeholder="Search by keyword...">
-        <select id="by-category" name="by-category">
+        <select id="category" name="category">
             <option value="null">--Select Category--</option>
             <option value="Arts">Arts</option>
             <option value="Automotive">Automotive</option>
