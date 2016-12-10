@@ -2,7 +2,8 @@ const mongoCollections = require("../config/mongoCollections");
 const users = mongoCollections.users;
 const uuid = require('node-uuid');
 const bcrypt = require('bcryptjs');
-
+const polls = require("./polls");
+const votesAndMetrics = require("./votesandmetrics");
 let exportedMethods = {
     getAllUsers() {
         return users().then((userCollection) => {
@@ -84,10 +85,19 @@ let exportedMethods = {
             });
         });
     },
+    //THIS FUNCTION NOT DONE YET
     updateUser(id, updatedUser) {
         return this.getUserById(id).then((currentUser) => {
-            if (currentUser.gender != updatedUser.gender){
-                //code here to go through the polls they have voted in and adjust metrics
+            if (currentUser.gender != updatedUser.gender) {
+                //get votes for polls they voted in deincrement the total votes for the gener they were
+                //and then increment the total number of votes for their new gender.  
+                return polls.getPollsByUser(id).then((polls) => {
+                    for (let i = 0; i < polls.length; i++) {
+                        return votesAndMetrics.getVotesForPoll(polls(i)._id).then((votes) => {
+
+                        })
+                    }
+                })
             }
             let updatedUser = {
                 firstName: updatedUser.firstName,
