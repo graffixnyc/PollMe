@@ -111,13 +111,22 @@ router.post("/search", function(request, response) {
         Promise.reject("You must specify a search term or category to search");
         // If they enter a search term but no category  
     } else if (request.params.keyword && !request.params.by-category) {
-        return polls.searchPollsByKeyword(req.params.keyword)
+        return polls.searchPollsByKeyword(req.params.keyword).then((searchResults)=>{
+            //render page here
+            //res.render('locations/single', { searchResults: searchResults});
+        });
         //If they search category but no keyword
     } else if (request.params.by-category && !request.params.keyword) {
-        return polls.searchPollsByCategory(req.params.by-category)
+        return polls.searchPollsByCategory(req.params.by-category).then((searchResults)=>{
+            //render page here
+            //res.render('locations/single', { searchResults: searchResults});
+        });
         //If they search by keyword and category
     } else {
-        return polls.searchPollsByKeywordAndCategory(req.params.keyword, req.params.by-category)
+        return polls.searchPollsByKeywordAndCategory(req.params.keyword, req.params.by-category).then((searchResults)=>{
+            //render page here
+            //res.render('locations/single', { searchResults: searchResults});
+        });
     }
 });
 
