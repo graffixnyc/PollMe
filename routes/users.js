@@ -52,25 +52,40 @@ router.get("/user/:username", function (request, response) {
 //   })(request, response, next);
 // });
 
+router.get("/login", function (request, response) {
+        response.render("pollme/login_signup", {message: request.flash('loginMessage')});
+})
+
 //Update the post /login with passport
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/private',
-    failureRedirect: '/',
+    failureRedirect: '/login',
     failureFlash: true
 }));
 
 //Pakage the validation function into passport.js module.
 router.get('/private', isLoggedIn, function(req, res) {
+    let userResult = {};
+    userResult.userInfo = req.user;
+    console.log(userResult.userInfo);
+    let pollInfo = [];
+    for (i = 0; i < userResult.userInfo.pollsCreated.length; i++) {
+        pollsData.getPollById(userResult.userInfo.pollsCreated[i].pollId).then((poll) => {
+            pollInfo.push(poll);
+        });
+    };
+    userResult.pollInfo = pollInfo;
     res.render('pollme/user_home', {
-    user: req.user 
+        user: userResult 
     });
+    
 });
 
 function isLoggedIn(req, res, next) {
     if(req.isAuthenticated())
         return next();
     else 
-        res.redirect('/');
+        res.redirect('/login');
 }
 
 router.get("/signup", function (request, response) {
