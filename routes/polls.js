@@ -80,11 +80,12 @@ router.get("/poll/:id", function(request, response) {
         .then(() => {
             usersData.getUserById(pollResult.poll.createdByUser).then((user) => {
                 pollResult.user = user;
+            }).then(() => {
+                votesmatrixData.getVotesForPoll(request.params.id).then((voteInfo) => {
+                    pollResult.vote = voteInfo;
+                    response.render("pollme/single_poll", { poll: pollResult });
+                });
             });
-            votesmatrixData.getVotesForPoll(request.params.id).then((voteInfo) => {
-                pollResult.vote = voteInfo;
-            });
-            response.render("pollme/single_poll", { poll: pollResult });
         })
         .catch(() => {
             res.status(404).json({ error: "Error!Poll not found" });
@@ -94,7 +95,7 @@ router.get("/poll/:id", function(request, response) {
 router.post("/voteonpoll", function(request, response) {
     
     var vote = request.body;
-    
+    console.log(vote);
     if (request.isAuthenticated()) {
         // Allowed to vote on poll
         votesmatrixData.countVote(vote.pollId, vote.ansChoice1, vote.ansChoice2, vote.ansChoice3, vote.ansChoice4, vote.userId, vote.gender).then(() => {
