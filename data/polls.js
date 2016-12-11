@@ -8,7 +8,7 @@ let exportedMethods = {
     getAllPolls() {
         return polls().then((pollCollection) => {
             return pollCollection
-                .find({})
+                .find({}).sort({ postedDate: -1 })
                 .toArray();
         });
     },
@@ -90,7 +90,7 @@ let exportedMethods = {
                 throw new Error("category should be string");
             }
             
-            if (typeof postedDate != 'string') {
+            if (!postedDate instanceof Date) {
                 throw new Error("postedDate should be string");
             }
             if (typeof question != 'string') {
