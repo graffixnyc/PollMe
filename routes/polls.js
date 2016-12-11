@@ -98,6 +98,7 @@ router.post("/voteonpoll", function(request, response) {
     console.log(vote)
     if (request.isAuthenticated()) {
         // Allowed to vote on poll
+        //JASON: Gender is blank 
         votesmatrixData.countVote(vote.pollid, vote.selector, vote.userid, vote.gender).then(() => {
             response.json({ success: true, pollid: vote.pollId });
         });
