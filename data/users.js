@@ -1,8 +1,10 @@
 const mongoCollections = require("../config/mongoCollections");
 const users = mongoCollections.users;
+//const votesCollection = mongoCollections.votesAndMetrics;
 const uuid = require('node-uuid');
 const bcrypt = require('bcryptjs');
 //const polls = require("./polls");
+//const votesAndMetrics = require("./votesandmetrics");
 //const votesAndMetrics = require("./votesandmetrics");
 let exportedMethods = {
     getAllUsers() {
@@ -91,15 +93,78 @@ let exportedMethods = {
             if (currentUser.gender != updatedUser) {
                 //get votes for polls they voted in deincrement the total votes for the gener they were
                 //and then increment the total number of votes for their new gender.  
-                var pollsVotedIn = currentUser.pollsVotedIn;
+                let pollsVotedIn = currentUser.pollsVotedIn;
                 console.log(pollsVotedIn.length);
-                // return polls.getPollsByUser(id).then((polls) => {
-                for (let i = 0; i < pollsVotedIn.length; i++) {
-                    var ansChoiceSelected = pollsVotedIn[i].ansChoiceSelected
-                    var pollId = pollsVotedIn[i].pollId
-                    console.log(`Poll ID: ${pollId}, ansChoiceSelected: ${ansChoiceSelected} `)
-                    return votesAndMetrics.getVotesForPoll(pollId).then((votes) => {
 
+                for (let i = 0; i < pollsVotedIn.length; i++) {
+                    let ansChoiceSelected = pollsVotedIn[i].ansChoiceSelected
+                    let pollId = pollsVotedIn[i].pollId
+                    //console.log(`Poll ID: ${pollId}, ansChoiceSelected: ${ansChoiceSelected} `)
+                    votesAndMetrics.getVotesForPoll(pollId).then((votes) => {
+                        let totalVotesForPoll = votes.totalVotesForPoll;
+                        let totalMaleVotesForAnsChoice1 = votes.ansChoice1.totalVotesMale;
+                        let totalMaleVotesForAnsChoice2 = votes.ansChoice2.totalVotesMale;
+                        let totalMaleVotesForAnsChoice3 = votes.ansChoice3.totalVotesMale;
+                        let totalMaleVotesForAnsChoice4 = votes.ansChoice4.totalVotesMale;//votes.ansChoice4.totalVotesMale;
+                        let totalFemaleVotesForAnsChoice1 = votes.ansChoice1.totalVotesFemale;
+                        let totalFemaleVotesForAnsChoice2 = votes.ansChoice2.totalVotesFemale;
+                        let totalFemaleVotesForAnsChoice3 = votes.ansChoice3.totalVotesFemale;
+                        let totalFemaleVotesForAnsChoice4 = votes.ansChoice4.totalVotesFemale;
+                        if (updatedUser == "F") {
+                            console.log("changed to f " + ansChoiceSelected);
+                            switch (ansChoiceSelected) {
+                                case "ansChoice1":
+                                    totalFemaleVotesForAnsChoice1 = votes.ansChoice1.totalVotesFemale + 1;
+                                    totalMaleVotesForAnsChoice1 = votes.ansChoice1.totalVotesMale - 1;
+                                    //votesAndMetrics.updateOne({ _id: id }, {totalVotesMale: totalMaleVotesForAnsChoice1},{totalVotesMale: totalMaleVotesForAnsChoice1} )
+                                    break;
+                                case "ansChoice2":
+                                    totalFemaleVotesForAnsChoice2 = votes.ansChoice2.totalVotesFemale + 1;
+                                    totalMaleVotesForAnsChoice2 = votes.ansChoice2.totalVotesMale - 1;
+                                    break;
+                                case "ansChoice3":
+                                    totalFemaleVotesForAnsChoice3 = votes.ansChoice3.totalVotesFemale + 1;
+                                    totalMaleVotesForAnsChoice3 = votes.ansChoice3.totalVotesMale - 1;
+                                    break;
+                                case "ansChoice4":
+                                    totalFemaleVotesForAnsChoice4 = votes.ansChoice4.totalVotesFemale + 1;
+                                    totalMaleVotesForAnsChoice4 = votes.ansChoice4.totalVotesMale - 1;
+                                    break;
+
+                            }
+                        } else {
+                            console.log("changed to M");
+                            switch (ansChoiceSelected) {
+                                case "ansChoice1":
+                                    totalFemaleVotesForAnsChoice1 = votes.ansChoice1.totalVotesFemale - 1;
+                                    totalMaleVotesForAnsChoice1 = votes.ansChoice1.totalVotesMale + 1;
+                                    break;
+                                case "ansChoice2":
+                                    totalFemaleVotesForAnsChoice2 = votes.ansChoice2.totalVotesFemale - 1;
+                                    totalMaleVotesForAnsChoice2 = votes.ansChoice2.totalVotesMale + 1;
+                                    break;
+                                case "ansChoice3":
+                                    totalFemaleVotesForAnsChoice3 = votes.ansChoice3.totalVotesFemale - 1;
+                                    totalMaleVotesForAnsChoice3 = votes.ansChoice3.totalVotesMale + 1;
+                                    break;
+                                case "ansChoice4":
+                                    totalFemaleVotesForAnsChoice4 = votes.ansChoice4.totalVotesFemale - 1;
+                                    totalMaleVotesForAnsChoice4 = votes.ansChoice4.totalVotesMale + 1;
+                                    break;
+                            }
+                        }
+                        console.log(`Poll id ${pollId} Male: ${totalMaleVotesForAnsChoice1}, ${totalMaleVotesForAnsChoice2}, ${totalMaleVotesForAnsChoice3}, ${totalMaleVotesForAnsChoice4}`)
+                        console.log(`Poll id ${pollId} FeMale: ${totalFemaleVotesForAnsChoice1}, ${totalFemaleVotesForAnsChoice2}, ${totalFemaleVotesForAnsChoice3}, ${totalFemaleVotesForAnsChoice4}`)
+                       
+                        //Now need to somehow call the update votes
+                        // votesAndMetrics.updateOne({ _id: pollId }, {$set: { 'ansChoice1.$.totalVotesMale': totalMaleVotesForAnsChoice1 }, 
+                        // $set: { 'ansChoice2.$.totalVotesMale': totalMaleVotesForAnsChoice2 },$set: { 'ansChoice3.$.totalVotesMale': totalMaleVotesForAnsChoice3 },
+                        // $set: { 'ansChoice4.$.totalVotesMale': totalMaleVotesForAnsChoice4 },$set: { 'ansChoice1.$.totalVotesFeMale': totalFemaleVotesForAnsChoice1 }, 
+                        // $set: { 'ansChoice2.$.totalVotesFemale': totalFemaleVotesForAnsChoice2 },$set: { 'ansChoice3.$.totalVotesFemale': totalFemaleVotesForAnsChoice3 },$set: { 'ansChoice4.$.totalVotesFemale': totalFemaleVotesForAnsChoice4 }} )
+                       
+                        
+                        //console.log(`ansChoice1: ${totalVotesForAnsChoice1} ansChoice2: ${totalVotesForAnsChoice2} ansChoice3: ${totalVotesForAnsChoice3} ansChoice4: ${totalVotesForAnsChoice4}`)
+                        //console.log(ansChoiceSelected);
                     })
                 }
                 // })

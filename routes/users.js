@@ -136,12 +136,27 @@ router.get('/editprofile', function(request, response){
     }
     else {
         if(request.flash().error)
-            response.render('pollme/login_signup', { error: request.flash().error, redirectPage: "/profile" });
+            response.render('pollme/login_signup', { error: request.flash().error, redirectPage: "/editprofile" });
         else
             response.render('pollme/login_signup', { redirectPage: "/editprofile" });
     }
 });
 
+router.post('/editprofile', function(request, response){
+    
+    if(request.isAuthenticated()) {    
+        /*
+        usersData.updateUser();
+        
+        */
+    }
+    else {
+        if(request.flash().error)
+            response.render('pollme/login_signup', { error: request.flash().error, redirectPage: "/editprofile" });
+        else
+            response.render('pollme/login_signup', { redirectPage: "/editprofile" });
+    }
+});
 
 router.get('/logout', function(request, response){
   request.logout();
