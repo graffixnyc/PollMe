@@ -80,16 +80,13 @@ router.get("/poll/:id", function(request, response) {
     pollsData.getPollById(request.params.id).then((pollInfo) => {
         pollResult.poll = pollInfo;
     })
-        .then(() => {
-            usersData.getUserById(pollResult.poll.createdByUser).then((user) => {
-                pollResult.user = user;
-            }).then(() => {
-                votesmatrixData.getVotesForPoll(request.params.id).then((voteInfo) => {
-                    pollResult.vote = voteInfo;
-                    response.render("pollme/single_poll", { poll: pollResult });
-                });
-            });
+    .then(() => {
+        pollResult.user = request.user;
+        votesmatrixData.getVotesForPoll(request.params.id).then((voteInfo) => {
+            pollResult.vote = voteInfo;
+            response.render("pollme/single_poll", { poll: pollResult });
         })
+    })
         .catch(() => {
             res.status(404).json({ error: "Error!Poll not found" });
         })
