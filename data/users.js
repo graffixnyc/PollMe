@@ -90,12 +90,11 @@ let exportedMethods = {
     //THIS FUNCTION NOT DONE YET
     updateUser(id, updatedUser) {
         return this.getUserById(id).then((currentUser) => {
-            if (currentUser.gender != updatedUser) {
+            if (currentUser.gender != updatedUser.gender) {
                 //get votes for polls they voted in deincrement the total votes for the gener they were
                 //and then increment the total number of votes for their new gender.  
                 let pollsVotedIn = currentUser.pollsVotedIn;
                 console.log(pollsVotedIn.length);
-
                 for (let i = 0; i < pollsVotedIn.length; i++) {
                     let ansChoiceSelected = pollsVotedIn[i].ansChoiceSelected
                     let pollId = pollsVotedIn[i].pollId
@@ -116,7 +115,6 @@ let exportedMethods = {
                                 case "ansChoice1":
                                     totalFemaleVotesForAnsChoice1 = votes.ansChoice1.totalVotesFemale + 1;
                                     totalMaleVotesForAnsChoice1 = votes.ansChoice1.totalVotesMale - 1;
-                                    //votesAndMetrics.updateOne({ _id: id }, {totalVotesMale: totalMaleVotesForAnsChoice1},{totalVotesMale: totalMaleVotesForAnsChoice1} )
                                     break;
                                 case "ansChoice2":
                                     totalFemaleVotesForAnsChoice2 = votes.ansChoice2.totalVotesFemale + 1;
@@ -130,7 +128,6 @@ let exportedMethods = {
                                     totalFemaleVotesForAnsChoice4 = votes.ansChoice4.totalVotesFemale + 1;
                                     totalMaleVotesForAnsChoice4 = votes.ansChoice4.totalVotesMale - 1;
                                     break;
-
                             }
                         } else {
                             console.log("changed to M");
@@ -155,39 +152,31 @@ let exportedMethods = {
                         }
                         console.log(`Poll id ${pollId} Male: ${totalMaleVotesForAnsChoice1}, ${totalMaleVotesForAnsChoice2}, ${totalMaleVotesForAnsChoice3}, ${totalMaleVotesForAnsChoice4}`)
                         console.log(`Poll id ${pollId} FeMale: ${totalFemaleVotesForAnsChoice1}, ${totalFemaleVotesForAnsChoice2}, ${totalFemaleVotesForAnsChoice3}, ${totalFemaleVotesForAnsChoice4}`)
-                       votesAndMetrics.updateVotes(pollId, totalMaleVotesForAnsChoice1,totalMaleVotesForAnsChoice2,totalMaleVotesForAnsChoice3,totalMaleVotesForAnsChoice4,
-                       totalFemaleVotesForAnsChoice1,totalFemaleVotesForAnsChoice2,totalFemaleVotesForAnsChoice3,totalFemaleVotesForAnsChoice4)
-                        //Now need to somehow call the update votes
-                        // votesAndMetrics.updateOne({ _id: pollId }, {$set: { 'ansChoice1.$.totalVotesMale': totalMaleVotesForAnsChoice1 }, 
-                        // $set: { 'ansChoice2.$.totalVotesMale': totalMaleVotesForAnsChoice2 },$set: { 'ansChoice3.$.totalVotesMale': totalMaleVotesForAnsChoice3 },
-                        // $set: { 'ansChoice4.$.totalVotesMale': totalMaleVotesForAnsChoice4 },$set: { 'ansChoice1.$.totalVotesFeMale': totalFemaleVotesForAnsChoice1 }, 
-                        // $set: { 'ansChoice2.$.totalVotesFemale': totalFemaleVotesForAnsChoice2 },$set: { 'ansChoice3.$.totalVotesFemale': totalFemaleVotesForAnsChoice3 },$set: { 'ansChoice4.$.totalVotesFemale': totalFemaleVotesForAnsChoice4 }} )
-                       
-                        
-                        //console.log(`ansChoice1: ${totalVotesForAnsChoice1} ansChoice2: ${totalVotesForAnsChoice2} ansChoice3: ${totalVotesForAnsChoice3} ansChoice4: ${totalVotesForAnsChoice4}`)
-                        //console.log(ansChoiceSelected);
+                        votesAndMetrics.updateVotes(pollId, totalMaleVotesForAnsChoice1, totalMaleVotesForAnsChoice2, totalMaleVotesForAnsChoice3, totalMaleVotesForAnsChoice4,
+                            totalFemaleVotesForAnsChoice1, totalFemaleVotesForAnsChoice2, totalFemaleVotesForAnsChoice3, totalFemaleVotesForAnsChoice4,
+                            votes.ansChoice1.totalVotes, votes.ansChoice2.totalVotes, votes.ansChoice3.totalVotes, votes.ansChoice4.totalVotes)
                     })
                 }
                 // })
             }
-            //     let updatedUser = {
-            //         firstName: updatedUser.firstName,
-            //         lastName: updatedUser.lastName,
-            //         email: upatedUser.email,
-            //         gender: upatedUser.gender,
-            //         city: updateUser.city,
-            //         state: upatedUser.state,
-            //         age: upatedUser.age,
-            //         hashedPassword: upatedUser.hashedPassword
-            //     };
+                let updatedUser = {
+                    firstName: updatedUser.firstName,
+                    lastName: updatedUser.lastName,
+                    email: upatedUser.email,
+                    gender: upatedUser.gender,
+                    city: updateUser.city,
+                    state: upatedUser.state,
+                    age: upatedUser.age,
+                    hashedPassword: upatedUser.hashedPassword
+                };
 
-            //     let updateCommand = {
-            //         $set: updatedUser
-            //     };
+                let updateCommand = {
+                    $set: updatedUser
+                };
 
-            //     return userCollection.updateOne({ _id: id }, updateCommand).then(() => {
-            //         return this.getUserById(id);
-            //     });
+                return userCollection.updateOne({ _id: id }, updateCommand).then(() => {
+                    return this.getUserById(id);
+                });
         });
     },
     addPollCreatedToUser(userId, pollId) {
