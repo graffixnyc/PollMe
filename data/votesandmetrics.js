@@ -48,22 +48,22 @@ let exportedMethods = {
         // i.e ansChoice1 =0 , ansChoice2 =0, ansChoice3 =1, ansChoice4 =0 means they voted for ansChoice3
         //  NOTE:  Only one ansChoiceX paramater passed in should be 1, the others should ALL be 0
         try {
-            if (arguments.length != 7) {
+            if (arguments.length != 4) {
                 throw new Error("The number of argument is wrong");
             }
             if (typeof pollId != 'string') {
                 throw new Error("pollId should be string");
             }
-            if (typeof ansChoice1 != 'number' || typeof ansChoice2 != 'number' || typeof ansChoice3 != 'number' || typeof ansChoice4 != 'number') {
+            if (typeof selector != 'string') {
                 throw new Error("ansChoice should be number");
             }
             if (typeof userId != 'string') {
                 throw new Error("userId should be string");
             }
-            let ansChoice1TotalVotes =0;
-            let ansChoice2TotalVotes =0;
-            let ansChoice3TotalVotes =0;
-            let ansChoice4TotalVotes =0;
+            let ansChoice1TotalVotes = 0;
+            let ansChoice2TotalVotes = 0;
+            let ansChoice3TotalVotes = 0;
+            let ansChoice4TotalVotes = 0;
             let ansChoice1TotalVotesMale = 0;
             let ansChoice2TotalVotesMale = 0;
             let ansChoice3TotalVotesMale = 0;
@@ -79,7 +79,7 @@ let exportedMethods = {
             switch (selector) {
                 case "choice1":
                     ansChoiceUserSelected = "ansChoice1";
-                    ansChoice1TotalVotes ++;
+                    ansChoice1TotalVotes++;
                     if (userGender == "M") {
                         ansChoice1TotalVotesMale = 1;
                     } else {
@@ -88,7 +88,7 @@ let exportedMethods = {
                     break;
                 case "choice2":
                     ansChoiceUserSelected = "ansChoice2";
-                    ansChoice2TotalVotes ++;
+                    ansChoice2TotalVotes++;
                     if (userGender == "M") {
                         ansChoice2TotalVotesMale = 1;
                     } else {
@@ -97,7 +97,7 @@ let exportedMethods = {
                     break;
                 case "choice3":
                     ansChoiceUserSelected = "ansChoice3";
-                    ansChoice3TotalVotes ++;
+                    ansChoice3TotalVotes++;
                     if (userGender == "M") {
                         ansChoice3TotalVotesMale = 1;
                     } else {
@@ -106,7 +106,7 @@ let exportedMethods = {
                     break;
                 case "choice4":
                     ansChoiceUserSelected = "ansChoice4";
-                    ansChoice4TotalVotes ++;
+                    ansChoice4TotalVotes++;
                     if (userGender == "M") {
                         ansChoice4TotalVotesMale = 1;
                     } else {
@@ -216,37 +216,39 @@ let exportedMethods = {
                     break;
             }
             console.log("Running update..");
-            return voteCollection.updateOne({ _id: pollId }, {
-                $set: {
-                    totalVotesForPoll: totalVotesForPoll,
-                    "ansChoice1": {
-                        "totalVotes": totalVotesForAnsChoice1,
-                        "totalVotesMale": totalVotesMaleForAnsChoice1,
-                        "totalVotesFemale": totalVotesFemaleForAnsChoice1
-                    },
-                    "ansChoice2": {
-                        "totalVotes": totalVotesForAnsChoice2,
-                        "totalVotesMale": totalVotesMaleForAnsChoice2,
-                        "totalVotesFemale": totalVotesFemaleForAnsChoice2
-                    },
-                    "ansChoice3": {
-                        "totalVotes": totalVotesForAnsChoice3,
-                        "totalVotesMale": totalVotesMaleForAnsChoice3,
-                        "totalVotesFemale": totalVotesFemaleForAnsChoice3
-                    },
-                    "ansChoice4": {
-                        "totalVotes": totalVotesForAnsChoice4,
-                        "totalVotesMale": totalVotesMaleForAnsChoice4,
-                        "totalVotesFemale": totalVotesFemaleForAnsChoice4
+            return votesAndMetrics().then((voteCollection) => {
+                return voteCollection.updateOne({ _id: pollId }, {
+                    $set: {
+                        totalVotesForPoll: totalVotesForPoll,
+                        "ansChoice1": {
+                            "totalVotes": totalVotesForAnsChoice1,
+                            "totalVotesMale": totalVotesMaleForAnsChoice1,
+                            "totalVotesFemale": totalVotesFemaleForAnsChoice1
+                        },
+                        "ansChoice2": {
+                            "totalVotes": totalVotesForAnsChoice2,
+                            "totalVotesMale": totalVotesMaleForAnsChoice2,
+                            "totalVotesFemale": totalVotesFemaleForAnsChoice2
+                        },
+                        "ansChoice3": {
+                            "totalVotes": totalVotesForAnsChoice3,
+                            "totalVotesMale": totalVotesMaleForAnsChoice3,
+                            "totalVotesFemale": totalVotesFemaleForAnsChoice3
+                        },
+                        "ansChoice4": {
+                            "totalVotes": totalVotesForAnsChoice4,
+                            "totalVotesMale": totalVotesMaleForAnsChoice4,
+                            "totalVotesFemale": totalVotesFemaleForAnsChoice4
+                        }
                     }
-                }
-            }).then((result) => {
-                console.log("after update...");
-                console.log("updateVoteDocument 14:");
-                return this.getPollById(pollId).then((poll) => {
-                    console.log("updateVoteDocument 15:");
-                    return usersData.addPollVotedInToUser(userId, poll._id, ansChoiceUserSelected)
+                }).then((result) => {
+                    console.log("after update...");
+                    console.log("updateVoteDocument 14:");
+                    return pollData.getPollById(pollId).then((poll) => {
+                        console.log("updateVoteDocument 15:");
+                        return usersData.addPollVotedInToUser(userId, poll._id, ansChoiceUserSelected)
 
+                    });
                 });
             });
         })
