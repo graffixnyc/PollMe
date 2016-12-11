@@ -19,7 +19,9 @@
         </div>
 </header>
 <div class="single-poll">
+    <center>
     <div id="poll-question">{{poll.poll.question}}</div><br>
+    
     {{#if poll.vote}}
     <div id="votes-total">{{poll.vote.totalVotesForPoll}} Votes</div><br>
 
@@ -101,22 +103,29 @@
     
     <form id="vote-on-poll" method="post" action="/voteonpoll">
         <br>
-        <h3 class="ask">Which are you voting on?</h3><br>
-        <label class="choice">Choice 1</label>
+        <h3 class="ask">Which do you vote for?</h3><br>
+        <table>
+            <tr>
+                <td align="left">
         <input type="radio" id="choice1" name="selector" value="choice1" checked/>
         <label class="choice-info" for="choice1">{{poll.poll.ansChoice1}}</label><br>
-
-        <label class="choice">Choice 2</label>
+                </td>
+            </tr>
+        <tr>
+            <td align="left">
         <input type="radio" id="choice2" name="selector" value="choice2">
         <label class="choice-info" for="choice2">{{poll.poll.ansChoice2}}</label><br>
-
-        <label class="choice">Choice 3</label>
+            </td></tr>
+       <tr>
+            <td align="left">
         <input type="radio" id="choice3" name="selector" value="choice3">
         <label class="choice-info" for="choice3">{{poll.poll.ansChoice3}}</label><br>
-
-        <label class="choice">Choice 4</label>
+            </td></tr>
+        <tr>
+            <td align="left">
         <input type="radio" id="choice4" name="selector" value="choice4">
         <label class="choice-info" for="choice4">{{poll.poll.ansChoice4}}</label><br>
+            </td></tr></table>
         <input type="hidden" name="pollid" id="pollid" value="{{poll.poll._id}}">
         <input type="hidden" name="userid" id="userid" value="{{poll.user._id}}">
         <input type="hidden" name="gender" id="gender" value="{{poll.user.gemder}}">
@@ -142,6 +151,7 @@
         <input type="hidden" name="poster" value="{{poll.user._id}}">
         <input type="submit" class="submit-comment" value="Submit">
     </form>
+    </center>
 </div>
 <footer>
         <div class="copyright">
