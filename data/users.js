@@ -1,8 +1,10 @@
 const mongoCollections = require("../config/mongoCollections");
 const users = mongoCollections.users;
+//const votesCollection = mongoCollections.votesAndMetrics;
 const uuid = require('node-uuid');
 const bcrypt = require('bcryptjs');
 //const polls = require("./polls");
+//const votesAndMetrics = require("./votesandmetrics");
 //const votesAndMetrics = require("./votesandmetrics");
 let exportedMethods = {
     getAllUsers() {
@@ -153,7 +155,14 @@ let exportedMethods = {
                         }
                         console.log(`Poll id ${pollId} Male: ${totalMaleVotesForAnsChoice1}, ${totalMaleVotesForAnsChoice2}, ${totalMaleVotesForAnsChoice3}, ${totalMaleVotesForAnsChoice4}`)
                         console.log(`Poll id ${pollId} FeMale: ${totalFemaleVotesForAnsChoice1}, ${totalFemaleVotesForAnsChoice2}, ${totalFemaleVotesForAnsChoice3}, ${totalFemaleVotesForAnsChoice4}`)
-                        //votesAndMetrics.updateOne({ _id: id }, {totalVotesMale: totalMaleVotesForAnsChoice1},{totalVotesMale: totalMaleVotesForAnsChoice1} )
+                       
+                        //Now need to somehow call the update votes
+                        // votesAndMetrics.updateOne({ _id: pollId }, {$set: { 'ansChoice1.$.totalVotesMale': totalMaleVotesForAnsChoice1 }, 
+                        // $set: { 'ansChoice2.$.totalVotesMale': totalMaleVotesForAnsChoice2 },$set: { 'ansChoice3.$.totalVotesMale': totalMaleVotesForAnsChoice3 },
+                        // $set: { 'ansChoice4.$.totalVotesMale': totalMaleVotesForAnsChoice4 },$set: { 'ansChoice1.$.totalVotesFeMale': totalFemaleVotesForAnsChoice1 }, 
+                        // $set: { 'ansChoice2.$.totalVotesFemale': totalFemaleVotesForAnsChoice2 },$set: { 'ansChoice3.$.totalVotesFemale': totalFemaleVotesForAnsChoice3 },$set: { 'ansChoice4.$.totalVotesFemale': totalFemaleVotesForAnsChoice4 }} )
+                       
+                        
                         //console.log(`ansChoice1: ${totalVotesForAnsChoice1} ansChoice2: ${totalVotesForAnsChoice2} ansChoice3: ${totalVotesForAnsChoice3} ansChoice4: ${totalVotesForAnsChoice4}`)
                         //console.log(ansChoiceSelected);
                     })
