@@ -8,17 +8,76 @@ dbConnection().then(db => {
     return db.dropDatabase().then(() => {
         return dbConnection;
     }).then((db) => {
-        return users.addUser("Spidey102", "Spider", "Man", "graffixnyc@gmail.com", "M", "Flushing", "NY", "25", bcrypt.hashSync("testingfornow"));
+        return users
+          .addUser("Spidey102", "Spider", "Man", "graffixnyc@gmail.com", "M", "Flushing", "NY", "25", bcrypt.hashSync("testingfornow"))
+          .then(() => {
+              return users.addUser("koby", "Yasuo", "Kobayashi", "koby@gmail.com", "M", "Elmhust", "NY", "28", bcrypt.hashSync("yasuo"));
+          })
+          .then(() => {
+              return users.addUser("hali", "Haoyang", "Li", "hali@gmail.com", "F", "Jersey City", "NJ", "23", bcrypt.hashSync("haoyang"));
+          })
+          .then(() => {
+              return users.addUser("Seito", "Seito", "Ryu", "seito@gmail.com", "M", "Hoboken", "NJ", "30", bcrypt.hashSync("seito"));
+          })
+          .then(() => {
+              return users.addUser("jason", "jason", "sarwar", "jason@gmail.com", "M", "Hoboken", "NJ", "24", bcrypt.hashSync("jason"));
+          })
+          .then(() => {
+              return users.addUser("mike", "Mike", "Torres", "mike@gmail.com", "M", "Manhattan", "NY", "29", bcrypt.hashSync("mike"));
+          })
+          .then(() => {
+              return users.addUser("london", "London", "Hyde", "london@gmail.com", "M", "London", "UK", "23", bcrypt.hashSync("london"));
+          })
+          .then(() => {
+              return users.addUser("paris", "Paris", "Miller", "paris@gmail.com", "F", "Paris", "FR", "33", bcrypt.hashSync("paris"));
+          })
+          .then(() => {
+              return users.addUser("deli", "Deli", "Dan", "deli@gmail.com", "M", "Deli", "ID", "27", bcrypt.hashSync("deli"));
+          })
+          .then(() => {
+              return users.addUser("sha", "Shanghai", "Lu", "sha@gmail.com", "M", "Shanghai", "CH", "29", bcrypt.hashSync("sha"));
+          })
+          .then(() => {
+              return users.addUser("gaj", "Gamma", "Jo", "gaj@gmail.com", "M", "Miami", "FR", "27", bcrypt.hashSync("gaj"));
+          })
+
     }).then((patrick) => {
         const id = patrick._id;
 
         return polls
             .addPoll("Technology", "11/27/2016", "What Phone Should I buy?", "iPhone 7", "Galaxy S7", "Google Pixel XL", "Other (leave in comments)", id)
             .then(() => {
+                return polls.addPoll("Food", "11/27/2016", "What is the best food before taking an exam?", "Banana", "Pizza", "Chocolate", "Sushi", id);
+            })
+            .then(() => {
+                return polls.addPoll("Entertainment", "12/10/2016", "What is a must see YouTube video today?", "PPAP", "TED Talks", "Maroon5", "Adele Carpool Karaoke", id);
+            })
+            .then(() => {
                 return polls.addPoll("Education", "11/27/2016", "What Class Should I take next semester?", "CS 546", "CS 522", "CS 545", "CS 522", id);
             })
             .then(() => {
-                return polls.addPoll("Technology", "11/27/2016", "What is a better laptop phone?", "MacBook Pro 13", "Dell XPS 13", "Lenovo Yoga", "HP Envy", id);
+                return polls.addPoll("Automotive", "12/1/2016", "What types of car should I buy?", "SUVs", "Sedan", "Sports", "Truck", id);
+            })
+            .then(() => {
+                return polls.addPoll("Sports", "12/2/2016", "What sports should I watch with my girlfriend?", "Football", "Baseball", "Basketball", "Tennis", id);
+            })
+            .then(() => {
+                return polls.addPoll("Movies", "12/7/2016", "What is a must see movie?", "Inception", "GodFather", "Harry Poter", "Mission Impossible", id);
+            })
+            .then(() => {
+                return polls.addPoll("Travel", "11/27/2016", "Which city should I visit this summer?", "Miami", "New Orleans", "San Francisco", "Hoboken", id);
+            })
+            .then(() => {
+                return polls.addPoll("Politics", "11/22/2016", "Who should be the next president of the United States?", "Donald Trump", "Hilary Cliton", "Michael Jordan", "Lady Gaga", id);
+            })
+            .then(() => {
+                return polls.addPoll("Arts", "12/5/2016", "Which museum do you like the most in NYC?", "Metropolitan", "MOMA", "Guggenheim", "Whitney", id);
+            })
+            .then(() => {
+                return polls.addPoll("Health", "11/20/2016", "What health concerns do you have recently?", "Obesity", "Depression", "Diabetes", "Heart disease", id);
+            })
+            .then(() => {
+                return polls.addPoll("Music", "11/22/2016", "What genres of music do you want to listen?", "Rock", "Pops", "Classic", "Jazz", id);
             })
         //.then(() => {
         //   return polls.addPoll(12, "11/27/2016","What is a better laptop?","MacBook Pro 13","Dell XPS 13","Lenovo Yoga","HP Envy", id);
