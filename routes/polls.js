@@ -99,15 +99,13 @@ router.post("/voteonpoll", function(request, response) {
     if (request.isAuthenticated()) {
         // Allowed to vote on poll
         votesmatrixData.countVote(vote.pollId, vote.ansChoice1, vote.ansChoice2, vote.ansChoice3, vote.ansChoice4, vote.userId, vote.gender).then(() => {
-            response.redirect("/poll/" + vote.pollId);
+            response.json({ success: true, pollid: vote.pollId });
         });
     }
     else {
         //Render a login page
-        if (request.flash().error)
-            response.render('pollme/login_signup', { error: request.flash().error, redirectPage: "/poll/" + request.body.pollid });
-        else
-            response.render('pollme/login_signup', { redirectPage: "/poll/" + request.body.pollid });
+        response.json({ success: false, login: true});
+        
     }
 });
 
