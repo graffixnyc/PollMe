@@ -7,15 +7,15 @@
             <ul>
                 <li><a href="/">Home</li>
                     <li><a href="/createpoll">Create Polls</li>
-                    <li class="dropdown">Hi {{user.username}}
+                    <li class="dropdown"><a href="/private">Hi {{user.username}}
                         <div class="dropdown-content">
-                            <a class="submenu" href="#">Edit Profile</a>
-                    <a class="submenu" href="/polls/{{user.id}}">My Polls</a>
-                    <a class="submenu" href="/logout">Log Out</a>
-    </div>
-    </li>
-    </ul>
-    </nav>
+                            <a class="submenu" href="/mypolls">My Polls</a>
+                            <a class="submenu" href="/editprofile">Edit Profile</a>
+                            <a class="submenu" href="/logout">Log Out</a>
+                        </div>
+                     </li>
+            </ul>
+        </nav>
     </div>
 </header>
 
