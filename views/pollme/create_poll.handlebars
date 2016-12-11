@@ -6,7 +6,7 @@
         <nav>
             <ul>
                 <li><a href="/">Home</li>
-                    <li><a href="createpoll">Create Polls</li>
+                    <li><a href="/createpoll">Create Polls</li>
                     <li class="dropdown">Hi {{user.username}}
                         <div class="dropdown-content">
                             <a class="submenu" href="#">Edit Profile</a>
@@ -20,21 +20,21 @@
 </header>
 
 <div class="user-home">
-    <form class="search-box" style="border-color: #f6f6f6; border-style: none; box-shadow: 0 0 0;">
-        New Poll
+    <form class="search-box">
+        <h3 class="ask">Create Your Polls</h3>
     </form>
-
     <div>
         <form id="new-poll" method="post" action="/createpoll">
             <table id="poll-create-maintable" class="poll-table">
-                <tr>
-                    <td class="table-head" ">Question</td>
-                    <td><input class="table-body " style="width:100% " type="text " name="question
-                        " required autocomplete="off "/></td>
-                </tr>
-                <tr>
-                    <td class="table-head ">Category</td>
-                    <td><select class="table-body " style="width:100% " name="category " style="width:156px; ">
+                <tbody>
+                    <tr>
+                        <th class="table-head-1">Question</th>
+                        <td><input class="table-body" style="width:100%" type="text" name="question" /></td>
+                    </tr>
+                    <tr>
+                        <th class="table-head-1">Category</th>
+                        <td>
+                        <select class="table-body " style="width:100%" name="category">
                             <option value="Arts">Arts</option>
                             <option value="Automotive">Automotive</option>
                             <option value="Business&Finance">Business & Finance</option>
@@ -54,34 +54,30 @@
                             <option value="Travel">Travel</option>
                             <option value="TV">TV</option>
                             <option value="Other">Other</option>
-                        </select></td>
-                </tr>
-                <tr>
-                    <td class="table-head ">Choice1</td>
-                    <td><input class="table-body " style="width:100% " type="text " name="choice1
-                        " required autocomplete="off "/></td>
-                </tr>
-                <tr>
-                    <td class="table-head ">Choice2</td>
-                    <td><input class="table-body " style="width:100% " type="text " name="choice2
-                        " required autocomplete="off "/></td>
-                </tr>
-                <tr>
-                    <td class="table-head ">Choice3</td>
-                    <td><input class="table-body " style="width:100% " type="text " name="choice3
-                        " required autocomplete="off "/></td>
-                </tr>
-                <tr>
-                    <td class="table-head ">Choice4</td>
-                    <td><input class="table-body " style="width:100% " type="text " name="choice4
-                        " required autocomplete="off "/></td>
-                </tr>
+                        </select>
+                    </tr>
+                    <tr>
+                        <th class="table-head-1">Choice 1</th>
+                        <td><input class="table-body " style="width:100%" type="text" name="choice1"/></td>
+                    </tr>
+                    <tr>
+                        <th class="table-head-1">Choice 2</th>
+                        <td><input class="table-body " style="width:100%" type="text" name="choice2"/></td>
+                    </tr>
+                    <tr>
+                        <th class="table-head-1">Choice 3</th>
+                        <td><input class="table-body " style="width:100%" type="text" name="choice3"/></td>
+                    </tr>
+                    <tr>
+                        <th class="table-head-1">Choice 4</th>
+                        <td><input class="table-body " style="width:100%" type="text" name="choice4"/></td>
+                    </tr>
+                </tbody>
         <tr>
-            <td>
-            </td>
+            <td></td>
             <td class="search-box ">
-                <input id="search-button " style="width:90px " type="submit" value="Submit ">
-                <input id="search-button " style="width:90px " type="submit" value="Cancel ">
+                <input id="search-button" type="submit" value="Submit">
+                <input id="search-button" type="button" onclick="window.location.replace('/createpoll')" value="Cancel" />
             </td>
         </tr>
             </table>
