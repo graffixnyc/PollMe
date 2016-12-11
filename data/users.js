@@ -100,20 +100,21 @@ let exportedMethods = {
                     //console.log(`Poll ID: ${pollId}, ansChoiceSelected: ${ansChoiceSelected} `)
                     votesAndMetrics.getVotesForPoll(pollId).then((votes) => {
                         let totalVotesForPoll = votes.totalVotesForPoll;
-                        let totalMaleVotesForAnsChoice1 = 0;
-                        let totalMaleVotesForAnsChoice2 = 0;
-                        let totalMaleVotesForAnsChoice3 = 0;
-                        let totalMaleVotesForAnsChoice4 = 0;//votes.ansChoice4.totalVotesMale;
-                        let totalFemaleVotesForAnsChoice1 = 0;
-                        let totalFemaleVotesForAnsChoice2 = 0
-                        let totalFemaleVotesForAnsChoice3 = 0
-                        let totalFemaleVotesForAnsChoice4 = 0
+                        let totalMaleVotesForAnsChoice1 = votes.ansChoice1.totalVotesMale;
+                        let totalMaleVotesForAnsChoice2 = votes.ansChoice2.totalVotesMale;
+                        let totalMaleVotesForAnsChoice3 = votes.ansChoice3.totalVotesMale;
+                        let totalMaleVotesForAnsChoice4 = votes.ansChoice4.totalVotesMale;//votes.ansChoice4.totalVotesMale;
+                        let totalFemaleVotesForAnsChoice1 = votes.ansChoice1.totalVotesFemale;
+                        let totalFemaleVotesForAnsChoice2 = votes.ansChoice2.totalVotesFemale;
+                        let totalFemaleVotesForAnsChoice3 = votes.ansChoice3.totalVotesFemale;
+                        let totalFemaleVotesForAnsChoice4 = votes.ansChoice4.totalVotesFemale;
                         if (updatedUser == "F") {
                             console.log("changed to f " + ansChoiceSelected);
                             switch (ansChoiceSelected) {
                                 case "ansChoice1":
                                     totalFemaleVotesForAnsChoice1 = votes.ansChoice1.totalVotesFemale + 1;
                                     totalMaleVotesForAnsChoice1 = votes.ansChoice1.totalVotesMale - 1;
+                                    //votesAndMetrics.updateOne({ _id: id }, {totalVotesMale: totalMaleVotesForAnsChoice1},{totalVotesMale: totalMaleVotesForAnsChoice1} )
                                     break;
                                 case "ansChoice2":
                                     totalFemaleVotesForAnsChoice2 = votes.ansChoice2.totalVotesFemale + 1;
@@ -152,7 +153,7 @@ let exportedMethods = {
                         }
                         console.log(`Poll id ${pollId} Male: ${totalMaleVotesForAnsChoice1}, ${totalMaleVotesForAnsChoice2}, ${totalMaleVotesForAnsChoice3}, ${totalMaleVotesForAnsChoice4}`)
                         console.log(`Poll id ${pollId} FeMale: ${totalFemaleVotesForAnsChoice1}, ${totalFemaleVotesForAnsChoice2}, ${totalFemaleVotesForAnsChoice3}, ${totalFemaleVotesForAnsChoice4}`)
-
+                        //votesAndMetrics.updateOne({ _id: id }, {totalVotesMale: totalMaleVotesForAnsChoice1},{totalVotesMale: totalMaleVotesForAnsChoice1} )
                         //console.log(`ansChoice1: ${totalVotesForAnsChoice1} ansChoice2: ${totalVotesForAnsChoice2} ansChoice3: ${totalVotesForAnsChoice3} ansChoice4: ${totalVotesForAnsChoice4}`)
                         //console.log(ansChoiceSelected);
                     })
