@@ -276,3 +276,4 @@ let exportedMethods = {
 }
 
 module.exports = exportedMethods;
+const polls = require("./polls");
