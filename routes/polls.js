@@ -95,11 +95,12 @@ router.get("/poll/:id", function(request, response) {
 router.post("/voteonpoll", function(request, response) {
     
     var vote = request.body;
-    console.log(vote)
+    var user=request.user;
+    console.log(vote);
+    
     if (request.isAuthenticated()) {
         // Allowed to vote on poll
-        //JASON: Gender is blank 
-        votesmatrixData.countVote(vote.pollid, vote.selector, vote.userid, vote.gender).then(() => {
+        votesmatrixData.countVote(vote.pollid, vote.selector, vote.userid, user.gender).then(() => {
             response.json({ success: true, pollid: vote.pollId });
         });
     }
