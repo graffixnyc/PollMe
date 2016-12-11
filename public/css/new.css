@@ -290,7 +290,7 @@ footer {
   margin-bottom: 10px;
 }
 
-.search-box #keyword, .search-box #category {
+.search-box #keyword, .search-box #by-category {
 	border: 1px solid #CCC;
 	-webkit-box-shadow: 0 1px 1px #ddd inset, 0 1px 0 #FFF;
 	-moz-box-shadow: 0 1px 1px #ddd inset, 0 1px 0 #FFF;
@@ -306,12 +306,12 @@ footer {
 	width: 300px;
 }
 
-.search-box #category {
+.search-box #by-category {
   margin-top: 20px;
   height: 30px;
 }
 
-.search-box #keyword, .search-box #category {
+.search-box #keyword, .search-box #by-category {
   border-color: #aaa;
 	-webkit-box-shadow: 0 1px 1px #bbb inset;
 	-moz-box-shadow: 0 1px 1px #bbb inset;
