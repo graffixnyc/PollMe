@@ -95,9 +95,6 @@ router.get("/poll/:id", function(request, response) {
 router.post("/voteonpoll", function(request, response) {
     
     var vote = request.body;
-    console.log("POLL IDVOTE:" + vote.pollId);
-    console.log("POLL SelectVOTE:" + vote.Selector);
-    console.log("POLL userId:" + vote.userId);
     console.log(vote)
     if (request.isAuthenticated()) {
         // Allowed to vote on poll
