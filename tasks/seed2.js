@@ -4,6 +4,8 @@ const users = data.users;
 const polls = data.polls;
 const votesAndMetrics =data.votesAndMetrics;
 const bcrypt = require('bcryptjs');
+//   THIS FILE IS JUST USED TO TEST THE VARIOUS DATA FUNCTIONS
+
 //     return votesAndMetrics.countVote("d7795d57-4316-4d81-b166-c6804e13c960", 0,0,0,1 ,"7d643ba0-90cf-4be2-a8fe-f9fc9c02e553","M").then(() => {
 //      return votesAndMetrics.countVote("9ab8f178-0287-408f-9b4a-baa4e959fdbf", 1,0,0,0 ,"7d643ba0-90cf-4be2-a8fe-f9fc9c02e553","M").then(() => {
 //  });
