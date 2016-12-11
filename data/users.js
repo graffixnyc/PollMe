@@ -155,7 +155,7 @@ let exportedMethods = {
                         }
                         console.log(`Poll id ${pollId} Male: ${totalMaleVotesForAnsChoice1}, ${totalMaleVotesForAnsChoice2}, ${totalMaleVotesForAnsChoice3}, ${totalMaleVotesForAnsChoice4}`)
                         console.log(`Poll id ${pollId} FeMale: ${totalFemaleVotesForAnsChoice1}, ${totalFemaleVotesForAnsChoice2}, ${totalFemaleVotesForAnsChoice3}, ${totalFemaleVotesForAnsChoice4}`)
-                       
+                       //votesAndMetrics.updateVotes(pollId,{ansChoice1.totalVotesMale})
                         //Now need to somehow call the update votes
                         // votesAndMetrics.updateOne({ _id: pollId }, {$set: { 'ansChoice1.$.totalVotesMale': totalMaleVotesForAnsChoice1 }, 
                         // $set: { 'ansChoice2.$.totalVotesMale': totalMaleVotesForAnsChoice2 },$set: { 'ansChoice3.$.totalVotesMale': totalMaleVotesForAnsChoice3 },
