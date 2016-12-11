@@ -106,7 +106,7 @@ router.post("/voteonpoll", function(request, response) {
     }
     else {
         //Render a login page
-        response.json({ success: false, login: true});
+        response.render('pollme/login_signup', { redirectPage: "/poll/" + request.body.pollid });
         
     }
 });
