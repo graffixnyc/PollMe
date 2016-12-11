@@ -218,29 +218,6 @@ let exportedMethods = {
 
             }
         })
-        //.then(()=>{
-        // // in this function we need to first get the document then do some checking like we did
-        // // in createNewVoteDocument, then increment: the totalVotesForPoll, the totalVotes for the ansChoice the user selected 
-        // // and the total vote of gender 
-        // return votesAndMetrics().then((voteCollection) => {
-        //     let updatedVoteData = {};
-        //     if (updatedVote.tags) {
-        //         updatedVoteData.tags = updatedVote.tags;
-        //     }
-        //     if (updatedVote.title) {
-        //         updatedVoteData.title = updatedVote.title;
-        //     }
-        //     if (updatedVote.body) {
-        //         updatedVoteData.body = updatedVote.body;
-        //     }
-        //     let updateCommand = {
-        //         $set: updatedVoteData
-        //     };
-        //     return voteCollection.updateOne({ _id: id }, updateCommand).then((result) => {
-        //         return this.getVoteById(id);
-        //     });
-        // });
-        // });
     },
     updateVotes(pollId, totalVotesMaleForAnsChoice1, totalVotesMaleForAnsChoice2, totalVotesMaleForAnsChoice3, totalVotesMaleForAnsChoice4, totalVotesFemaleForAnsChoice1,
         totalVotesFemaleForAnsChoice2, totalVotesFemaleForAnsChoice3, totalVotesFemaleForAnsChoice4, totalVotesAns1, totalVotesAns2,totalVotesAns3,totalVotesAns4) {
