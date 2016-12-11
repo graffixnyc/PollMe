@@ -63,7 +63,6 @@ let exportedMethods = {
 
     },
     getPollById(id) {
-        console.log("SUUUPP");
         return polls().then((pollCollection) => {
             return pollCollection
                 .findOne({ _id: id })

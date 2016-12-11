@@ -171,7 +171,7 @@ router.post('/editprofile', function(request, response){
     
     if(request.isAuthenticated()) {    
         /*
-        usersData.updateUser();
+        votesmatrixData.updateUser();
         
         */
     }
