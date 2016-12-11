@@ -101,7 +101,7 @@ router.post("/voteonpoll", function(request, response) {
     console.log(vote);
     if (request.isAuthenticated()) {
         // Allowed to vote on poll
-        votesmatrixData.countVote(vote.pollId, vote.ansChoice1, vote.ansChoice2, vote.ansChoice3, vote.ansChoice4, vote.userId, vote.gender).then(() => {
+        votesmatrixData.countVote(vote.pollId, vote.selector, vote.userId, vote.gender).then(() => {
             response.json({ success: true, pollid: vote.pollId });
         });
     }
