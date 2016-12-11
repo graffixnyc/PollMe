@@ -21,7 +21,7 @@
 
 <div class="single-poll">
         <div id="signup" style="float:right;">   
-          <form method="post">
+          <form method="post" action="/editprofile">
           <div class="top-row">
             <div class="field-wrap">
               <label>
@@ -41,7 +41,7 @@
                 <label>
                   Username<span class="req">*</span>
                 </label>
-                <input class="original-input" name="signUpUsername" type="text"required autocomplete="on" value={{user.username}}>
+                <input class="original-input" name="username" type="text"required autocomplete="on" value={{user.username}}>
               </div>
                           
               <div class="field-wrap">
@@ -65,7 +65,7 @@
           <label>
               Age<span class="req">*</span>
             </label>
-          <input class="original-input" name="age" type="text" name="age" value={{user.age}}/>
+          <input class="original-input" name="age" type="text" name="age" value="{{user.age}}"/>
         </div>
 
         <div class="top-row">
@@ -73,7 +73,7 @@
             <label>
                 City<span class="req">*</span>
               </label>
-            <input class="original-input" name="city" type="text" required autocomplete="on" value={{user.city}}/>
+            <input class="original-input" name="city" type="text" required autocomplete="on" value="{{user.city}}"/>
           </div>
 
           <div class="field-wrap">
