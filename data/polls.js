@@ -213,7 +213,8 @@ let exportedMethods = {
         return polls().then((pollCollection) => {
            return pollCollection.distinct("category", {}, {});
         });
-    }
+    },
+    
     
 }
 
