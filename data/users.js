@@ -86,7 +86,7 @@ let exportedMethods = {
         });
     },
     //THIS FUNCTION NOT DONE YET
-    updateUser(id, updatedUser) {
+    updateUserVotes(id) {
         return this.getUserById(id).then((currentUser) => {
             if (currentUser.gender != updatedUser) {
                 //get votes for polls they voted in deincrement the total votes for the gener they were
@@ -99,13 +99,15 @@ let exportedMethods = {
                     let pollId = pollsVotedIn[i].pollId
                     console.log(`Poll ID: ${pollId}, ansChoiceSelected: ${ansChoiceSelected} `)
                      votesAndMetrics.getVotesForPoll(pollId).then((votes) => {
+                         
                         let totalVotesForPoll = votes.totalVotesForPoll;
                         let totalVotesForAnsChoice1 =votes.ansChoice1.totalVotes;
                         let totalVotesForAnsChoice2 =votes.ansChoice2.totalVotes;
                         let totalVotesForAnsChoice3 =votes.ansChoice3.totalVotes;
                         let totalVotesForAnsChoice4 =votes.ansChoice4.totalVotes;
                         console.log(`ansChoice1: ${totalVotesForAnsChoice1} ansChoice2: ${totalVotesForAnsChoice2} ansChoice3: ${totalVotesForAnsChoice3} ansChoice4: ${totalVotesForAnsChoice4}`)
-                    })
+                        console.log(ansChoiceSelected);
+                 })
                 }
                 // })
             }
