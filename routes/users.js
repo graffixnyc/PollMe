@@ -10,11 +10,11 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 router.get("/profile", function (request, response) {
-    
-    if(request.isAuthenticated())
+
+    if (request.isAuthenticated())
         response.redirect('/user/' + request.user.username);
     else {
-        if(request.flash().error)
+        if (request.flash().error)
             response.render('pollme/login_signup', { error: request.flash().error, redirectPage: "/profile" });
         else
             response.render('pollme/login_signup', { redirectPage: "/profile" });
@@ -23,22 +23,22 @@ router.get("/profile", function (request, response) {
 
 
 router.get("/user/:username", function (request, response) {
-    if(!request.params.username) {
+    if (!request.params.username) {
         //error handling
-        
+
     }
     usersData.getUserByUsername(request.params.username).then((user) => {
-        if(!user) {
-         //error handling   
+        if (!user) {
+            //error handling   
         }
-        
+
         response.render('pollme/userprofile', { user: user });
-        
+
     }, (err) => {
-     //error handling   
-     console.log(err);   
+        //error handling   
+        console.log(err);
     });
-    
+
 });
 
 // router.post("/login", function(request, response, next) {
@@ -54,7 +54,7 @@ router.get("/user/:username", function (request, response) {
 // });
 
 router.get("/login", function (request, response) {
-        response.render("pollme/login_signup", {message: request.flash('loginMessage')});
+    response.render("pollme/login_signup", { message: request.flash('loginMessage') });
 })
 
 //Update the post /login with passport
@@ -65,7 +65,7 @@ router.post('/login', passport.authenticate('local', {
 }));
 
 //Pakage the validation function into passport.js module.
-router.get('/private', isLoggedIn, function(req, res) {
+router.get('/private', isLoggedIn, function (req, res) {
     let userResult = {};
     userResult.userInfo = req.user;
     // console.log(userResult.userInfo);
@@ -78,19 +78,21 @@ router.get('/private', isLoggedIn, function(req, res) {
             subpoll.category = polls[i].category;
             subpoll.postedDate = polls[i].postedDate;
             votesmatrixData.getVotesForPoll(polls[i]._id).then((votes) => {
-                subpoll.votes = votes.totalVotesForPoll;
+                if (votes) {
+                    subpoll.votes = votes.totalVotesForPoll;
+                }
             })
             pollsInfo.push(subpoll);
         }
     })
     userResult.pollInfo = pollsInfo;
     res.render('pollme/user_home', {
-        user: userResult 
+        user: userResult
     });
-    
+
 });
 
-router.get('/mypolls', isLoggedIn, function(req, res) {
+router.get('/mypolls', isLoggedIn, function (req, res) {
     let userResult = {};
     userResult.userInfo = req.user;
     // console.log(userResult.userInfo);
@@ -104,27 +106,27 @@ router.get('/mypolls', isLoggedIn, function(req, res) {
             subpoll.postedDate = poll.postedDate;
             votesmatrixData.getVotesForPoll(poll._id).then((votes) => {
                 subpoll.vote = votes.totalVotesForPoll;
-            })  
+            })
             pollsInfo.push(subpoll);
         })
     };
     userResult.pollInfo = pollsInfo;
     res.render('pollme/mypage_mypoll', {
-        user: userResult 
+        user: userResult
     });
-    
+
 });
 
 function isLoggedIn(req, res, next) {
-    if(req.isAuthenticated())
+    if (req.isAuthenticated())
         return next();
-    else 
+    else
         res.redirect('/login');
 }
 
 router.get("/signup", function (request, response) {
-    
-    if(request.isAuthenticated()) {
+
+    if (request.isAuthenticated()) {
         // user needs to logout first
     }
     else {
@@ -134,11 +136,11 @@ router.get("/signup", function (request, response) {
 
 
 router.post("/signup", function (request, response) {
-    
+
     let newUser = request.body;
     usersData.createHashedPassword(newUser.signUpPassword).then((hashedPassword) => {
         usersData.addUser(newUser.signUpUsername, newUser.firstname, newUser.lastname, newUser.email, newUser.gender, newUser.city, newUser.state, newUser.age, hashedPassword).then((user) => {
-            request.login(user, function(err) {
+            request.login(user, function (err) {
                 if (err) { console.log(err); }
                 response.redirect(request.body.redirectPageSignUp);
             });
@@ -153,39 +155,39 @@ router.post("/signup", function (request, response) {
     });
 });
 
-router.get('/editprofile', function(request, response){
-    
-    if(request.isAuthenticated()) {    
+router.get('/editprofile', function (request, response) {
+
+    if (request.isAuthenticated()) {
         response.render('pollme/mypage_edit', { user: request.user });
-      
+
     }
     else {
-        if(request.flash().error)
+        if (request.flash().error)
             response.render('pollme/login_signup', { error: request.flash().error, redirectPage: "/editprofile" });
         else
             response.render('pollme/login_signup', { redirectPage: "/editprofile" });
     }
 });
 
-router.post('/editprofile', function(request, response){
-    
-    if(request.isAuthenticated()) {    
+router.post('/editprofile', function (request, response) {
+
+    if (request.isAuthenticated()) {
         /*
         votesmatrixData.updateUser();
         
         */
     }
     else {
-        if(request.flash().error)
+        if (request.flash().error)
             response.render('pollme/login_signup', { error: request.flash().error, redirectPage: "/editprofile" });
         else
             response.render('pollme/login_signup', { redirectPage: "/editprofile" });
     }
 });
 
-router.get('/logout', function(request, response){
-  request.logout();
-  response.redirect('/');
+router.get('/logout', function (request, response) {
+    request.logout();
+    response.redirect('/');
 });
 
 module.exports = router;
