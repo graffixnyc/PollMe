@@ -10,7 +10,7 @@
                     <li class="dropdown">Hi {{user.userInfo.username}}
                         <div class="dropdown-content">
                             <a class="submenu" href="#">Edit Profile</a>
-                            <a class="submenu" href="/polls/{{user.userInfo._id}}">My Polls</a>
+                            <a class="submenu" href="/mypolls">My Polls</a>
                             <a class="submenu" href="/logout">Log Out</a>
                         </div>
                     </li>
@@ -18,9 +18,32 @@
             </nav>
         </div>
 </header>
-<div class="user-home">
-    <form class="search-box">
-        <input id="keyword" type="text" name="keyword" placeholder="Search by category...">
+<div class="home-before">
+    <form class="search-box" action="/search" method="POST">
+        <input id="keyword" type="text" name="keyword" placeholder="Search by keyword...">
+        <select id="category" name="category">
+            <option value="null">--Select Category--</option>
+            <option value="Arts">Arts</option>
+            <option value="Automotive">Automotive</option>
+            <option value="Business&Finance">Business & Finance</option>
+            <option value="Education">Education</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Fashion">Fashion</option>
+            <option value="Food">Food</option>
+            <option value="Health">Health</option>
+            <option value="Lifestyle">Lifestyle</option>
+            <option value="Movies">Movies</option>
+            <option value="Music">Music</option>
+            <option value="Philosophy">Philosophy</option>
+            <option value="Politics">Politics</option>
+            <option value="Science">Science</option>
+            <option value="Sports">Sports</option> 
+            <option value="Technology">Technology</option>
+            <option value="Travel">Travel</option>
+            <option value="TV">TV</option>
+            <option value="Other">Other</option>
+            
+        </select>
         <input id="search-button" type="submit" value="Search">
     </form>
 
@@ -37,14 +60,14 @@
             {{#each user.pollInfo}}
             <tr>
                 <td class="table-body"><a class="track-single" href="/poll/{{this._id}}">{{this.question}}</a></td>
-                <td class="table-body">{{this.category}}</td>
-                <td class="table-body">{{this.postedDate}}</td>
-                <td class="table-body">{{this.vote}}</td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
-</div>
+                    <td class="table-body">{{this.category}}</td>
+                    <td class="table-body">{{this.postedDate}}</td>
+                    <td class="table-body">{{this.votes}}</td>
+                    </tr>
+                    {{/each}}
+                    </tbody>
+                    </table>
+    </div>
 <footer>
         <div class="copyright">
             <p>&copy; PollMe Team || Patrick Hill | Yasuo Kobayashi | Haoyang Li | Seito Ryu | Jason Sarwar</p>
