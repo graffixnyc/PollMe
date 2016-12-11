@@ -37,7 +37,7 @@ let exportedMethods = {
                 this.createNewVoteDocument(pollId, selector, userId, userGender);
             } else {
                 //Poll has votes recorded already, so we need to update the votesAndMetrics document
-                this.updateVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender);
+                this.updateVoteDocument(pollId, selector, userId, userGender);
                 console.log("Document already created");
             }
         })
