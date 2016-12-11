@@ -4,10 +4,10 @@ const users = data.users;
 const polls = data.polls;
 const votesAndMetrics =data.votesAndMetrics;
 const bcrypt = require('bcryptjs');
-   return votesAndMetrics.countVote("2eb96c27-c16a-472f-a9e2-ec17eaa27c4b", 0,0,0,1 ,"a3ec63cb-00a6-4bd2-8c3b-cfb2b14d5f43","M").then(() => {
-    return votesAndMetrics.countVote("5cdf0686-2373-4fbc-ae8e-cfb2575be3fd", 1,0,0,0 ,"a3ec63cb-00a6-4bd2-8c3b-cfb2b14d5f43","M").then(() => {
-});
-});
+//     return votesAndMetrics.countVote("de7f296d-c1d9-48a1-b002-6a614bfddab5", 0,0,0,1 ,"cb343e33-47da-4818-b032-fc02ffa793c1","M").then(() => {
+//      return votesAndMetrics.countVote("b41f72f8-a40f-417a-8c43-4f25beb9678d", 1,0,0,0 ,"cb343e33-47da-4818-b032-fc02ffa793c1","M").then(() => {
+//  });
+//  });
 
 
 // }, (error) => {
@@ -28,7 +28,10 @@ const bcrypt = require('bcryptjs');
   //       console.log(poll.question);
   // });
 
+ return users.updateUser("cb343e33-47da-4818-b032-fc02ffa793c1","F").then(() => {
 
+        //console.log(poll.question);
+   });
 //  return polls.searchPollsByKeyword("phone").then((polls) => {
 //        if (!polls){
 

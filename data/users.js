@@ -88,35 +88,40 @@ let exportedMethods = {
     //THIS FUNCTION NOT DONE YET
     updateUser(id, updatedUser) {
         return this.getUserById(id).then((currentUser) => {
-            if (currentUser.gender != updatedUser.gender) {
+            if (currentUser.gender != updatedUser) {
                 //get votes for polls they voted in deincrement the total votes for the gener they were
                 //and then increment the total number of votes for their new gender.  
-                return polls.getPollsByUser(id).then((polls) => {
-                    for (let i = 0; i < polls.length; i++) {
-                        return votesAndMetrics.getVotesForPoll(polls[i]._id).then((votes) => {
+                var pollsVotedIn = currentUser.pollsVotedIn;
+                console.log(pollsVotedIn.length);
+                // return polls.getPollsByUser(id).then((polls) => {
+                for (let i = 0; i < pollsVotedIn.length; i++) {
+                    var ansChoiceSelected = pollsVotedIn[i].ansChoiceSelected
+                    var pollId = pollsVotedIn[i].pollId
+                    console.log(`Poll ID: ${pollId}, ansChoiceSelected: ${ansChoiceSelected} `)
+                    return votesAndMetrics.getVotesForPoll(pollId).then((votes) => {
 
-                        })
-                    }
-                })
+                    })
+                }
+                // })
             }
-            let updatedUser = {
-                firstName: updatedUser.firstName,
-                lastName: updatedUser.lastName,
-                email: upatedUser.email,
-                gender: upatedUser.gender,
-                city: updateUser.city,
-                state: upatedUser.state,
-                age: upatedUser.age,
-                hashedPassword: upatedUser.hashedPassword
-            };
+            //     let updatedUser = {
+            //         firstName: updatedUser.firstName,
+            //         lastName: updatedUser.lastName,
+            //         email: upatedUser.email,
+            //         gender: upatedUser.gender,
+            //         city: updateUser.city,
+            //         state: upatedUser.state,
+            //         age: upatedUser.age,
+            //         hashedPassword: upatedUser.hashedPassword
+            //     };
 
-            let updateCommand = {
-                $set: updatedUser
-            };
+            //     let updateCommand = {
+            //         $set: updatedUser
+            //     };
 
-            return userCollection.updateOne({ _id: id }, updateCommand).then(() => {
-                return this.getUserById(id);
-            });
+            //     return userCollection.updateOne({ _id: id }, updateCommand).then(() => {
+            //         return this.getUserById(id);
+            //     });
         });
     },
     addPollCreatedToUser(userId, pollId) {
@@ -157,6 +162,17 @@ let exportedMethods = {
             });
         });
     },
+    getPollsUserVotedin(userId) {
+        if (!userId)
+            return Promise.reject("No userId provided");
+
+        return this.getUserById(userId).then((user) => {
+            var pollsVotedIn = user.pollsVotedIn;
+            console.log(pollsVotedIn.length)
+
+        });
+
+    },
 
     isPasswordValid(user, password) {
         return new Promise((fulfill, reject) => {
@@ -173,3 +189,6 @@ let exportedMethods = {
 }
 
 module.exports = exportedMethods;
+
+const polls = require("./polls");
+const votesAndMetrics = require("./votesandmetrics");
