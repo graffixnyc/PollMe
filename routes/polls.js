@@ -58,7 +58,7 @@ router.post("/createpoll", function(request, response) {
 
     var newPoll = request.body;
     if (request.isAuthenticated()) {
-        var currentDate = new Date();
+        var currentDate = new Date().toLocaleString().split(',')[0]
         pollsData.addPoll(newPoll.category, currentDate, newPoll.question, newPoll.choice1, newPoll.choice2, newPoll.choice3, newPoll.choice4, request.user._id).then((pollid) => {
             response.redirect("/poll/" + pollid);
         }, (err) => {

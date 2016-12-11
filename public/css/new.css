@@ -396,7 +396,7 @@ footer {
 	font-variant: normal;
 	font-weight: 700;
 	line-height: 60px;
-  color: cadetblue;
+  color: black;
 }
 
 #votes-total {
@@ -406,7 +406,7 @@ footer {
 	font-variant: normal;
 	font-weight: 500;
 	line-height: 26.4px;
-  color: cornflowerblue;
+  color: black;
 }
 
 .table-head {
@@ -465,7 +465,7 @@ footer {
 }
 
 .ask {
-  color: cadetblue;
+  color: black;
   font-size: 26px;
 }
 
@@ -497,11 +497,11 @@ footer {
 
 .choice {
   font-size: 20px;
-  color: cadetblue;
+  color: black;
 }
 
 .choice-info {
-  color: cornflowerblue;
+  color: black;
   font-size: 20px;
 }
 
