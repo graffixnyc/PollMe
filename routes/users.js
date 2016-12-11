@@ -70,6 +70,31 @@ router.get('/private', isLoggedIn, function(req, res) {
     userResult.userInfo = req.user;
     // console.log(userResult.userInfo);
     let pollsInfo = [];
+    pollsData.getAllPolls().then((polls) => {
+        for (i = 0; i < polls.length; i++) {
+            let subpoll = {};
+            subpoll._id = polls[i]._id;
+            subpoll.question = polls[i].question;
+            subpoll.category = polls[i].category;
+            subpoll.postedDate = polls[i].postedDate;
+            votesmatrixData.getVotesForPoll(polls[i]._id).then((votes) => {
+                subpoll.votes = votes.totalVotesForPoll;
+            })
+            pollsInfo.push(subpoll);
+        }
+    })
+    userResult.pollInfo = pollsInfo;
+    res.render('pollme/user_home', {
+        user: userResult 
+    });
+    
+});
+
+router.get('/mypolls', isLoggedIn, function(req, res) {
+    let userResult = {};
+    userResult.userInfo = req.user;
+    // console.log(userResult.userInfo);
+    let pollsInfo = [];
     for (i = 0; i < userResult.userInfo.pollsCreated.length; i++) {
         let subpoll = {};
         pollsData.getPollById(userResult.userInfo.pollsCreated[i].pollId).then((poll) => {
@@ -84,7 +109,7 @@ router.get('/private', isLoggedIn, function(req, res) {
         })
     };
     userResult.pollInfo = pollsInfo;
-    res.render('pollme/user_home', {
+    res.render('pollme/mypage_mypoll', {
         user: userResult 
     });
     
