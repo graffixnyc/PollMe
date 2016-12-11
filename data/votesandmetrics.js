@@ -173,7 +173,6 @@ let exportedMethods = {
                         totalVotesFemaleForAnsChoice1++;
                     }
                     console.log("updateVoteDocument 5:");
-
                 case ansChoice2:
                     console.log("updateVoteDocument 8: case anschoice2");
                     ansChoiceUserSelected = "ansChoice2";
@@ -184,7 +183,6 @@ let exportedMethods = {
                         totalVotesFemaleForAnsChoice2++;
                     }
                     console.log("updateVoteDocument 9:");
-
                 case ansChoice3:
                     console.log("updateVoteDocument 12: case anschoice3");
                     ansChoiceUserSelected = "ansChoice3";
@@ -195,8 +193,6 @@ let exportedMethods = {
                         totalVotesFemaleForAnsChoice3++;
                     }
                     console.log("updateVoteDocument 13:");
-
-
                 case ansChoice4:
                     console.log("updateVoteDocument 16: case anschoice4");
                     ansChoiceUserSelected = "ansChoice4";

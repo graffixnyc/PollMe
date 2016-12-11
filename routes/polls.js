@@ -20,7 +20,9 @@ router.get("/", function(request, response) {
             subpoll.category = polls[i].category;
             subpoll.postedDate = polls[i].postedDate;
             votesmatrixData.getVotesForPoll(polls[i]._id).then((votes) => {
-                subpoll.votes = votes.totalVotesForPoll;
+                if(votes){
+                    subpoll.votes = votes.totalVotesForPoll;
+                }
             })
             pollsInfo.push(subpoll);
         }
