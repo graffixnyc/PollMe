@@ -93,21 +93,69 @@ let exportedMethods = {
                 //and then increment the total number of votes for their new gender.  
                 let pollsVotedIn = currentUser.pollsVotedIn;
                 console.log(pollsVotedIn.length);
-                // return polls.getPollsByUser(id).then((polls) => {
+
                 for (let i = 0; i < pollsVotedIn.length; i++) {
                     let ansChoiceSelected = pollsVotedIn[i].ansChoiceSelected
                     let pollId = pollsVotedIn[i].pollId
-                    console.log(`Poll ID: ${pollId}, ansChoiceSelected: ${ansChoiceSelected} `)
-                     votesAndMetrics.getVotesForPoll(pollId).then((votes) => {
-                         
+                    //console.log(`Poll ID: ${pollId}, ansChoiceSelected: ${ansChoiceSelected} `)
+                    votesAndMetrics.getVotesForPoll(pollId).then((votes) => {
                         let totalVotesForPoll = votes.totalVotesForPoll;
-                        let totalVotesForAnsChoice1 =votes.ansChoice1.totalVotes;
-                        let totalVotesForAnsChoice2 =votes.ansChoice2.totalVotes;
-                        let totalVotesForAnsChoice3 =votes.ansChoice3.totalVotes;
-                        let totalVotesForAnsChoice4 =votes.ansChoice4.totalVotes;
-                        console.log(`ansChoice1: ${totalVotesForAnsChoice1} ansChoice2: ${totalVotesForAnsChoice2} ansChoice3: ${totalVotesForAnsChoice3} ansChoice4: ${totalVotesForAnsChoice4}`)
-                        console.log(ansChoiceSelected);
-                 })
+                        let totalMaleVotesForAnsChoice1 = 0;
+                        let totalMaleVotesForAnsChoice2 = 0;
+                        let totalMaleVotesForAnsChoice3 = 0;
+                        let totalMaleVotesForAnsChoice4 = 0;//votes.ansChoice4.totalVotesMale;
+                        let totalFemaleVotesForAnsChoice1 = 0;
+                        let totalFemaleVotesForAnsChoice2 = 0
+                        let totalFemaleVotesForAnsChoice3 = 0
+                        let totalFemaleVotesForAnsChoice4 = 0
+                        if (updatedUser == "F") {
+                            console.log("changed to f " + ansChoiceSelected);
+                            switch (ansChoiceSelected) {
+                                case "ansChoice1":
+                                    totalFemaleVotesForAnsChoice1 = votes.ansChoice1.totalVotesFemale + 1;
+                                    totalMaleVotesForAnsChoice1 = votes.ansChoice1.totalVotesMale - 1;
+                                    break;
+                                case "ansChoice2":
+                                    totalFemaleVotesForAnsChoice2 = votes.ansChoice2.totalVotesFemale + 1;
+                                    totalMaleVotesForAnsChoice2 = votes.ansChoice2.totalVotesMale - 1;
+                                    break;
+                                case "ansChoice3":
+                                    totalFemaleVotesForAnsChoice3 = votes.ansChoice3.totalVotesFemale + 1;
+                                    totalMaleVotesForAnsChoice3 = votes.ansChoice3.totalVotesMale - 1;
+                                    break;
+                                case "ansChoice4":
+                                    totalFemaleVotesForAnsChoice4 = votes.ansChoice4.totalVotesFemale + 1;
+                                    totalMaleVotesForAnsChoice4 = votes.ansChoice4.totalVotesMale - 1;
+                                    break;
+
+                            }
+                        } else {
+                            console.log("changed to M");
+                            switch (ansChoiceSelected) {
+                                case "ansChoice1":
+                                    totalFemaleVotesForAnsChoice1 = votes.ansChoice1.totalVotesFemale - 1;
+                                    totalMaleVotesForAnsChoice1 = votes.ansChoice1.totalVotesMale + 1;
+                                    break;
+                                case "ansChoice2":
+                                    totalFemaleVotesForAnsChoice2 = votes.ansChoice2.totalVotesFemale - 1;
+                                    totalMaleVotesForAnsChoice2 = votes.ansChoice2.totalVotesMale + 1;
+                                    break;
+                                case "ansChoice3":
+                                    totalFemaleVotesForAnsChoice3 = votes.ansChoice3.totalVotesFemale - 1;
+                                    totalMaleVotesForAnsChoice3 = votes.ansChoice3.totalVotesMale + 1;
+                                    break;
+                                case "ansChoice4":
+                                    totalFemaleVotesForAnsChoice4 = votes.ansChoice4.totalVotesFemale - 1;
+                                    totalMaleVotesForAnsChoice4 = votes.ansChoice4.totalVotesMale + 1;
+                                    break;
+                            }
+                        }
+                        console.log(`Poll id ${pollId} Male: ${totalMaleVotesForAnsChoice1}, ${totalMaleVotesForAnsChoice2}, ${totalMaleVotesForAnsChoice3}, ${totalMaleVotesForAnsChoice4}`)
+                        console.log(`Poll id ${pollId} FeMale: ${totalFemaleVotesForAnsChoice1}, ${totalFemaleVotesForAnsChoice2}, ${totalFemaleVotesForAnsChoice3}, ${totalFemaleVotesForAnsChoice4}`)
+
+                        //console.log(`ansChoice1: ${totalVotesForAnsChoice1} ansChoice2: ${totalVotesForAnsChoice2} ansChoice3: ${totalVotesForAnsChoice3} ansChoice4: ${totalVotesForAnsChoice4}`)
+                        //console.log(ansChoiceSelected);
+                    })
                 }
                 // })
             }
