@@ -146,7 +146,7 @@ router.post("/commentonpoll", function(request, response) {
         // Allowed to comment on poll
         // request.user.username has username of user
         if(request.body.comment && request.body.comment !== "")
-            pollsData.addCommentToPoll(request.body.pollid, request.body.poster, request.body.comment).then(() => {
+            pollsData.addCommentToPoll(request.body.pollid, request.user.username, request.body.comment).then(() => {
                 response.redirect("/poll/" + request.body.pollid);
             }, (err) => {
                 console.log(err);
