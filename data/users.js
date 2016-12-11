@@ -94,12 +94,13 @@ let exportedMethods = {
                 var pollsVotedIn=currentUser.pollsVotedIn;
                 console.log(pollsVotedIn.length);
                 // return polls.getPollsByUser(id).then((polls) => {
-                //     for (let i = 0; i < polls.length; i++) {
-                //         console.log ("POLL ID: " + polls[i]._id )
+                     for (let i = 0; i < pollsVotedIn.length; i++) {
+                            console.log ("POLL ID: " + pollsVotedIn[i].pollId)
+                            console.log ("POLL ID: " + pollsVotedIn[i].ansChoiceSelected )
                 //         //return votesAndMetrics.getVotesForPoll(polls[i]._id).then((votes) => {
 
                 //         //})
-                //     }
+                    }
                 // })
             }
         //     let updatedUser = {
