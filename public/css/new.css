@@ -290,7 +290,7 @@ footer {
   margin-bottom: 10px;
 }
 
-.search-box #keyword, .search-box #by-category {
+.search-box #keyword, .search-box #category {
 	border: 1px solid #CCC;
 	-webkit-box-shadow: 0 1px 1px #ddd inset, 0 1px 0 #FFF;
 	-moz-box-shadow: 0 1px 1px #ddd inset, 0 1px 0 #FFF;
@@ -302,21 +302,17 @@ footer {
 	float: left;
 	font: 13px Lucida Sans, Trebuchet MS, Tahoma, sans-serif;
 	height: 20px;
-	padding: 13px;
+	
 	width: 300px;
 }
 
-.search-box #by-category {
+.search-box #category {
   margin-top: 20px;
   height: 30px;
 }
 
-.search-box #keyword, .search-box #by-category {
-  border-color: #aaa;
-	-webkit-box-shadow: 0 1px 1px #bbb inset;
-	-moz-box-shadow: 0 1px 1px #bbb inset;
-	box-shadow: 0 1px 1px #bbb inset;
-	outline: 0;
+.search-box #keyword{
+ padding: 13px;
 }
 
 /*.search-box #keyword:-moz-placeholder,
