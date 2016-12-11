@@ -20,6 +20,7 @@
 </header>
 <div class="single-poll">
     <div id="poll-question">{{poll.poll.question}}</div><br>
+    {{#if poll.vote}}
     <div id="votes-total">{{poll.vote.totalVotesForPoll}} Votes</div><br>
 
     <table class="poll-table-2">
@@ -56,7 +57,48 @@
             </tr>
         </tbody>
     </table>
+    
+    {{else}}
+    <div id="votes-total">0 Votes</div><br>
 
+    <table class="poll-table-2">
+        <thead>
+            <tr class="row-title">
+                <th></th>
+                <th class="table-head">Choice 1</th>
+                <th class="table-head">Choice 2</th>
+                <th class="table-head">Choice 3</th>
+                <th class="table-head">Choice 4</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="table-head">Total</td>
+                <td class="table-body">0</td>
+                <td class="table-body">0</td>
+                <td class="table-body">0</td>
+                <td class="table-body">0</td>
+            </tr>
+            <tr>
+                <td class="table-head">From Male</td>
+                <td class="table-body">0</td>
+                <td class="table-body">0</td>
+                <td class="table-body">0</td>
+                <td class="table-body">0</td>
+            </tr>
+            <tr>
+                <td class="table-head">From Female</td>
+                <td class="table-body">0</td>
+                <td class="table-body">0</td>
+                <td class="table-body">0</td>
+                <td class="table-body">0</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    
+    {{/if}}
+    
     <form id="vote-on-poll" method="post">
         <br>
         <h3 class="ask">Which are you voting on?</h3><br>

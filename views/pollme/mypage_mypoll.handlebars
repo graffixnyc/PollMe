@@ -7,9 +7,9 @@
                 <ul>
                     <li><a href="/">Home</li>
                     <li><a href="createpoll">Create Polls</li>
-                    <li class="dropdown">Hi {{user.username}}
+                    <li class="dropdown">Hi {{user.userInfo.username}}
                         <div class="dropdown-content">
-                            <a class="submenu" href="/polls/{{user.id}}">My Polls</a>
+                            <a class="submenu" href="/mypolls">My Polls</a>
                             <a class="submenu" href="#">Edit Profile</a>
                             <a class="submenu" href="/logout">Log Out</a>
                         </div>
@@ -19,7 +19,7 @@
         </div>
 </header>
 
-<div class="user-home">
+<div class="user-home-mypolls">
     <table class="poll-table">
         <thead>
             <tr>
@@ -30,19 +30,14 @@
             </tr>
         </thead>
         <tbody>
-            {{#each poll}}
+            {{#each user.pollInfo}}
             <tr>
-                <td class="table-body"><a class="track-single" href="/poll/{{id}}">{{question}}</a></td>
-                <td class="table-body">{{category}}</td>
-                <td class="table-body">{{postedDate}}</td>
+                <td class="table-body"><a class="track-single" href="/poll/{{this._id}}">{{this.question}}</a></td>
+                <td class="table-body">{{this.category}}</td>
+                <td class="table-body">{{this.postedDate}}</td>
+                <td class="table-body">{{this.vote}}</td>
             </tr>
             {{/each}}
-            <!--Just for test-->
-            <tr>
-                <td class="table-body"><a class="track-single" href="/poll/{{id}}">Test Question Question Question{{question}}</a></td>
-                <td class="table-body">Passed Category{{category}}</td>
-                <td class="table-body">Passed Data{{postedDate}}</td>
-            </tr>
         </tbody>
     </table>
 </div>

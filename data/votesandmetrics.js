@@ -11,6 +11,7 @@ let exportedMethods = {
                 .findOne({ _id: pollId })
                 .then((vote) => {
                     console.log(vote);
+                    
                     if (!vote) {
                         return Promise.reject(new Error("No Votes for selected Poll")).then(function (error) {
                             //not called
@@ -18,13 +19,14 @@ let exportedMethods = {
                             console.log(error);
                         });
                     } else {
-                        return vote;
+                      
+                      return vote;
                     }
                 });
         });
     },
     countVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender) {
-        //Serach for the pollid in the votesAndMetrics collection since the _id is the same as the pollID that the votes belong to. 
+        //Serach for the pollid in the votesAndMetrics collection since the _id is the same as the pollID that the votes belong to.
         return this.getVotesForPoll(pollId).then((votes) => {
             if (!votes) {
                 //No Votes found for poll, so we create the votesAndMetrics document
