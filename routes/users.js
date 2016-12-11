@@ -5,6 +5,7 @@ const router = express.Router();
 const data = require('../data');
 const usersData = data.users;
 const pollsData = data.polls;
+const votesmatrixData = data.votesAndMetrics;
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
@@ -68,13 +69,21 @@ router.get('/private', isLoggedIn, function(req, res) {
     let userResult = {};
     userResult.userInfo = req.user;
     // console.log(userResult.userInfo);
-    let pollInfo = [];
+    let pollsInfo = [];
     for (i = 0; i < userResult.userInfo.pollsCreated.length; i++) {
+        let subpoll = {};
         pollsData.getPollById(userResult.userInfo.pollsCreated[i].pollId).then((poll) => {
-            pollInfo.push(poll);
-        });
+            subpoll._id = poll._id;
+            subpoll.question = poll.question;
+            subpoll.category = poll.category;
+            subpoll.postedDate = poll.postedDate;
+            votesmatrixData.getVotesForPoll(poll._id).then((votes) => {
+                subpoll.vote = votes.totalVotesForPoll;
+            })  
+            pollsInfo.push(subpoll);
+        })
     };
-    userResult.pollInfo = pollInfo;
+    userResult.pollInfo = pollsInfo;
     res.render('pollme/user_home', {
         user: userResult 
     });
