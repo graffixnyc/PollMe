@@ -80,9 +80,9 @@ router.get("/poll/:id", function(request, response) {
 });
 
 router.post("/voteonpoll", function(request, response) {
-
-    //I guess the poll id should in the request somewhere
-
+    console.log(request.body);
+    console.log(request.body.selector);
+    console.log(request.body.selector.value);
     if (request.isAuthenticated()) {
         // Allowed to vote on poll
         // request.user.username has username of user
@@ -90,9 +90,9 @@ router.post("/voteonpoll", function(request, response) {
     else {
         //Render a login page
         if (request.flash().error)
-            response.render('pollme/login_signup', { error: request.flash().error, redirectPage: "/" });
+            response.render('pollme/login_signup', { error: request.flash().error, redirectPage: "/poll/" + request.body.pollid });
         else
-            response.render('pollme/login_signup', { redirectPage: "/" });
+            response.render('pollme/login_signup', { redirectPage: "/poll/" + request.body.pollid });
     }
 });
 

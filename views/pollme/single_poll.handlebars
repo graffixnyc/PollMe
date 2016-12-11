@@ -22,7 +22,7 @@
     <div id="poll-question">{{poll.poll.question}}</div><br>
     <div id="votes-total">{{poll.vote.totalVotesForPoll}} Votes</div><br>
 
-    <table class=="poll-table">
+    <table class="poll-table">
         <thead>
             <tr class="row-title">
                 <th></th>
@@ -57,24 +57,27 @@
         </tbody>
     </table>
 
-    <form id="vote-on-poll" method="post" action="/voteon">
+    <form id="vote-on-poll" method="post">
         <br>
         <h3 class="ask">Which are you voting on?</h3><br>
         <label class="choice">Choice 1</label>
-        <input type="radio" id="choice1" name="selector">
+        <input type="radio" id="choice1" name="selector" value="choice1">
         <label class="choice-info" for="choice1">{{poll.poll.ansChoice1}}</label><br>
 
         <label class="choice">Choice 2</label>
-        <input type="radio" id="choice2" name="selector">
+        <input type="radio" id="choice2" name="selector" value="choice2">
         <label class="choice-info" for="choice2">{{poll.poll.ansChoice2}}</label><br>
 
         <label class="choice">Choice 3</label>
-        <input type="radio" id="choice3" name="selector">
+        <input type="radio" id="choice3" name="selector" value="choice3">
         <label class="choice-info" for="choice3">{{poll.poll.ansChoice3}}</label><br>
 
         <label class="choice">Choice 4</label>
-        <input type="radio" id="choice4" name="selector">
+        <input type="radio" id="choice4" name="selector" value="choice4">
         <label class="choice-info" for="choice4">{{poll.poll.ansChoice4}}</label><br>
+        <input type="hidden" name="pollid" id="pollid" value="{{poll.poll._id}}">
+        <input type="hidden" name="userid" id="userid" value="{{poll.user._id}}">
+        <input type="hidden" name="gender" id="gender" value="{{poll.user.gemder}}">
         <br>
         <input type="submit" class="submit-comment" value="Submit">
     </form>
