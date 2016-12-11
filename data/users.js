@@ -2,8 +2,8 @@ const mongoCollections = require("../config/mongoCollections");
 const users = mongoCollections.users;
 const uuid = require('node-uuid');
 const bcrypt = require('bcryptjs');
-const polls = require("./polls");
-const votesAndMetrics = require("./votesandmetrics");
+//const polls = require("./polls");
+//const votesAndMetrics = require("./votesandmetrics");
 let exportedMethods = {
     getAllUsers() {
         return users().then((userCollection) => {

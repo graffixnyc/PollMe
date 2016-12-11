@@ -4,9 +4,10 @@ const users = data.users;
 const polls = data.polls;
 const votesAndMetrics =data.votesAndMetrics;
 const bcrypt = require('bcryptjs');
-//   return votesAndMetrics.countVote("425105e3-be7a-4bea-9458-d6785f865d85", 0,0,0,1 ,"ea3af022-c994-4d2e-9a7b-36965cdc8396","M").then(() => {
-//     return votesAndMetrics.countVote("26fd4c56-e1e4-4c1a-a388-75dc69d5f1f4", 1,0,0,0 ,"ea3af022-c994-4d2e-9a7b-36965cdc8396","M").then(() => {
-
+   return votesAndMetrics.countVote("2eb96c27-c16a-472f-a9e2-ec17eaa27c4b", 0,0,0,1 ,"a3ec63cb-00a6-4bd2-8c3b-cfb2b14d5f43","M").then(() => {
+    return votesAndMetrics.countVote("5cdf0686-2373-4fbc-ae8e-cfb2575be3fd", 1,0,0,0 ,"a3ec63cb-00a6-4bd2-8c3b-cfb2b14d5f43","M").then(() => {
+});
+});
 
 
 // }, (error) => {
@@ -22,10 +23,10 @@ const bcrypt = require('bcryptjs');
   // });
 
 
-  return polls.getPollById("9d26c80a-c359-44f6-9d54-244b6b956a25" ).then((poll) => {
+  // return polls.getPollById("9d26c80a-c359-44f6-9d54-244b6b956a25" ).then((poll) => {
 
-        console.log(poll.question);
-  });
+  //       console.log(poll.question);
+  // });
 
 
 //  return polls.searchPollsByKeyword("phone").then((polls) => {
