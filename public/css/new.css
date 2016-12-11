@@ -322,7 +322,7 @@ footer {
 	font-weight: normal;
 }*/
 
-.search-box #search-button {
+.search-box #search-button, .search-box #cancel-button {
   background-color:gray;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(gray), to(dimgray));
 	background-image: -webkit-linear-gradient(top, gray, dimgray);
