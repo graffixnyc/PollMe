@@ -4,6 +4,7 @@ const router = express.Router();
 const data = require('../data');
 const usersData = data.users;
 const pollsData = data.polls;
+const usersPollsData = data.usersandpolls;
 const votesmatrixData = data.votesAndMetrics;
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
@@ -55,7 +56,7 @@ router.post("/createpoll", function(request, response) {
 
     var newPoll = request.body;
     if (request.isAuthenticated()) {
-        pollsData.addPoll(newPoll.category, now.toDateString(), newPoll.question, newPoll.choice1, newPoll.choice2, newPoll.choice3, newPoll.choice4, request.user._id).then((pollid) => {
+        usersPollsData.addPoll(newPoll.category, now.toDateString(), newPoll.question, newPoll.choice1, newPoll.choice2, newPoll.choice3, newPoll.choice4, request.user._id).then((pollid) => {
             response.redirect("/poll/" + pollid);
         }, (err) => {
             console.log(err);

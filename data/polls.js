@@ -1,8 +1,8 @@
 const mongoCollections = require("../config/mongoCollections");
 const polls = mongoCollections.polls;
-const users = require("./users");
-const votesAndMetrics = require("./votesandmetrics");
 const uuid = require('node-uuid');
+
+const usersData = require("./users");
 
 let exportedMethods = {
     getAllPolls() {
@@ -63,6 +63,7 @@ let exportedMethods = {
 
     },
     getPollById(id) {
+        console.log("SUUUPP");
         return polls().then((pollCollection) => {
             return pollCollection
                 .findOne({ _id: id })
@@ -128,7 +129,7 @@ let exportedMethods = {
                     
                     }).then((poll) => {
                         console.log(userId + ":" + poll._id);
-                        return users.addPollCreatedToUser(userId, poll._id).then(() => {
+                        return usersData.addPollCreatedToUser(userId, poll._id).then(() => {
                            return poll._id;
                         });
 
@@ -138,6 +139,7 @@ let exportedMethods = {
             console.log(e);
         }
     },
+    
     removePoll(id) {
         return polls().then((pollCollection) => {
             return pollCollection
@@ -149,53 +151,7 @@ let exportedMethods = {
                 });
         });
     },
-    updatePoll(id, updatedPoll) {
-        //Check if there are votes, if there are  then reject if not then call update
-        votesAndMetrics.getVotesForPoll(id).then((votes) => {
-            if (votes.totalVotesForPoll > 0) {
-                return Promise.reject(new Error("Cannot Update Poll that has votes")).then(function (error) {
-                    // not called
-                }, function (error) {
-                    console.log(error);
-                    console.log(`Total Votes: ${votes.totalVotesForPoll}`);
-                });
-            } else {
-                //This may need to be modified to work correctly
-                return polls().then((pollCollection) => {
-                    let updatedPollData = {};
-
-                    if (updatedPoll.category) {
-                        updatedPollData.category = updatedPoll.category;
-                    }
-
-                    if (updatedPoll.question) {
-                        updatedPollData.question = updatedPoll.question;
-                    }
-                    if (updatedPoll.ansChoice1) {
-                        updatedPollData.ansChoice1 = updatedPoll.ansChoice1;
-                    }
-                    if (updatedPoll.ansChoice2) {
-                        updatedPollData.ansChoice2 = updatedPoll.ansChoice2;
-                    }
-                    if (updatedPoll.ansChoice3) {
-                        updatedPollData.ansChoice3 = updatedPoll.ansChoice3;
-                    }
-                    if (updatedPoll.ansChoice4) {
-                        updatedPollData.ansChoice4 = updatedPoll.ansChoice4;
-                    }
-                    let updateCommand = {
-                        $set: updatedPollData
-                    };
-
-                    return pollCollection.updateOne({
-                        _id: id
-                    }, updateCommand).then((result) => {
-                        return this.getPollById(id);
-                    });
-                });
-            }
-        });
-    },
+    
     addCommentToPoll(pollId, poster, comment) {
         return polls().then((pollCollection) => {
             return pollCollection.updateOne({ _id: pollId }, {

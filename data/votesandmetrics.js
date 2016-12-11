@@ -1,7 +1,10 @@
 const mongoCollections = require("../config/mongoCollections");
+const users = mongoCollections.users;
+const polls = mongoCollections.polls;
 const votesAndMetrics = mongoCollections.votesAndMetrics;
 
-const users = require("./users");
+const usersData = require("./users");
+const pollsData = require("./polls");
 const uuid = require('node-uuid');
 
 let exportedMethods = {
@@ -119,7 +122,7 @@ let exportedMethods = {
                     return this.getVotesForPoll(newId);
                 }).then((newId) => {
                     console.log(userId + ":" + newId._id);
-                    return users.addPollVotedInToUser(userId, newId._id, ansChoiceUserSelected)
+                    return usersData.addPollVotedInToUser(userId, newId._id, ansChoiceUserSelected)
                 });
             });
         } catch (e) {
@@ -140,7 +143,7 @@ let exportedMethods = {
     //Needs testing and most likely modification
     updateVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender) {
         console.log ("updateVoteDocument 1");
-        return polls.getPollById(pollId).then((poll) => {
+        return pollsData.getPollById(pollId).then((poll) => {
             console.log ("updateVoteDocument 2");
             let ansChoiceUserSelected = "";
             let totalVotesForPoll = poll.totalVotesForPoll + 1;
@@ -169,7 +172,7 @@ let exportedMethods = {
                         console.log ("updateVoteDocument 6:");
                         return this.getPollById(pollId).then((poll) => {
                             console.log ("updateVoteDocument 7:");
-                            return users.addPollVotedInToUser(userId, poll._id, ansChoiceUserSelected)
+                            return usersData.addPollVotedInToUser(userId, poll._id, ansChoiceUserSelected)
 
                         });
                     });
@@ -189,7 +192,7 @@ let exportedMethods = {
                         onsole.log ("updateVoteDocument 10:");
                         return this.getPollById(pollId).then((poll) => {
                             console.log ("updateVoteDocument 11:");
-                            return users.addPollVotedInToUser(userId, poll._id, ansChoiceUserSelected)
+                            return usersData.addPollVotedInToUser(userId, poll._id, ansChoiceUserSelected)
                             
                         });
                     });
@@ -209,7 +212,7 @@ let exportedMethods = {
                         console.log ("updateVoteDocument 14:");
                         return this.getPollById(pollId).then((poll) => {
                             console.log ("updateVoteDocument 15:");
-                            return users.addPollVotedInToUser(userId, poll._id, ansChoiceUserSelected)
+                            return usersData.addPollVotedInToUser(userId, poll._id, ansChoiceUserSelected)
 
                         });
                     });
@@ -229,7 +232,7 @@ let exportedMethods = {
                         console.log ("updateVoteDocument 18:");
                         return this.getPollById(pollId).then((poll) => {
                             console.log ("updateVoteDocument 19:");
-                            return users.addPollVotedInToUser(userId, poll._id, ansChoiceUserSelected)
+                            return usersData.addPollVotedInToUser(userId, poll._id, ansChoiceUserSelected)
 
                         });
                     });
@@ -271,9 +274,153 @@ let exportedMethods = {
 
             })
         });
-    }
+    },
+    
+    //Moved from users.js
+    //THIS FUNCTION NOT DONE YET
+    updateUser(id, updatedUser) {
+        return usersData.getUserById(id).then((currentUser) => {
+            if (currentUser.gender != updatedUser.gender) {
+                //get votes for polls they voted in deincrement the total votes for the gener they were
+                //and then increment the total number of votes for their new gender.  
+                let pollsVotedIn = currentUser.pollsVotedIn;
+                console.log(pollsVotedIn.length);
+                for (let i = 0; i < pollsVotedIn.length; i++) {
+                    let ansChoiceSelected = pollsVotedIn[i].ansChoiceSelected
+                    let pollId = pollsVotedIn[i].pollId
+                    //console.log(`Poll ID: ${pollId}, ansChoiceSelected: ${ansChoiceSelected} `)
+                    this.getVotesForPoll(pollId).then((votes) => {
+                        let totalVotesForPoll = votes.totalVotesForPoll;
+                        let totalMaleVotesForAnsChoice1 = votes.ansChoice1.totalVotesMale;
+                        let totalMaleVotesForAnsChoice2 = votes.ansChoice2.totalVotesMale;
+                        let totalMaleVotesForAnsChoice3 = votes.ansChoice3.totalVotesMale;
+                        let totalMaleVotesForAnsChoice4 = votes.ansChoice4.totalVotesMale;//votes.ansChoice4.totalVotesMale;
+                        let totalFemaleVotesForAnsChoice1 = votes.ansChoice1.totalVotesFemale;
+                        let totalFemaleVotesForAnsChoice2 = votes.ansChoice2.totalVotesFemale;
+                        let totalFemaleVotesForAnsChoice3 = votes.ansChoice3.totalVotesFemale;
+                        let totalFemaleVotesForAnsChoice4 = votes.ansChoice4.totalVotesFemale;
+                        if (updatedUser == "F") {
+                            console.log("changed to f " + ansChoiceSelected);
+                            switch (ansChoiceSelected) {
+                                case "ansChoice1":
+                                    totalFemaleVotesForAnsChoice1 = votes.ansChoice1.totalVotesFemale + 1;
+                                    totalMaleVotesForAnsChoice1 = votes.ansChoice1.totalVotesMale - 1;
+                                    break;
+                                case "ansChoice2":
+                                    totalFemaleVotesForAnsChoice2 = votes.ansChoice2.totalVotesFemale + 1;
+                                    totalMaleVotesForAnsChoice2 = votes.ansChoice2.totalVotesMale - 1;
+                                    break;
+                                case "ansChoice3":
+                                    totalFemaleVotesForAnsChoice3 = votes.ansChoice3.totalVotesFemale + 1;
+                                    totalMaleVotesForAnsChoice3 = votes.ansChoice3.totalVotesMale - 1;
+                                    break;
+                                case "ansChoice4":
+                                    totalFemaleVotesForAnsChoice4 = votes.ansChoice4.totalVotesFemale + 1;
+                                    totalMaleVotesForAnsChoice4 = votes.ansChoice4.totalVotesMale - 1;
+                                    break;
+                            }
+                        } else {
+                            console.log("changed to M");
+                            switch (ansChoiceSelected) {
+                                case "ansChoice1":
+                                    totalFemaleVotesForAnsChoice1 = votes.ansChoice1.totalVotesFemale - 1;
+                                    totalMaleVotesForAnsChoice1 = votes.ansChoice1.totalVotesMale + 1;
+                                    break;
+                                case "ansChoice2":
+                                    totalFemaleVotesForAnsChoice2 = votes.ansChoice2.totalVotesFemale - 1;
+                                    totalMaleVotesForAnsChoice2 = votes.ansChoice2.totalVotesMale + 1;
+                                    break;
+                                case "ansChoice3":
+                                    totalFemaleVotesForAnsChoice3 = votes.ansChoice3.totalVotesFemale - 1;
+                                    totalMaleVotesForAnsChoice3 = votes.ansChoice3.totalVotesMale + 1;
+                                    break;
+                                case "ansChoice4":
+                                    totalFemaleVotesForAnsChoice4 = votes.ansChoice4.totalVotesFemale - 1;
+                                    totalMaleVotesForAnsChoice4 = votes.ansChoice4.totalVotesMale + 1;
+                                    break;
+                            }
+                        }
+                        console.log(`Poll id ${pollId} Male: ${totalMaleVotesForAnsChoice1}, ${totalMaleVotesForAnsChoice2}, ${totalMaleVotesForAnsChoice3}, ${totalMaleVotesForAnsChoice4}`)
+                        console.log(`Poll id ${pollId} FeMale: ${totalFemaleVotesForAnsChoice1}, ${totalFemaleVotesForAnsChoice2}, ${totalFemaleVotesForAnsChoice3}, ${totalFemaleVotesForAnsChoice4}`)
+                        votesAndMetrics.updateVotes(pollId, totalMaleVotesForAnsChoice1, totalMaleVotesForAnsChoice2, totalMaleVotesForAnsChoice3, totalMaleVotesForAnsChoice4,
+                            totalFemaleVotesForAnsChoice1, totalFemaleVotesForAnsChoice2, totalFemaleVotesForAnsChoice3, totalFemaleVotesForAnsChoice4,
+                            votes.ansChoice1.totalVotes, votes.ansChoice2.totalVotes, votes.ansChoice3.totalVotes, votes.ansChoice4.totalVotes)
+                    })
+                }
+                // })
+            }
+                let updatedUser = {
+                    firstName: updatedUser.firstName,
+                    lastName: updatedUser.lastName,
+                    email: upatedUser.email,
+                    gender: upatedUser.gender,
+                    city: updateUser.city,
+                    state: updatedUser.state,
+                    age: updatedUser.age,
+                    hashedPassword: updatedUser.hashedPassword
+                };
+
+                let updateCommand = {
+                    $set: updatedUser
+                };
+                return users().then((userCollection) => {
+                    return userCollection.updateOne({ _id: id }, updateCommand).then(() => {
+                        return usersData.getUserById(id);
+                    });
+                }); 
+        });
+    },
+    
+    
+    //moved from poll.js
+    updatePoll(id, updatedPoll) {
+        //Check if there are votes, if there are  then reject if not then call update
+        getVotesForPoll(id).then((votes) => {
+            if (votes.totalVotesForPoll > 0) {
+                return Promise.reject(new Error("Cannot Update Poll that has votes")).then(function (error) {
+                    // not called
+                }, function (error) {
+                    console.log(error);
+                    console.log(`Total Votes: ${votes.totalVotesForPoll}`);
+                });
+            } else {
+                //This may need to be modified to work correctly
+                return polls().then((pollCollection) => {
+                    let updatedPollData = {};
+
+                    if (updatedPoll.category) {
+                        updatedPollData.category = updatedPoll.category;
+                    }
+
+                    if (updatedPoll.question) {
+                        updatedPollData.question = updatedPoll.question;
+                    }
+                    if (updatedPoll.ansChoice1) {
+                        updatedPollData.ansChoice1 = updatedPoll.ansChoice1;
+                    }
+                    if (updatedPoll.ansChoice2) {
+                        updatedPollData.ansChoice2 = updatedPoll.ansChoice2;
+                    }
+                    if (updatedPoll.ansChoice3) {
+                        updatedPollData.ansChoice3 = updatedPoll.ansChoice3;
+                    }
+                    if (updatedPoll.ansChoice4) {
+                        updatedPollData.ansChoice4 = updatedPoll.ansChoice4;
+                    }
+                    let updateCommand = {
+                        $set: updatedPollData
+                    };
+
+                    return pollCollection.updateOne({
+                        _id: id
+                    }, updateCommand).then((result) => {
+                        return this.getPollById(id);
+                    });
+                });
+            }
+        });
+    },
 
 }
 
 module.exports = exportedMethods;
-const polls = require("./polls");
