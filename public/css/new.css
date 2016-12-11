@@ -390,7 +390,7 @@ footer {
 	/*color: #343434;*/
 	/*text-transform: uppercase;*/
 	text-shadow: 0 2px white, 0 3px #777;
-  font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif";
+  font-family: verdana, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif";
 	font-size: 46px;
 	font-style: normal;
 	font-variant: normal;
@@ -400,7 +400,7 @@ footer {
 }
 
 #votes-total {
-  font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif";
+  font-family: verdana, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif";
 	font-size: 24px;
 	font-style: normal;
 	font-variant: normal;
@@ -454,14 +454,14 @@ footer {
 	transition: all 300ms;
   text-decoration: none;
   font-size: 15px;
-  color:cornflowerblue;
-  font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif";
+  color:black;
+  font-family: "verdana", Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif";
 	font-size: 20px;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: 500;
 	line-height: 26.4px;
-  color: cornflowerblue;
+  color: black;
 }
 
 .ask {
@@ -523,7 +523,7 @@ footer {
    text-shadow: rgba(0,0,0,.4) 0 1px 0;
    color: white;
    font-size: 14px;
-   font-family: 'Lucida Grande', Helvetica, Arial, Sans-Serif;
+   font-family: verdana, Helvetica, Arial, Sans-Serif;
    text-decoration: none;
    vertical-align: middle;
    }
