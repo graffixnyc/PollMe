@@ -253,7 +253,7 @@ let exportedMethods = {
             });
         })
     },
-    updateVotes(pollId, totalVotesMaleForAnsChoice1, totalVotesMaleForAnsChoice2, totalVotesMaleForAnsChoice3, totalVotesMaleForAnsChoice4, totalVotesFemaleForAnsChoice1,
+    updateVotesForChangedGender(pollId, totalVotesMaleForAnsChoice1, totalVotesMaleForAnsChoice2, totalVotesMaleForAnsChoice3, totalVotesMaleForAnsChoice4, totalVotesFemaleForAnsChoice1,
         totalVotesFemaleForAnsChoice2, totalVotesFemaleForAnsChoice3, totalVotesFemaleForAnsChoice4, totalVotesAns1, totalVotesAns2, totalVotesAns3, totalVotesAns4) {
         return votesAndMetrics().then((voteCollection) => {
             console.log(`PollID: ${pollId}  Male Ans Choice 1: ${totalVotesMaleForAnsChoice1} Male Ans Choice 2: ${totalVotesMaleForAnsChoice2} Male Ans Choice 3: ${totalVotesMaleForAnsChoice3} 
@@ -312,7 +312,7 @@ let exportedMethods = {
                         let totalFemaleVotesForAnsChoice2 = votes.ansChoice2.totalVotesFemale;
                         let totalFemaleVotesForAnsChoice3 = votes.ansChoice3.totalVotesFemale;
                         let totalFemaleVotesForAnsChoice4 = votes.ansChoice4.totalVotesFemale;
-                        if (updatedUser == "F") {
+                        if (updatedUser.gender == "F") {
                             console.log("changed to f " + ansChoiceSelected);
                             switch (ansChoiceSelected) {
                                 case "ansChoice1":
@@ -355,7 +355,7 @@ let exportedMethods = {
                         }
                         console.log(`Poll id ${pollId} Male: ${totalMaleVotesForAnsChoice1}, ${totalMaleVotesForAnsChoice2}, ${totalMaleVotesForAnsChoice3}, ${totalMaleVotesForAnsChoice4}`)
                         console.log(`Poll id ${pollId} FeMale: ${totalFemaleVotesForAnsChoice1}, ${totalFemaleVotesForAnsChoice2}, ${totalFemaleVotesForAnsChoice3}, ${totalFemaleVotesForAnsChoice4}`)
-                        votesAndMetrics.updateVotes(pollId, totalMaleVotesForAnsChoice1, totalMaleVotesForAnsChoice2, totalMaleVotesForAnsChoice3, totalMaleVotesForAnsChoice4,
+                        votesAndMetrics.updateVotesForChangedGender(pollId, totalMaleVotesForAnsChoice1, totalMaleVotesForAnsChoice2, totalMaleVotesForAnsChoice3, totalMaleVotesForAnsChoice4,
                             totalFemaleVotesForAnsChoice1, totalFemaleVotesForAnsChoice2, totalFemaleVotesForAnsChoice3, totalFemaleVotesForAnsChoice4,
                             votes.ansChoice1.totalVotes, votes.ansChoice2.totalVotes, votes.ansChoice3.totalVotes, votes.ansChoice4.totalVotes)
                     })
