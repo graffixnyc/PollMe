@@ -86,7 +86,7 @@ let exportedMethods = {
         });
     },
     //THIS FUNCTION NOT DONE YET
-    updateUserVotes(id) {
+    updateUser(id, updatedUser) {
         return this.getUserById(id).then((currentUser) => {
             if (currentUser.gender != updatedUser) {
                 //get votes for polls they voted in deincrement the total votes for the gener they were
