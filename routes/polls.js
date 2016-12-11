@@ -95,10 +95,13 @@ router.get("/poll/:id", function(request, response) {
 router.post("/voteonpoll", function(request, response) {
     
     var vote = request.body;
-    console.log(vote);
+    console.log("POLL IDVOTE:" + vote.pollId);
+    console.log("POLL SelectVOTE:" + vote.Selector);
+    console.log("POLL userId:" + vote.userId);
+    console.log(vote)
     if (request.isAuthenticated()) {
         // Allowed to vote on poll
-        votesmatrixData.countVote(vote.pollId, vote.ansChoice1, vote.ansChoice2, vote.ansChoice3, vote.ansChoice4, vote.userId, vote.gender).then(() => {
+        votesmatrixData.countVote(vote.pollid, vote.selector, vote.userid, vote.gender).then(() => {
             response.json({ success: true, pollid: vote.pollId });
         });
     }

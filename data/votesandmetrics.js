@@ -28,13 +28,13 @@ let exportedMethods = {
                 });
         });
     },
-    countVote(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender) {
+    countVote(pollId, selector, userId, userGender) {
         //Serach for the pollid in the votesAndMetrics collection since the _id is the same as the pollID that the votes belong to.
         return this.getVotesForPoll(pollId).then((votes) => {
             if (!votes) {
                 //No Votes found for poll, so we create the votesAndMetrics document
                 console.log("Creating Vote Document");
-                this.createNewVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender);
+                this.createNewVoteDocument(pollId, selector, userId, userGender);
             } else {
                 //Poll has votes recorded already, so we need to update the votesAndMetrics document
                 this.updateVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender);
@@ -43,7 +43,7 @@ let exportedMethods = {
         })
 
     },
-    createNewVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender) {
+    createNewVoteDocument(pollId, selector, userId, userGender) {
         // answer choice will be either 0 or 1, if it's 1 then thats the answer they selected, 
         // i.e ansChoice1 =0 , ansChoice2 =0, ansChoice3 =1, ansChoice4 =0 means they voted for ansChoice3
         //  NOTE:  Only one ansChoiceX paramater passed in should be 1, the others should ALL be 0
@@ -60,7 +60,10 @@ let exportedMethods = {
             if (typeof userId != 'string') {
                 throw new Error("userId should be string");
             }
-
+            let ansChoice1TotalVotes =0;
+            let ansChoice2TotalVotes =0;
+            let ansChoice3TotalVotes =0;
+            let ansChoice4TotalVotes =0;
             let ansChoice1TotalVotesMale = 0;
             let ansChoice2TotalVotesMale = 0;
             let ansChoice3TotalVotesMale = 0;
@@ -73,33 +76,37 @@ let exportedMethods = {
 
             //this is to see which answer choice has the value of 1, from here we would then find the users's gender and then set the count to 1
             // if user is M set ansChoiceXTotalVotesMale = 1 else set ansChoiceXTotalVotesFemale = 1
-            switch (1) {
-                case ansChoice1:
+            switch (selector) {
+                case "choice1":
                     ansChoiceUserSelected = "ansChoice1";
+                    ansChoice1TotalVotes ++;
                     if (userGender == "M") {
                         ansChoice1TotalVotesMale = 1;
                     } else {
                         ansChoice1TotalVotesFemale = 1;
                     }
                     break;
-                case ansChoice2:
+                case "choice2":
                     ansChoiceUserSelected = "ansChoice2";
+                    ansChoice2TotalVotes ++;
                     if (userGender == "M") {
                         ansChoice2TotalVotesMale = 1;
                     } else {
                         ansChoice2TotalVotesFemale = 1;
                     }
                     break;
-                case ansChoice3:
+                case "choice3":
                     ansChoiceUserSelected = "ansChoice3";
+                    ansChoice3TotalVotes ++;
                     if (userGender == "M") {
                         ansChoice3TotalVotesMale = 1;
                     } else {
                         ansChoice3TotalVotesFemale = 1;
                     }
                     break;
-                case ansChoice4:
+                case "choice4":
                     ansChoiceUserSelected = "ansChoice4";
+                    ansChoice4TotalVotes ++;
                     if (userGender == "M") {
                         ansChoice4TotalVotesMale = 1;
                     } else {
@@ -111,10 +118,10 @@ let exportedMethods = {
                 let newVote = {
                     _id: pollId,
                     totalVotesForPoll: 1,
-                    ansChoice1: { totalVotes: ansChoice1, totalVotesMale: ansChoice1TotalVotesMale, totalVotesFemale: ansChoice1TotalVotesFemale },
-                    ansChoice2: { totalVotes: ansChoice2, totalVotesMale: ansChoice2TotalVotesMale, totalVotesFemale: ansChoice2TotalVotesFemale },
-                    ansChoice3: { totalVotes: ansChoice3, totalVotesMale: ansChoice3TotalVotesMale, totalVotesFemale: ansChoice3TotalVotesFemale },
-                    ansChoice4: { totalVotes: ansChoice4, totalVotesMale: ansChoice4TotalVotesMale, totalVotesFemale: ansChoice4TotalVotesFemale },
+                    ansChoice1: { totalVotes: ansChoice1TotalVotes, totalVotesMale: ansChoice1TotalVotesMale, totalVotesFemale: ansChoice1TotalVotesFemale },
+                    ansChoice2: { totalVotes: ansChoice2TotalVotes, totalVotesMale: ansChoice2TotalVotesMale, totalVotesFemale: ansChoice2TotalVotesFemale },
+                    ansChoice3: { totalVotes: ansChoice3TotalVotes, totalVotesMale: ansChoice3TotalVotesMale, totalVotesFemale: ansChoice3TotalVotesFemale },
+                    ansChoice4: { totalVotes: ansChoice4TotalVotes, totalVotesMale: ansChoice4TotalVotesMale, totalVotesFemale: ansChoice4TotalVotesFemale },
                 };
                 return voteCollection.insertOne(newVote).then((newInsertInformation) => {
                     return newInsertInformation.insertedId;
@@ -141,7 +148,7 @@ let exportedMethods = {
         });
     },
     //Needs testing and most likely modification
-    updateVoteDocument(pollId, ansChoice1, ansChoice2, ansChoice3, ansChoice4, userId, userGender) {
+    updateVoteDocument(pollId, selector, userId, userGender) {
         console.log("updateVoteDocument 1");
         return pollsData.getPollById(pollId).then((poll) => {
             console.log("updateVoteDocument 2");
@@ -162,8 +169,8 @@ let exportedMethods = {
             let totalVotesFemaleForAnsChoice = 0;
 
             console.log("updateVoteDocument 3");
-            switch (1) {
-                case ansChoice1:
+            switch (selector) {
+                case "choice1":
                     console.log("updateVoteDocument 4: case anschoice1");
                     ansChoiceUserSelected = "ansChoice1";
                     totalVotesForAnsChoice1++;
@@ -173,7 +180,8 @@ let exportedMethods = {
                         totalVotesFemaleForAnsChoice1++;
                     }
                     console.log("updateVoteDocument 5:");
-                case ansChoice2:
+                    break;
+                case "choice2":
                     console.log("updateVoteDocument 8: case anschoice2");
                     ansChoiceUserSelected = "ansChoice2";
                     totalVotesForAnsChoice2++;
@@ -183,7 +191,8 @@ let exportedMethods = {
                         totalVotesFemaleForAnsChoice2++;
                     }
                     console.log("updateVoteDocument 9:");
-                case ansChoice3:
+                    break;
+                case "choice3":
                     console.log("updateVoteDocument 12: case anschoice3");
                     ansChoiceUserSelected = "ansChoice3";
                     totalVotesForAnsChoice3++;
@@ -193,7 +202,8 @@ let exportedMethods = {
                         totalVotesFemaleForAnsChoice3++;
                     }
                     console.log("updateVoteDocument 13:");
-                case ansChoice4:
+                    break;
+                case "choice4":
                     console.log("updateVoteDocument 16: case anschoice4");
                     ansChoiceUserSelected = "ansChoice4";
                     totalVotesForAnsChoice4++;
@@ -203,6 +213,7 @@ let exportedMethods = {
                         totalVotesFemaleForAnsChoice4++;
                     }
                     console.log("updateVoteDocument 17:");
+                    break;
             }
             console.log("Running update..");
             return voteCollection.updateOne({ _id: pollId }, {
