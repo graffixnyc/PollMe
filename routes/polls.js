@@ -11,11 +11,23 @@ const LocalStrategy = require('passport-local').Strategy;
 router.get("/", function(request, response) {
     // need to change this to the page Haoyang and Seito create
     pollsData.getAllPolls().then((polls) => {
-        response.render("pollme/home_before_login", { poll: polls });
+        let pollsInfo = [];
+        for(i = 0; i < polls.length; i++) {
+            let subpoll = {};
+            subpoll._id = polls[i]._id;
+            subpoll.question = polls[i].question;
+            subpoll.category = polls[i].category;
+            subpoll.postedDate = polls[i].postedDate;
+            votesmatrixData.getVotesForPoll(polls[i]._id).then((votes) => {
+                subpoll.votes = votes.totalVotesForPoll;
+            })
+            pollsInfo.push(subpoll);
+        }
+        response.render("pollme/home_before_login", { poll: pollsInfo });
     })
-        .catch((error) => {
-            response.status(500).json({ error: error });
-        });
+    .catch((error) => {
+        res.status(404).json({ error: "Error!Poll not found" });
+    });
 });
 
 router.get("/createpoll", function(request, response) {

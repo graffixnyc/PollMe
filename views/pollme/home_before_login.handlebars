@@ -1,13 +1,13 @@
 <header>
     <div class="logo">
-        <a href="#">PollMe</a>
+        <a href="/">PollMe</a>
     </div>
     <div class="menu">
         <nav>
             <ul>
                 <li><a href="/">Home</li>
                     <li><a href="/createpoll">Create Polls</li>
-                    <li><a href="login">Log In</a></li>
+                    <li><a href="/login">Log In</a></li>
                 </ul>
             </nav>
         </div>
@@ -57,6 +57,7 @@
                 <td class="table-body"><a class="track-single" href="/poll/{{_id}}">{{question}}</a></td>
                     <td class="table-body">{{category}}</td>
                     <td class="table-body">{{postedDate}}</td>
+                    <td class="table-body">{{votes}}</td>
                     </tr>
                     {{/each}}
                     </tbody>

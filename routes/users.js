@@ -67,7 +67,7 @@ router.post('/login', passport.authenticate('local', {
 router.get('/private', isLoggedIn, function(req, res) {
     let userResult = {};
     userResult.userInfo = req.user;
-    console.log(userResult.userInfo);
+    // console.log(userResult.userInfo);
     let pollInfo = [];
     for (i = 0; i < userResult.userInfo.pollsCreated.length; i++) {
         pollsData.getPollById(userResult.userInfo.pollsCreated[i].pollId).then((poll) => {
