@@ -8,7 +8,7 @@ let exportedMethods = {
     getAllPolls() {
         return polls().then((pollCollection) => {
             return pollCollection
-                .find({}).sort({ postedDate: 1 })
+                .find({}).sort({ postedDate: -1 })
                 .toArray();
         });
     },
