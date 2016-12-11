@@ -242,6 +242,9 @@ let exportedMethods = {
         // });
         // });
     },
+    updateVotes(pollid, updatedVotes){
+        
+    }
 }
 
 module.exports = exportedMethods;
