@@ -11,7 +11,7 @@ let exportedMethods = {
                 .findOne({ _id: pollId })
                 .then((vote) => {
                     console.log(vote);
-                    
+
                     if (!vote) {
                         return Promise.reject(new Error("No Votes for selected Poll")).then(function (error) {
                             //not called
@@ -19,8 +19,8 @@ let exportedMethods = {
                             console.log(error);
                         });
                     } else {
-                      
-                      return vote;
+
+                        return vote;
                     }
                 });
         });
@@ -243,25 +243,41 @@ let exportedMethods = {
         // });
     },
     updateVotes(pollId, totalVotesMaleForAnsChoice1, totalVotesMaleForAnsChoice2, totalVotesMaleForAnsChoice3, totalVotesMaleForAnsChoice4, totalVotesFemaleForAnsChoice1,
-        totalVotesFemaleForAnsChoice2, totalVotesFemaleForAnsChoice3, totalVotesFemaleForAnsChoice4) {
+        totalVotesFemaleForAnsChoice2, totalVotesFemaleForAnsChoice3, totalVotesFemaleForAnsChoice4, totalVotesAns1, totalVotesAns2,totalVotesAns3,totalVotesAns4) {
         return votesAndMetrics().then((voteCollection) => {
             console.log(`PollID: ${pollId}  Male Ans Choice 1: ${totalVotesMaleForAnsChoice1} Male Ans Choice 2: ${totalVotesMaleForAnsChoice2} Male Ans Choice 3: ${totalVotesMaleForAnsChoice3} 
             Male Ans Choice 4: ${totalVotesMaleForAnsChoice4}`)
 
-             console.log(`PollID: ${pollId}  Female Ans Choice 1: ${totalVotesFemaleForAnsChoice1} Female Ans Choice 2: ${totalVotesFemaleForAnsChoice2} Female Ans Choice 3: ${totalVotesFemaleForAnsChoice3} 
+            console.log(`PollID: ${pollId}  Female Ans Choice 1: ${totalVotesFemaleForAnsChoice1} Female Ans Choice 2: ${totalVotesFemaleForAnsChoice2} Female Ans Choice 3: ${totalVotesFemaleForAnsChoice3} 
             Female Ans Choice 4: ${totalVotesFemaleForAnsChoice4}`)
             return voteCollection.updateOne({ _id: pollId }, {
-                set: {totalVotesForPoll: 10}
-       
-    
-            //     $set: { 'ansChoice1.$.totalVotesMale': totalVotesMaleForAnsChoice1 }, $set: { 'ansChoice2.$.totalVotesMale': totalVotesMaleForAnsChoice2 },
-            //     $set: { 'ansChoice3.$.totalVotesMale': totalVotesMaleForAnsChoice3 }, $set: { 'ansChoice4.$.totalVotesMale': totalVotesMaleForAnsChoice4 },
-            //     $set: { 'ansChoice1.$.totalVotesFemale': totalVotesFemaleForAnsChoice1 }, $set: { 'ansChoice2.$.totalVotesFemale': totalVotesFemaleForAnsChoice2 },
-            //     $set: { 'ansChoice3.$.totalVotesFemale': totalVotesFemaleForAnsChoice3 }, $set: { 'ansChoice4.$.totalVotesFemale': totalVotesFemaleForAnsChoice4 }
-             })
+                $set: {
+                    "ansChoice1": {
+                        "totalVotes": totalVotesAns1,
+                        "totalVotesMale": totalVotesMaleForAnsChoice1,
+                        "totalVotesFemale": totalVotesFemaleForAnsChoice1
+                    },
+                    "ansChoice2": {
+                        "totalVotes": totalVotesAns2,
+                        "totalVotesMale": totalVotesMaleForAnsChoice2,
+                        "totalVotesFemale": totalVotesFemaleForAnsChoice2
+                    },
+                    "ansChoice3": {
+                        "totalVotes": totalVotesAns3,
+                        "totalVotesMale": totalVotesMaleForAnsChoice3,
+                        "totalVotesFemale": totalVotesFemaleForAnsChoice3
+                    },
+                    "ansChoice4": {
+                        "totalVotes": totalVotesAns4,
+                        "totalVotesMale": totalVotesMaleForAnsChoice4,
+                        "totalVotesFemale": totalVotesFemaleForAnsChoice4
+                    }
+                }
+
+            })
         });
-        }
-   
+    }
+
 }
 
 module.exports = exportedMethods;
