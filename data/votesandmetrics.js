@@ -162,7 +162,7 @@ let exportedMethods = {
                     }).then((result) => {
                         return this.getPollById(pollId).then((poll) => {
                             return users.addPollVotedInToUser(userId, poll._id, ansChoiceUserSelected)
-                            
+
                         });
                     });
 
@@ -178,7 +178,7 @@ let exportedMethods = {
                     }).then((result) => {
                         return this.getPollById(pollId).then((poll) => {
                             return users.addPollVotedInToUser(userId, poll._id, ansChoiceUserSelected)
-                            
+
                         });
                     });
 
@@ -194,7 +194,7 @@ let exportedMethods = {
                     }).then((result) => {
                         return this.getPollById(pollId).then((poll) => {
                             return users.addPollVotedInToUser(userId, poll._id, ansChoiceUserSelected)
-                            
+
                         });
                     });
 
@@ -210,7 +210,7 @@ let exportedMethods = {
                     }).then((result) => {
                         return this.getPollById(pollId).then((poll) => {
                             return users.addPollVotedInToUser(userId, poll._id, ansChoiceUserSelected)
-                            
+
                         });
                     });
 
@@ -240,9 +240,26 @@ let exportedMethods = {
         // });
         // });
     },
-    updateVotes(pollid, updatedVotes){
-        
-    }
+    updateVotes(pollId, totalVotesMaleForAnsChoice1, totalVotesMaleForAnsChoice2, totalVotesMaleForAnsChoice3, totalVotesMaleForAnsChoice4, totalVotesFemaleForAnsChoice1,
+        totalVotesFemaleForAnsChoice2, totalVotesFemaleForAnsChoice3, totalVotesFemaleForAnsChoice4) {
+        return votesAndMetrics().then((voteCollection) => {
+            console.log(`PollID: ${pollId}  Male Ans Choice 1: ${totalVotesMaleForAnsChoice1} Male Ans Choice 2: ${totalVotesMaleForAnsChoice2} Male Ans Choice 3: ${totalVotesMaleForAnsChoice3} 
+            Male Ans Choice 4: ${totalVotesMaleForAnsChoice4}`)
+
+             console.log(`PollID: ${pollId}  Female Ans Choice 1: ${totalVotesFemaleForAnsChoice1} Female Ans Choice 2: ${totalVotesFemaleForAnsChoice2} Female Ans Choice 3: ${totalVotesFemaleForAnsChoice3} 
+            Female Ans Choice 4: ${totalVotesFemaleForAnsChoice4}`)
+            return voteCollection.updateOne({ _id: pollId }, {
+                set: {totalVotesForPoll: 10}
+       
+    
+            //     $set: { 'ansChoice1.$.totalVotesMale': totalVotesMaleForAnsChoice1 }, $set: { 'ansChoice2.$.totalVotesMale': totalVotesMaleForAnsChoice2 },
+            //     $set: { 'ansChoice3.$.totalVotesMale': totalVotesMaleForAnsChoice3 }, $set: { 'ansChoice4.$.totalVotesMale': totalVotesMaleForAnsChoice4 },
+            //     $set: { 'ansChoice1.$.totalVotesFemale': totalVotesFemaleForAnsChoice1 }, $set: { 'ansChoice2.$.totalVotesFemale': totalVotesFemaleForAnsChoice2 },
+            //     $set: { 'ansChoice3.$.totalVotesFemale': totalVotesFemaleForAnsChoice3 }, $set: { 'ansChoice4.$.totalVotesFemale': totalVotesFemaleForAnsChoice4 }
+             })
+        });
+        }
+   
 }
 
 module.exports = exportedMethods;
