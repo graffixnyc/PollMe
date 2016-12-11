@@ -80,12 +80,14 @@ router.get("/poll/:id", function(request, response) {
 });
 
 router.post("/voteonpoll", function(request, response) {
-    console.log(request.body);
-    console.log(request.body.selector);
-    console.log(request.body.selector.value);
+    
+    var vote = request.body;
+    
     if (request.isAuthenticated()) {
         // Allowed to vote on poll
-        // request.user.username has username of user
+        votesmatrixData.countVote(vote.pollId, vote.ansChoice1, vote.ansChoice2, vote.ansChoice3, vote.ansChoice4, vote.userId, vote.gender).then(() => {
+            response.redirect("/poll/" + vote.pollId);
+        });
     }
     else {
         //Render a login page
