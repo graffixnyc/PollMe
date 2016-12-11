@@ -91,15 +91,20 @@ let exportedMethods = {
             if (currentUser.gender != updatedUser) {
                 //get votes for polls they voted in deincrement the total votes for the gener they were
                 //and then increment the total number of votes for their new gender.  
-                var pollsVotedIn = currentUser.pollsVotedIn;
+                let pollsVotedIn = currentUser.pollsVotedIn;
                 console.log(pollsVotedIn.length);
                 // return polls.getPollsByUser(id).then((polls) => {
                 for (let i = 0; i < pollsVotedIn.length; i++) {
-                    var ansChoiceSelected = pollsVotedIn[i].ansChoiceSelected
-                    var pollId = pollsVotedIn[i].pollId
+                    let ansChoiceSelected = pollsVotedIn[i].ansChoiceSelected
+                    let pollId = pollsVotedIn[i].pollId
                     console.log(`Poll ID: ${pollId}, ansChoiceSelected: ${ansChoiceSelected} `)
-                    return votesAndMetrics.getVotesForPoll(pollId).then((votes) => {
-
+                     votesAndMetrics.getVotesForPoll(pollId).then((votes) => {
+                        let totalVotesForPoll = votes.totalVotesForPoll;
+                        let totalVotesForAnsChoice1 =votes.ansChoice1.totalVotes;
+                        let totalVotesForAnsChoice2 =votes.ansChoice2.totalVotes;
+                        let totalVotesForAnsChoice3 =votes.ansChoice3.totalVotes;
+                        let totalVotesForAnsChoice4 =votes.ansChoice4.totalVotes;
+                        console.log(`ansChoice1: ${totalVotesForAnsChoice1} ansChoice2: ${totalVotesForAnsChoice2} ansChoice3: ${totalVotesForAnsChoice3} ansChoice4: ${totalVotesForAnsChoice4}`)
                     })
                 }
                 // })
