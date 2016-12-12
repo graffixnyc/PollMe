@@ -131,6 +131,7 @@ let exportedMethods = {
         return this.getUserById(userId).then((user) => {
             var pollsVotedIn = user.pollsVotedIn;
             console.log(pollsVotedIn.length)
+            return pollsVotedIn;
 
         });
 

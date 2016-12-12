@@ -9,18 +9,18 @@ const votesmatrixData = data.votesAndMetrics;
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-router.get("/", function(request, response) {
+router.get("/", function (request, response) {
     // need to change this to the page Haoyang and Seito create
     pollsData.getAllPolls().then((polls) => {
         let pollsInfo = [];
-        for(i = 0; i < polls.length; i++) {
+        for (i = 0; i < polls.length; i++) {
             let subpoll = {};
             subpoll._id = polls[i]._id;
             subpoll.question = polls[i].question;
             subpoll.category = polls[i].category;
             subpoll.postedDate = polls[i].postedDate;
             votesmatrixData.getVotesForPoll(polls[i]._id).then((votes) => {
-                if(votes){
+                if (votes) {
                     subpoll.votes = votes.totalVotesForPoll;
                 }
             })
@@ -28,12 +28,12 @@ router.get("/", function(request, response) {
         }
         response.render("pollme/home_before_login", { poll: pollsInfo });
     })
-    .catch((error) => {
-        res.status(404).json({ error: "Error!Poll not found" });
-    });
+        .catch((error) => {
+            res.status(404).json({ error: "Error!Poll not found" });
+        });
 });
 
-router.get("/createpoll", function(request, response) {
+router.get("/createpoll", function (request, response) {
 
     console.log(request.user);
 
@@ -52,7 +52,7 @@ router.get("/createpoll", function(request, response) {
     }
 });
 
-router.post("/createpoll", function(request, response) {
+router.post("/createpoll", function (request, response) {
 
     var now = new Date();
 
@@ -75,78 +75,93 @@ router.post("/createpoll", function(request, response) {
 });
 
 
-router.get("/poll/:id", function(request, response) {
+router.get("/poll/:id", function (request, response) {
     // Create a result set to contain data from different collections.
     let pollResult = {};
     pollsData.getPollById(request.params.id).then((pollInfo) => {
         pollResult.poll = pollInfo;
     })
-    .then(() => {
-        pollResult.user = request.user;
-        votesmatrixData.getVotesForPoll(request.params.id).then((voteInfo) => {
-            pollResult.vote = voteInfo;
-            response.render("pollme/single_poll", { poll: pollResult });
+        .then(() => {
+            pollResult.user = request.user;
+            votesmatrixData.getVotesForPoll(request.params.id).then((voteInfo) => {
+                pollResult.vote = voteInfo;
+                response.render("pollme/single_poll", { poll: pollResult });
+            })
         })
-    })
         .catch(() => {
             res.status(404).json({ error: "Error!Poll not found" });
         })
 });
 
-router.post("/voteonpoll", function(request, response) {
-    
+router.post("/voteonpoll", function (request, response) {
+
     var vote = request.body;
-    var user=request.user;
+    var user = request.user;
     console.log(vote);
-    
+
     if (request.isAuthenticated()) {
-        // Allowed to vote on poll
-        votesmatrixData.countVote(vote.pollid, vote.selector, vote.userid, user.gender).then(() => {
-            response.redirect("/poll/" + vote.pollid );
-        });
+        var theyVoted = false;
+        usersData.getPollsUserVotedin(vote.userid).then((polls) => {
+            console.log(polls)
+            for (var i = 0; i < polls.length; i++) {
+                if (polls[i].pollId == vote.pollid) {
+                    theyVoted = true;
+                }
+            }
+            if (theyVoted == true) {
+                Promise.reject("User Voted already");
+                //needs work
+                request.flash('errorMessage', 'User Voted already in poll');
+                response.send(request.flash());
+            } else {
+                votesmatrixData.countVote(vote.pollid, vote.selector, vote.userid, user.gender).then(() => {
+                    response.redirect("/poll/" + vote.pollid);
+                });
+            }
+        })
     }
     else {
         //Render a login page
         response.render('pollme/login_signup', { redirectPage: "/poll/" + request.body.pollid });
-        
+
     }
 });
 
-router.post("/search", function(request, response) {
+router.post("/search", function (request, response) {
     //If they do not eneter a search term or category to search
-    if (!request.body.keyword && request.body.category=="null") {
+    if (!request.body.keyword && request.body.category == "null") {
         Promise.reject("You must specify a search term or category to search");
         // If they enter a search term but no category  
-    } else if (request.body.keyword && request.body.category=="null") {
-        return pollsData.searchPollsByKeyword(request.body.keyword).then((searchResults)=>{
+    } else if (request.body.keyword && request.body.category == "null") {
+        return pollsData.searchPollsByKeyword(request.body.keyword).then((searchResults) => {
             //render page here
             //res.render('locations/single', { searchResults: searchResults});
-            response.render("pollme/home_before_login", {poll: searchResults});
+            response.render("pollme/home_before_login", { poll: searchResults });
         });
         //If they search category but no keyword
-    } else if (request.body.category  && !request.body.keyword) {
-        return pollsData.getPollsByCategory(request.body.category).then((searchResults)=>{
+    } else if (request.body.category && !request.body.keyword) {
+        return pollsData.getPollsByCategory(request.body.category).then((searchResults) => {
             //render page here
             //res.render('locations/single', { searchResults: searchResults});
-            response.render("pollme/home_before_login", {poll: searchResults});
+            response.render("pollme/home_before_login", { poll: searchResults });
         });
         //If they search by keyword and category
     } else {
-        return pollsData.searchPollsByKeywordAndCategory(request.body.keyword, request.body.category).then((searchResults)=>{
+        return pollsData.searchPollsByKeywordAndCategory(request.body.keyword, request.body.category).then((searchResults) => {
             //render page here
             //res.render('locations/single', { searchResults: searchResults});
-            response.render("pollme/home_before_login", {poll: searchResults});
+            response.render("pollme/home_before_login", { poll: searchResults });
         });
     }
 });
 
-router.post("/commentonpoll", function(request, response) {
+router.post("/commentonpoll", function (request, response) {
 
     console.log(request.body);
     if (request.isAuthenticated()) {
         // Allowed to comment on poll
         // request.user.username has username of user
-        if(request.body.comment && request.body.comment !== "")
+        if (request.body.comment && request.body.comment !== "")
             pollsData.addCommentToPoll(request.body.pollid, request.user.username, request.body.comment).then(() => {
                 response.redirect("/poll/" + request.body.pollid);
             }, (err) => {
