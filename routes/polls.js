@@ -26,7 +26,7 @@ router.get("/", function (request, response) {
             })
             pollsInfo.push(subpoll);
         }
-        response.render("pollme/home_before_login", { poll: pollsInfo, loginuser: request.user});
+        response.render("pollme/home_before_login", { poll: pollsInfo});
     })
         .catch((error) => {
             res.status(404).json({ error: "Error!Poll not found" });
@@ -41,7 +41,7 @@ router.get("/createpoll", function (request, response) {
     if (request.isAuthenticated()) {
         //Render the make poll page or something like that
         //request.user.username has username of user
-        response.render('pollme/create_poll', { user: request.user, loginuser: request.user });
+        response.render('pollme/create_poll', { user: request.user });
     }
     else {
         //Render a login page
@@ -85,7 +85,7 @@ router.get("/poll/:id", function (request, response) {
             pollResult.user = request.user;
             votesmatrixData.getVotesForPoll(request.params.id).then((voteInfo) => {
                 pollResult.vote = voteInfo;
-                response.render("pollme/single_poll", { poll: pollResult, loginuser: request.user });
+                response.render("pollme/single_poll", { poll: pollResult});
             })
         })
         .catch(() => {
@@ -136,21 +136,21 @@ router.post("/search", function (request, response) {
         return pollsData.searchPollsByKeyword(request.body.keyword).then((searchResults) => {
             //render page here
             //res.render('locations/single', { searchResults: searchResults});
-            response.render("pollme/home_before_login", { poll: searchResults, loginuser: request.user });
+            response.render("pollme/home_before_login", { poll: searchResults });
         });
         //If they search category but no keyword
     } else if (request.body.category && !request.body.keyword) {
         return pollsData.getPollsByCategory(request.body.category).then((searchResults) => {
             //render page here
             //res.render('locations/single', { searchResults: searchResults});
-            response.render("pollme/home_before_login", { poll: searchResults, loginuser: request.user });
+            response.render("pollme/home_before_login", { poll: searchResults });
         });
         //If they search by keyword and category
     } else {
         return pollsData.searchPollsByKeywordAndCategory(request.body.keyword, request.body.category).then((searchResults) => {
             //render page here
             //res.render('locations/single', { searchResults: searchResults});
-            response.render("pollme/home_before_login", { poll: searchResults, loginuser: request.user });
+            response.render("pollme/home_before_login", { poll: searchResults });
         });
     }
 });

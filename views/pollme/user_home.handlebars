@@ -1,4 +1,4 @@
-{{!--<header>
+<header>
     <div class="logo">
         <a href="#">PollMe</a>
     </div>
@@ -17,7 +17,7 @@
     </ul>
     </nav>
     </div>
-</header>--}}
+</header>
 <center>
     <div class="home-before">
         <form class="search-box" action="/search" method="POST">
@@ -58,7 +58,7 @@
                 </tr>
             </thead>
             <tbody>
-                {{#each poll}}
+                {{#each user.pollInfo}}
                 <tr>
                     <td class="table-body"><a class="track-single" href="/poll/{{this._id}}">{{this.question}}</a></td>
                     <td class="table-body">{{this.category}}</td>
@@ -71,8 +71,8 @@
     </div>
 
     <center>
-        {{!--<footer>
+        <footer>
             <div class="copyright">
                 <p>&copy; PollMe Team || Patrick Hill | Yasuo Kobayashi | Haoyang Li | Seito Ryu | Jason Sarwar</p>
             </div>
-        </footer>--}}
+        </footer>

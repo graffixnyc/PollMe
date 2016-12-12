@@ -66,8 +66,8 @@ router.post('/login', passport.authenticate('local', {
 
 //Pakage the validation function into passport.js module.
 router.get('/private', isLoggedIn, function (req, res) {
-    // let userResult = {};
-    // userResult.userInfo = req.user;
+    let userResult = {};
+    userResult.userInfo = req.user;
     // console.log(userResult.userInfo);
     let pollsInfo = [];
     pollsData.getAllPolls().then((polls) => {
@@ -85,10 +85,10 @@ router.get('/private', isLoggedIn, function (req, res) {
             pollsInfo.push(subpoll);
         }
     })
-    // userResult.pollInfo = pollsInfo;
-    res.render('pollme/home_before_login', {
-        poll: pollsInfo,
-        loginuser: req.user
+    userResult.pollInfo = pollsInfo;
+    res.render('pollme/user_home', {
+        user: userResult
+        // loginuser: req.user
     });
 
 });
@@ -110,7 +110,7 @@ router.get('/mypolls', isLoggedIn, function (req, res) {
             })
             pollsInfo.push(subpoll);
         }
-        res.render("pollme/mypage_mypoll", { poll: pollsInfo, loginuser: req.user });
+        res.render("pollme/mypage_mypoll", { poll: pollsInfo, loginuser: req.user});
     })
 
 });
@@ -156,7 +156,7 @@ router.post("/signup", function (request, response) {
 router.get('/editprofile', function (request, response) {
 
     if (request.isAuthenticated()) {
-        response.render('pollme/mypage_edit', { user: request.user, loginuser: request.user });
+        response.render('pollme/mypage_edit', { user: request.user });
 
     }
     else {
