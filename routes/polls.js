@@ -29,7 +29,7 @@ router.get("/", function (request, response) {
         response.render("pollme/home_before_login", { poll: pollsInfo});
     })
         .catch((error) => {
-            res.status(404).json({ error: "Error!Poll not found" });
+            response.status(404).json({ error: "Error!Poll not found" });
         });
 });
 
