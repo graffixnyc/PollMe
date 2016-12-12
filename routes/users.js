@@ -94,7 +94,7 @@ router.get('/private', isLoggedIn, function (req, res) {
 
 router.get('/mypolls', isLoggedIn, function (req, res) {
     console.log(req.user._id)
-     pollsData.getPollsByUser(req.user._id).then((polls) => {
+    pollsData.getPollsByUser(req.user._id).then((polls) => {
         let pollsInfo = [];
         for (i = 0; i < polls.length; i++) {
             let subpoll = {};
