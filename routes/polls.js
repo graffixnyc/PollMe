@@ -58,7 +58,7 @@ router.post("/createpoll", function(request, response) {
 
     var newPoll = request.body;
     if (request.isAuthenticated()) {
-        var currentDate = new Date()//.toLocaleString().split(',')[0]
+        var currentDate = new Date()
         pollsData.addPoll(newPoll.category, currentDate, newPoll.question, newPoll.choice1, newPoll.choice2, newPoll.choice3, newPoll.choice4, request.user._id).then((pollid) => {
             response.redirect("/poll/" + pollid);
         }, (err) => {
@@ -103,6 +103,7 @@ router.post("/voteonpoll", function(request, response) {
         // Allowed to vote on poll
         votesmatrixData.countVote(vote.pollid, vote.selector, vote.userid, user.gender).then(() => {
             response.json({ success: true, pollid: vote.pollId });
+            //response.render("pollme/single_poll", { poll: pollResult });
         });
     }
     else {

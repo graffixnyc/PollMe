@@ -45,39 +45,39 @@ dbConnection().then(db => {
         const id = patrick._id;
 
         return polls
-            .addPoll("Technology", "11/27/2016", "What Phone Should I buy?", "iPhone 7", "Galaxy S7", "Google Pixel XL", "Other (leave in comments)", id)
+            .addPoll("Technology", new Date("11/27/2016"), "What Phone Should I buy?", "iPhone 7", "Galaxy S7", "Google Pixel XL", "Other (leave in comments)", id)
             .then(() => {
-                return polls.addPoll("Food", "11/27/2016", "What is the best food before taking an exam?", "Banana", "Pizza", "Chocolate", "Sushi", id);
+                return polls.addPoll("Food", new Date("2016-11-27"), "What is the best food before taking an exam?", "Banana", "Pizza", "Chocolate", "Sushi", id);
             })
             .then(() => {
-                return polls.addPoll("Entertainment", "12/10/2016", "What is a must see YouTube video today?", "PPAP", "TED Talks", "Maroon5", "Adele Carpool Karaoke", id);
+                return polls.addPoll("Entertainment", new Date("2016-12-10"), "What is a must see YouTube video today?", "PPAP", "TED Talks", "Maroon5", "Adele Carpool Karaoke", id);
             })
             .then(() => {
-                return polls.addPoll("Education", "11/27/2016", "What Class Should I take next semester?", "CS 546", "CS 522", "CS 545", "CS 522", id);
+                return polls.addPoll("Education", new Date("2016-11-27"), "What Class Should I take next semester?", "CS 546", "CS 522", "CS 545", "CS 522", id);
             })
             .then(() => {
-                return polls.addPoll("Automotive", "12/1/2016", "What types of car should I buy?", "SUVs", "Sedan", "Sports", "Truck", id);
+                return polls.addPoll("Automotive", new Date("2016-12-1"), "What types of car should I buy?", "SUVs", "Sedan", "Sports", "Truck", id);
             })
             .then(() => {
-                return polls.addPoll("Sports", "12/2/2016", "What sports should I watch with my girlfriend?", "Football", "Baseball", "Basketball", "Tennis", id);
+                return polls.addPoll("Sports", new Date("2016-12-2"), "What sports should I watch with my girlfriend?", "Football", "Baseball", "Basketball", "Tennis", id);
             })
             .then(() => {
-                return polls.addPoll("Movies", "12/7/2016", "What is a must see movie?", "Inception", "GodFather", "Harry Poter", "Mission Impossible", id);
+                return polls.addPoll("Movies", new Date("2016-12-7"), "What is a must see movie?", "Inception", "GodFather", "Harry Poter", "Mission Impossible", id);
             })
             .then(() => {
-                return polls.addPoll("Travel", "11/27/2016", "Which city should I visit this summer?", "Miami", "New Orleans", "San Francisco", "Hoboken", id);
+                return polls.addPoll("Travel", new Date("2016-11-28"), "Which city should I visit this summer?", "Miami", "New Orleans", "San Francisco", "Hoboken", id);
             })
             .then(() => {
-                return polls.addPoll("Politics", "11/22/2016", "Who should be the next president of the United States?", "Donald Trump", "Hilary Cliton", "Michael Jordan", "Lady Gaga", id);
+                return polls.addPoll("Politics", new Date("2016-11-22"), "Who should be the next president of the United States?", "Donald Trump", "Hilary Cliton", "Michael Jordan", "Lady Gaga", id);
             })
             .then(() => {
-                return polls.addPoll("Arts", "12/5/2016", "Which museum do you like the most in NYC?", "Metropolitan", "MOMA", "Guggenheim", "Whitney", id);
+                return polls.addPoll("Arts", new Date("2016-11-22") , "Which museum do you like the most in NYC?", "Metropolitan", "MOMA", "Guggenheim", "Whitney", id);
             })
             .then(() => {
-                return polls.addPoll("Health", "11/20/2016", "What health concerns do you have recently?", "Obesity", "Depression", "Diabetes", "Heart disease", id);
+                return polls.addPoll("Health", new Date("2016-11-20"), "What health concerns do you have recently?", "Obesity", "Depression", "Diabetes", "Heart disease", id);
             })
             .then(() => {
-                return polls.addPoll("Music", "11/22/2016", "What genres of music do you want to listen?", "Rock", "Pops", "Classic", "Jazz", id);
+                return polls.addPoll("Music", new Date("2016-11-22"), "What genres of music do you want to listen?", "Rock", "Pops", "Classic", "Jazz", id);
             })
         //.then(() => {
         //   return polls.addPoll(12, "11/27/2016","What is a better laptop?","MacBook Pro 13","Dell XPS 13","Lenovo Yoga","HP Envy", id);
