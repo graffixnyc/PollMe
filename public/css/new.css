@@ -396,6 +396,19 @@ footer {
 	line-height: 60px;
   color: black;
 }
+#mypoll-heading {
+  
+	/*color: #343434;*/
+	/*text-transform: uppercase;*/
+	text-shadow: 0 2px white, 0 3px #777;
+  font-family: verdana, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif";
+	font-size: 36px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 700;
+	line-height: 60px;
+  color: black;
+}
 
 #votes-total {
   font-family: verdana, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif";
