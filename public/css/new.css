@@ -228,7 +228,7 @@ header {
 .logo a {
   color: white;
   font-size: 30px;
-  margin-top: 25px;
+  margin-top: 6px;
   display: block;
   text-decoration: none;
 }
@@ -314,7 +314,7 @@ footer {
   margin-bottom: 10px;
 }
 
-.search-box #keyword, .search-box #category {
+#keyword,  #category {
 	border: 1px solid #CCC;
 	-webkit-box-shadow: 0 1px 1px #ddd inset, 0 1px 0 #FFF;
 	-moz-box-shadow: 0 1px 1px #ddd inset, 0 1px 0 #FFF;
@@ -330,13 +330,17 @@ footer {
 	width: 300px;
 }
 
-.search-box #category {
-  margin-top: 20px;
+#category {
+  margin-top: 5px;
+  margin-left: 16px;
+  margin-right: 16px;
   height: 30px;
+  padding: 13px;
 }
 
-.search-box #keyword{
+#keyword{
  padding: 13px;
+  margin-top: 5px;
 }
 
 /*.search-box #keyword:-moz-placeholder,
@@ -346,7 +350,7 @@ footer {
 	font-weight: normal;
 }*/
 
-.search-box #search-button, .search-box #cancel-button {
+#search-button, #cancel-button {
   background-color:gray;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(gray), to(dimgray));
 	background-image: -webkit-linear-gradient(top, gray, dimgray);
