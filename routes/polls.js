@@ -102,8 +102,7 @@ router.post("/voteonpoll", function(request, response) {
     if (request.isAuthenticated()) {
         // Allowed to vote on poll
         votesmatrixData.countVote(vote.pollid, vote.selector, vote.userid, user.gender).then(() => {
-            response.json({ success: true, pollid: vote.pollId });
-            //response.render("pollme/single_poll", { poll: pollResult });
+            response.redirect("/poll/" + vote.pollid );
         });
     }
     else {
