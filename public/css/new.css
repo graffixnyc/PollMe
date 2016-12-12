@@ -13,6 +13,7 @@ body {
   font-family: Verdana, Geneva, sans-serif;
   /*font-family: 'Titillium Web', sans-serif;*/
   font-size: 15px;
+  z-index:100
 }
 
 .a_log {
@@ -218,6 +219,7 @@ header {
   background: #28547a;
   width: 100%;
   top: 0;
+  z-index:200
 }
 
 .logo {
