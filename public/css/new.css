@@ -374,6 +374,7 @@ footer {
 	text-transform: uppercase;
 	text-shadow: 0 1px 0 rgba(0, 0 ,0, .3);
 	width: 70px;
+  margin-top: 5px;
 }
 
 .search-box #search-button:hover,
