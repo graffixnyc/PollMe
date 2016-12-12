@@ -110,7 +110,6 @@ label .req {
 .original-input, textarea {
   font-size: 22px;
   display: block;
-  
   height: 100%;
   padding: 5px 10px;
   background: none;
@@ -121,9 +120,24 @@ label .req {
   -webkit-transition: border-color .25s ease, box-shadow .25s ease;
   transition: border-color .25s ease, box-shadow .25s ease;
 }
-original-input:focus, textarea:focus {
+.original-input:focus, textarea:focus {
   outline: 0;
   border-color: dimgray;
+}
+
+.original-input-1 {
+  font-size: 22px;
+  display: block;
+  width: 150px;
+  height: 100%;
+  padding: 5px 10px;
+  background: none;
+  background-image: none;
+  border: 1px solid #a0b3b0;
+  color: black;
+  border-radius: 0;
+  -webkit-transition: border-color .25s ease, box-shadow .25s ease;
+  transition: border-color .25s ease, box-shadow .25s ease;
 }
 
 textarea {
