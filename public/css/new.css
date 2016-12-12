@@ -188,6 +188,16 @@ textarea {
   margin-left: 250px;
 }
 
+.mypage-edit {
+  padding: 40px;
+  max-width: 1000px;
+  margin: 100px auto;
+  border-radius: 60px;
+  opacity: 0.94;
+  margin-right: 350px;
+  margin-top: 25px;
+}
+
 header {
   height: 100px;
   position: fixed;
