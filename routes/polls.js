@@ -115,7 +115,8 @@ router.post("/voteonpoll", function (request, response) {
                 response.send(request.flash());
             } else {
                 votesmatrixData.countVote(vote.pollid, vote.selector, vote.userid, user.gender).then(() => {
-                    response.redirect("/poll/" + vote.pollid);
+                    let voted = true;
+                    response.redirect("/poll/" + vote.pollid + "?voted=" + voted);
                 });
             }
         })
