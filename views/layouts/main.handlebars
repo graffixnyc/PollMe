@@ -10,16 +10,16 @@
 </head>
 
 <body>
-     <header>
-            <div class="logo">
-                <a href="#">PollMe</a>
-                <label>Search Polls by keyword and/or category</label>
-                <div>
-                   <form action="/search" method="POST">
-                   
-        <input id="keyword" type="text" name="keyword" placeholder="Search by keyword...">
-        
-        <select id="category" name="category">
+    <header>
+        <div class="logo">
+            <a href="/">PollMe</a>
+            <label>Search Polls by keyword and/or category</label>
+            <div>
+                <form action="/search" method="POST">
+
+                    <input id="keyword" type="text" name="keyword" placeholder="Search by keyword...">
+
+                    <select id="category" name="category">
             <option value="null">--Select Category--</option>
             <option value="Arts">Arts</option>
             <option value="Automotive">Automotive</option>
@@ -42,42 +42,42 @@
             <option value="Other">Other</option>
             
         </select>
-        <input id="search-button" type="submit" value="Search">
-    </form>
-                </div>
+                    <input id="search-button" type="submit" value="Search">
+                </form>
             </div>
-            <div class="menu">
-                <nav>
-                    <ul>
-                        <li><a href="/">Home</li>
+        </div>
+        <div class="menu">
+            <nav>
+                <ul>
+                    <li><a href="/">Home</li>
                         <li><a href="/createpoll">Create Poll</li>
                         {{#if loginuser}}
                         <li class="dropdown"><a href="/private">My Account{{this.username}}</a>
-                                <div class="dropdown-content">
-                                    <a class="submenu" href="/mypolls">My Polls</a>
-                                    <a class="submenu" href="/editprofile">Edit Profile</a>
-                                    <a class="submenu" href="/logout">Log Out</a>
-                                </div>
-                        </li>
-                        {{else}}
-                        <li><a href="/login">Log In</a></li>
-                        {{/if}}
-                    </ul>
-                </nav>
-            </div>
-    </header>  
+                        <div class="dropdown-content">
+                            <a class="submenu" href="/mypolls">My Polls</a>
+                            <a class="submenu" href="/editprofile">Edit Profile</a>
+                            <a class="submenu" href="/logout">Log Out</a>
+                        </div>
+                    </li>
+                    {{else}}
+                    <li><a href="/login">Log In</a></li>
+                    {{/if}}
+                </ul>
+            </nav>
+        </div>
+    </header>
     <main class="container">
         <div class="row">
         </div>
-            <div class="col-sm-12">
-                {{{body}}}
-            </div>
+        <div class="col-sm-12">
+            {{{body}}}
+        </div>
         </div>
     </main>
-   <footer>
-            <div class="copyright">
-                <p>&copy; PollMe Team || Patrick Hill | Yasuo Kobayashi | Haoyang Li | Seito Ryu | Jason Sarwar</p>
-            </div>
+    <footer>
+        <div class="copyright">
+            <p>&copy; PollMe Team || Patrick Hill | Yasuo Kobayashi | Haoyang Li | Seito Ryu | Jason Sarwar</p>
+        </div>
     </footer>
 
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
@@ -88,4 +88,5 @@
     <script type="text/javascript" src="/public/js/voteonpoll.js"></script>
 
 </body>
+
 </html>

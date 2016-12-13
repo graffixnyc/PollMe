@@ -26,7 +26,7 @@ router.get("/", function (request, response) {
             })
             pollsInfo.push(subpoll);
         }
-        response.render("pollme/home_before_login", { poll: pollsInfo, loginuser: request.user});
+        response.render("pollme/home_before_login", { poll: pollsInfo, loginuser: request.user });
     })
         .catch((error) => {
             response.status(404).json({ error: "Error!Poll not found" });
@@ -85,7 +85,7 @@ router.get("/poll/:id", function (request, response) {
             pollResult.user = request.user;
             votesmatrixData.getVotesForPoll(request.params.id).then((voteInfo) => {
                 pollResult.vote = voteInfo;
-                response.render("pollme/single_poll", { poll: pollResult, loginuser: request.user});
+                response.render("pollme/single_poll", { poll: pollResult, loginuser: request.user });
             })
         })
         .catch(() => {
@@ -134,23 +134,65 @@ router.post("/search", function (request, response) {
         // If they enter a search term but no category  
     } else if (request.body.keyword && request.body.category == "null") {
         return pollsData.searchPollsByKeyword(request.body.keyword).then((searchResults) => {
+            let pollsInfo = [];
+            for (i = 0; i < searchResults.length; i++) {
+                let subpoll = {};
+                subpoll._id = searchResults[i]._id;
+                subpoll.question = searchResults[i].question;
+                subpoll.category = searchResults[i].category;
+                subpoll.postedDate = searchResults[i].postedDate;
+                votesmatrixData.getVotesForPoll(searchResults[i]._id).then((votes) => {
+                    if (votes) {
+                        subpoll.votes = votes.totalVotesForPoll;
+                    }
+                })
+                pollsInfo.push(subpoll);
+            }
             //render page here
             //res.render('locations/single', { searchResults: searchResults});
-            response.render("pollme/home_before_login", { poll: searchResults, loginuser: request.user });
+            response.render("pollme/home_before_login", { poll: pollsInfo, loginuser: request.user });
         });
         //If they search category but no keyword
     } else if (request.body.category && !request.body.keyword) {
         return pollsData.getPollsByCategory(request.body.category).then((searchResults) => {
             //render page here
+            let pollsInfo = [];
+            for (i = 0; i < searchResults.length; i++) {
+                let subpoll = {};
+                subpoll._id = searchResults[i]._id;
+                subpoll.question = searchResults[i].question;
+                subpoll.category = searchResults[i].category;
+                subpoll.postedDate = searchResults[i].postedDate;
+                votesmatrixData.getVotesForPoll(searchResults[i]._id).then((votes) => {
+                    if (votes) {
+                        subpoll.votes = votes.totalVotesForPoll;
+                    }
+                })
+                pollsInfo.push(subpoll);
+            }
             //res.render('locations/single', { searchResults: searchResults});
-            response.render("pollme/home_before_login", { poll: searchResults, loginuser: request.user });
+            response.render("pollme/home_before_login", { poll: pollInfo, loginuser: request.user });
         });
         //If they search by keyword and category
     } else {
         return pollsData.searchPollsByKeywordAndCategory(request.body.keyword, request.body.category).then((searchResults) => {
             //render page here
+            let pollsInfo = [];
+            for (i = 0; i < searchResults.length; i++) {
+                let subpoll = {};
+                subpoll._id = searchResults[i]._id;
+                subpoll.question = searchResults[i].question;
+                subpoll.category = searchResults[i].category;
+                subpoll.postedDate = searchResults[i].postedDate;
+                votesmatrixData.getVotesForPoll(searchResults[i]._id).then((votes) => {
+                    if (votes) {
+                        subpoll.votes = votes.totalVotesForPoll;
+                    }
+                })
+                pollsInfo.push(subpoll);
+            }
             //res.render('locations/single', { searchResults: searchResults});
-            response.render("pollme/home_before_login", { poll: searchResults, loginuser: request.user });
+            response.render("pollme/home_before_login", { poll: pollsInfo, loginuser: request.user });
         });
     }
 });
