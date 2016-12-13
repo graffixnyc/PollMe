@@ -21,7 +21,7 @@ module.exports = function(passport) {
     },
         function(req, username, password, done) {
 
-            User.getUserByUsername(username).then((user) => {
+            User.getUserByUsername(username.toLowerCase()).then((user) => {
                 bcrypt.compare(password, user.password, function (err, res) {
                     if (err)
                         return Promise.reject("Error");
