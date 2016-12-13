@@ -177,7 +177,12 @@
             </label>
           <input class="original-input" name="signUpPassword" type="password" required autocomplete="on" />
         </div>
-
+        <div>
+         <label>
+              Confirm Password<span class="req">*</span>
+            </label>
+          <input class="original-input" name="signUpPassword2" type="password" required autocomplete="on" />
+        </div> <br><br>
         {{#if redirectPage }}
         <input type="hidden" name="redirectPageSignUp" id="redirectPageSignUp" value={{ redirectPage }}> {{/if}}
 

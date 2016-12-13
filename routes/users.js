@@ -110,7 +110,7 @@ router.get('/mypolls', isLoggedIn, function (req, res) {
             })
             pollsInfo.push(subpoll);
         }
-        res.render("pollme/mypage_mypoll", { poll: pollsInfo, loginuser: req.user});
+        res.render("pollme/mypage_mypoll", { poll: pollsInfo, loginuser: req.user });
     })
 
 });
@@ -136,21 +136,25 @@ router.get("/signup", function (request, response) {
 router.post("/signup", function (request, response) {
 
     let newUser = request.body;
-    usersData.createHashedPassword(newUser.signUpPassword).then((hashedPassword) => {
-        usersData.addUser(newUser.signUpUsername, newUser.firstname, newUser.lastname, newUser.email, newUser.gender, newUser.city, newUser.state, newUser.age, hashedPassword).then((user) => {
-            request.login(user, function (err) {
-                if (err) { console.log(err); }
-                response.redirect("/");
-            });
+    if (newUser.signUpPassword != newUser.signUpPassword2) {
+        //passwords do not match
+    } else {
+        usersData.createHashedPassword(newUser.signUpPassword).then((hashedPassword) => {
+            usersData.addUser(newUser.signUpUsername, newUser.firstname, newUser.lastname, newUser.email, newUser.gender, newUser.city, newUser.state, newUser.age, hashedPassword).then((user) => {
+                request.login(user, function (err) {
+                    if (err) { console.log(err); }
+                    response.redirect("/");
+                });
 
+            }, (err) => {
+                //error handling
+                console.log(err);
+            });
         }, (err) => {
             //error handling
             console.log(err);
         });
-    }, (err) => {
-        //error handling
-        console.log(err);
-    });
+    }
 });
 
 router.get('/editprofile', function (request, response) {
