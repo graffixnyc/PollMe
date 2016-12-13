@@ -150,7 +150,7 @@ let exportedMethods = {
     //Needs testing and most likely modification
     updateVoteDocument(pollId, selector, userId, userGender) {
         console.log("updateVoteDocument 1");
-        return pollsData.getPollById(pollId).then((poll) => {
+        return this.getVotesForPoll(pollId).then((poll) => {
             console.log("updateVoteDocument 2");
             let ansChoiceUserSelected = "";
             let totalVotesForPoll = poll.totalVotesForPoll + 1;
@@ -217,9 +217,9 @@ let exportedMethods = {
             }
             console.log("Running update..");
             return votesAndMetrics().then((voteCollection) => {
-                return voteCollection.updateOne({ _id: pollId }, {
+                return voteCollection.updateOne({ _id: pollId }, { 
                     $set: {
-                        totalVotesForPoll: totalVotesForPoll,
+                       totalVotesForPoll: totalVotesForPoll,
                         "ansChoice1": {
                             "totalVotes": totalVotesForAnsChoice1,
                             "totalVotesMale": totalVotesMaleForAnsChoice1,
@@ -244,7 +244,7 @@ let exportedMethods = {
                 }).then((result) => {
                     console.log("after update...");
                     console.log("updateVoteDocument 14:");
-                    return pollData.getPollById(pollId).then((poll) => {
+                    return pollsData.getPollById(pollId).then((poll) => {
                         console.log("updateVoteDocument 15:");
                         return usersData.addPollVotedInToUser(userId, poll._id, ansChoiceUserSelected)
 
