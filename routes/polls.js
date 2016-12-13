@@ -171,7 +171,7 @@ router.post("/search", function (request, response) {
                 pollsInfo.push(subpoll);
             }
             //res.render('locations/single', { searchResults: searchResults});
-            response.render("pollme/home_before_login", { poll: pollInfo, loginuser: request.user });
+            response.render("pollme/home_before_login", { poll: pollsInfo, loginuser: request.user });
         });
         //If they search by keyword and category
     } else {
