@@ -59,39 +59,41 @@ router.get("/login", function (request, response) {
 
 //Update the post /login with passport
 router.post('/login', passport.authenticate('local', {
-    successRedirect: '/private',
+    successRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true
 }));
 
-//Pakage the validation function into passport.js module.
-router.get('/private', isLoggedIn, function (req, res) {
-    // let userResult = {};
-    // userResult.userInfo = req.user;
-    // console.log(userResult.userInfo);
-    let pollsInfo = [];
-    pollsData.getAllPolls().then((polls) => {
-        for (i = 0; i < polls.length; i++) {
-            let subpoll = {};
-            subpoll._id = polls[i]._id;
-            subpoll.question = polls[i].question;
-            subpoll.category = polls[i].category;
-            subpoll.postedDate = polls[i].postedDate;
-            votesmatrixData.getVotesForPoll(polls[i]._id).then((votes) => {
-                if (votes) {
-                    subpoll.votes = votes.totalVotesForPoll;
-                }
-            })
-            pollsInfo.push(subpoll);
-        }
-    })
-    // userResult.pollInfo = pollsInfo;
-    res.render('pollme/home_before_login', {
-        poll: pollsInfo,
-        loginuser: req.user
-    });
 
-});
+// This route is not really needed and is a duplicate of the / route. There is nothing displayed 
+// after the user logs in that is private
+// router.get('/private', isLoggedIn, function (req, res) {
+//     // let userResult = {};
+//     // userResult.userInfo = req.user;
+//     // console.log(userResult.userInfo);
+//     let pollsInfo = [];
+//     pollsData.getAllPolls().then((polls) => {
+//         for (i = 0; i < polls.length; i++) {
+//             let subpoll = {};
+//             subpoll._id = polls[i]._id;
+//             subpoll.question = polls[i].question;
+//             subpoll.category = polls[i].category;
+//             subpoll.postedDate = polls[i].postedDate;
+//             votesmatrixData.getVotesForPoll(polls[i]._id).then((votes) => {
+//                 if (votes) {
+//                     subpoll.votes = votes.totalVotesForPoll;
+//                 }
+//             })
+//             pollsInfo.push(subpoll);
+//         }
+//     })
+//     // userResult.pollInfo = pollsInfo;
+//     res.render('pollme/home_before_login', {
+//         poll: pollsInfo,
+//         loginuser: req.user
+//     });
+
+// });
 
 router.get('/mypolls', isLoggedIn, function (req, res) {
     console.log(req.user._id)
