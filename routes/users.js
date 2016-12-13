@@ -172,12 +172,9 @@ router.get('/editprofile', function (request, response) {
 });
 
 router.post('/editprofile', function (request, response) {
-
+// DO THIS NEXT
     if (request.isAuthenticated()) {
-        /*
-        votesmatrixData.updateUser();
-        
-        */
+        console.log("Logged in");
     }
     else {
         if (request.flash().error)
