@@ -133,8 +133,8 @@
         </form>
 
         <div id="show-comments"><br>
-            Comments List<br>
             <table class="comment-table">
+                <tr style="background: white;"><td><h2>Comments:</h2></td></tr>
                 {{#each poll.poll.comments}}
                     <tr>
                         <td align="left">
@@ -154,7 +154,7 @@
 
         <form id="post-comment" method="post" action="/commentonpoll">
             <h3 class="ask">What's on your mind?</h3><br>
-            <textarea id="comment-post" name="comment"></textarea><br>
+            <textarea class="comment-post"id="comment-post" name="comment"></textarea><br>
             <input type="hidden" name="pollid" value="{{poll.poll._id}}">
             <input type="hidden" name="poster" value="{{poll.user._id}}">
             <input type="submit" class="submit-comment" value="Submit">
