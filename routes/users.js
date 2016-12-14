@@ -151,7 +151,7 @@ router.post("/signup", function (request, response) {
         
             } else {
                 usersData.createHashedPassword(newUser.signUpPassword).then((hashedPassword) => {
-                    usersData.addUser(newUser.signUpUsername.toLowerCase(), newUser.firstname, newUser.lastname, newUser.email, newUser.gender, newUser.city, newUser.state, newUser.age, hashedPassword).then((user) => {
+                    usersData.addUser(newUser.signUpUsername, newUser.firstname, newUser.lastname, newUser.email, newUser.gender, newUser.city, newUser.state, newUser.age, hashedPassword).then((user) => {
                         request.login(user, function (err) {
                             if (err) { console.log(err); }
                             response.redirect("/");

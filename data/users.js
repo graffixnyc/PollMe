@@ -42,7 +42,7 @@ let exportedMethods = {
         return users().then((userCollection) => {
             let newUser = {
                 _id: uuid.v4(),
-                username: username,
+                username: username.toLowerCase(),
                 firstName: firstName,
                 lastName: lastName,
                 email: email,
