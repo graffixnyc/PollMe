@@ -143,10 +143,10 @@ router.post("/signup", function (request, response) {
         request.flash('errorMessage', 'Passwords do not Match');
                 response.send(request.flash());
     } else {
-        usersData.getUserByUsername(newUser.signUpUsername.toLowerCase()).then((user) => {
+        usersData.getUserByUsernameOrEmail(newUser.signUpUsername.toLowerCase(),newUser.email).then((user) => {
             if (user) {
                 //Username already in system
-                 request.flash('errorMessage', 'User Already Exists');
+                 request.flash('errorMessage', 'Username or User Email Already Exists');
                 response.send(request.flash());
         
             } else {

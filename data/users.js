@@ -26,6 +26,13 @@ let exportedMethods = {
             });
         });
     },
+    getUserByUsernameOrEmail(username, email) {
+        return users().then((userCollection) => {
+            return userCollection.findOne({$or:[{ username: username }, { email: email }]}).then((user) => {
+                return user;
+            });
+        });
+    },
     addUser(username, firstName, lastName, email, gender, city, state, age, hashedPassword) {
         //need error checking here
 
