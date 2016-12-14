@@ -145,6 +145,7 @@ router.post("/signup", function (request, response) {
     } else {
         usersData.getUserByUsername(newUser.signUpUsername.toLowerCase()).then((user) => {
             if (user) {
+                //Username already in system
                  request.flash('errorMessage', 'User Already Exists');
                 response.send(request.flash());
         
