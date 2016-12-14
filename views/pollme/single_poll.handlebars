@@ -132,12 +132,10 @@
             <input type="submit" class="submit-comment" value="Submit">
         </form>
 
-        <div id="show-comments">
-            <br>
-            <h3>Comments List</h3>
-            <table>
+        <div id="show-comments"><br>
+            Comments List<br>
+            <table class="comment-table">
                 {{#each poll.poll.comments}}
-                <div class="comments-content">
                     <tr>
                         <td align="left">
                             <b>Poster:</b> {{this.poster}}
@@ -146,9 +144,10 @@
                     <tr>
                         <td align="left">
                             <b>Comment:</b> {{this.comment}}
+                            <hr>
                         </td>
                     </tr>
-                </div>
+                
                 <br> {{/each}}
             </table>
         </div>
