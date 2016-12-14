@@ -134,10 +134,23 @@
 
         <div id="show-comments">
             <br>
-            <h3 class="ask">Comments List</h3><br> {{#each poll.poll.comments}}
-            <div class="comments-content">
-                Poster: {{this.poster}} <br> Comment: {{this.comment}}
-            </div><br> {{/each}}
+            <h3>Comments List</h3>
+            <table>
+                {{#each poll.poll.comments}}
+                <div class="comments-content">
+                    <tr>
+                        <td align="left">
+                            <b>Poster:</b> {{this.poster}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left">
+                            <b>Comment:</b> {{this.comment}}
+                        </td>
+                    </tr>
+                </div>
+                <br> {{/each}}
+            </table>
         </div>
 
         <form id="post-comment" method="post" action="/commentonpoll">
