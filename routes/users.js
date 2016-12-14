@@ -8,7 +8,7 @@ const pollsData = data.polls;
 const votesmatrixData = data.votesAndMetrics;
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-
+const flash = require("req-flash");
 router.get("/profile", function (request, response) {
 
     if (request.isAuthenticated())
@@ -140,22 +140,33 @@ router.post("/signup", function (request, response) {
     let newUser = request.body;
     if (newUser.signUpPassword != newUser.signUpPassword2) {
         //passwords do not match
+        request.flash('errorMessage', 'Passwords do not Match');
+                response.send(request.flash());
     } else {
-        usersData.createHashedPassword(newUser.signUpPassword).then((hashedPassword) => {
-            usersData.addUser(newUser.signUpUsername.toLowerCase(), newUser.firstname, newUser.lastname, newUser.email, newUser.gender, newUser.city, newUser.state, newUser.age, hashedPassword).then((user) => {
-                request.login(user, function (err) {
-                    if (err) { console.log(err); }
-                    response.redirect("/");
-                });
+        usersData.getUserByUsername(newUser.signUpUsername.toLowerCase()).then((user) => {
+            if (user) {
+                 request.flash('errorMessage', 'User Already Exists');
+                response.send(request.flash());
+        
+            } else {
+                usersData.createHashedPassword(newUser.signUpPassword).then((hashedPassword) => {
+                    usersData.addUser(newUser.signUpUsername.toLowerCase(), newUser.firstname, newUser.lastname, newUser.email, newUser.gender, newUser.city, newUser.state, newUser.age, hashedPassword).then((user) => {
+                        request.login(user, function (err) {
+                            if (err) { console.log(err); }
+                            response.redirect("/");
+                        });
 
-            }, (err) => {
-                //error handling
-                console.log(err);
-            });
-        }, (err) => {
-            //error handling
-            console.log(err);
-        });
+                    }, (err) => {
+                        //error handling
+                        console.log(err);
+                    });
+                }, (err) => {
+                    //error handling
+                    console.log(err);
+                });
+            }
+        })
+
     }
 });
 
@@ -174,7 +185,7 @@ router.get('/editprofile', function (request, response) {
 });
 
 router.post('/editprofile', function (request, response) {
-// DO THIS NEXT
+    // DO THIS NEXT
     if (request.isAuthenticated()) {
         console.log("Logged in");
     }
