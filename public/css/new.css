@@ -180,11 +180,17 @@ textarea {
   transition: all 0.5s ease;
   -webkit-appearance: none;
 }
-.button:hover, .button:focus {
-  background: #62C7DB;
-}
+
 
 .button-block {
+  
+   background: #28547a;
+   background: -webkit-gradient(linear, left top, left bottom, from(#28547a), to(black));
+   background: -webkit-linear-gradient(top, #28547a, black);
+   background: -moz-linear-gradient(top, #28547a, black);
+   background: -ms-linear-gradient(top, #28547a, black);
+   background: -o-linear-gradient(top, #28547a, black);
+  
   display: block;
   width: 100%;
 }
@@ -354,13 +360,14 @@ footer {
 }*/
 
 #search-button, #cancel-button {
-  background-color:gray;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(gray), to(dimgray));
-	background-image: -webkit-linear-gradient(top, gray, dimgray);
-	background-image: -moz-linear-gradient(top, gray, dimgray);
-	background-image: -ms-linear-gradient(top, gray, dimgray);
-	background-image: -o-linear-gradient(top, gray, dimgray);
-	background-image: linear-gradient(top, gray, dimgray);
+   border-top: 1px solid #37b37b;
+   background: #28547a;
+   background: -webkit-gradient(linear, left top, left bottom, from(#28547a), to(black));
+   background: -webkit-linear-gradient(top, #28547a, black);
+   background: -moz-linear-gradient(top, #28547a, black);
+   background: -ms-linear-gradient(top, #28547a, black);
+   background: -o-linear-gradient(top, #28547a, black);
+   
 	border: 1px solid gray;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
@@ -563,12 +570,12 @@ footer {
 
 .submit-comment {
    border-top: 1px solid #37b37b;
-   background: #65a9d7;
-   background: -webkit-gradient(linear, left top, left bottom, from(#3e779d), to(#65a9d7));
-   background: -webkit-linear-gradient(top, #3e779d, #65a9d7);
-   background: -moz-linear-gradient(top, #3e779d, #65a9d7);
-   background: -ms-linear-gradient(top, #3e779d, #65a9d7);
-   background: -o-linear-gradient(top, #3e779d, #65a9d7);
+   background: #28547a;
+   background: -webkit-gradient(linear, left top, left bottom, from(#28547a), to(black));
+   background: -webkit-linear-gradient(top, #28547a, black);
+   background: -moz-linear-gradient(top, #28547a, black);
+   background: -ms-linear-gradient(top, #28547a, black);
+   background: -o-linear-gradient(top, #28547a, black);
    padding: 5px 10px;
    -webkit-border-radius: 8px;
    -moz-border-radius: 8px;
@@ -583,11 +590,7 @@ footer {
    text-decoration: none;
    vertical-align: middle;
    }
-.submit-comment:hover {
-   border-top-color: #28597a;
-   background: #28597a;
-   color: #ccc;
-   }
+
 .submit-comment:active {
    border-top-color: #1b435e;
    background: #1b435e;
