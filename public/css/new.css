@@ -303,6 +303,15 @@ footer {
  
   margin-bottom: 10px;
 }
+a{
+  color:#28547a;
+  text-decoration: none;
+}
+
+a:hover{
+  color:cornflowerblue;
+}
+
 
 #keyword,  #category {
 	border: 1px solid #CCC;
@@ -389,7 +398,9 @@ width: 200px;
 	font-size: 12px;
 	line-height: 24px;
 	text-align: left;
-	
+  min-width: 300px;
+  height: auto;
+  max-width: 100%;
   margin-top: 50px;
   text-decoration: none;
 }
@@ -414,7 +425,9 @@ width: 200px;
 	font-size: 12px;
 	line-height: 24px;
 	text-align: left;
-	
+	min-width: 300px;
+  height: auto;
+  max-width: 100%;
   margin-top: 50px;
   text-decoration: none;
 }
@@ -787,6 +800,18 @@ width: 200px;
   #searchlabel{
     font-size: 12px;
   }
+  .poll-table {
+  background: #f5f5f5;
+	border-collapse: separate;
+	box-shadow: inset 0 1px 0 #fff;
+	font-size: 10px;
+	
+	text-align: left;
+  min-width: 300px;
+	
+  margin-top: 50px;
+  text-decoration: none;
+}
   #cssmenu {
     background: #28547a;
   }

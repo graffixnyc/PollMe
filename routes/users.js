@@ -116,6 +116,11 @@ router.get('/mypolls', isLoggedIn, function (req, res) {
     })
 
 });
+router.put('/editprofile', isLoggedIn, function (req, res) {
+    console.log(req.user._id)
+
+
+});
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
