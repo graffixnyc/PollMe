@@ -530,6 +530,7 @@ width: 200px;
 	font-weight: 500;
 	line-height: 26.4px;
   color: black;
+  background: #fff;
 }
 
 .ask {
@@ -550,7 +551,6 @@ width: 200px;
 }
 
 .submit-comment {
-   border-top: 1px solid #37b37b;
    background: #28547a;
    background: -webkit-gradient(linear, left top, left bottom, from(#28547a), to(black));
    background: -webkit-linear-gradient(top, #28547a, black);
