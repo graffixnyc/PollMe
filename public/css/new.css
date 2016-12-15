@@ -35,7 +35,18 @@ body {
 }
 
 .form {
-  width: 100%;
+  
+width: 300px;
+  min-width: 300px;
+  border-radius: 60px;
+  opacity: 0.94;
+margin-bottom: 50px;
+  margin-top: 25px;
+  
+}
+.form2 {
+  
+width: 50%;
   min-width: 300px;
   border-radius: 60px;
   opacity: 0.94;
