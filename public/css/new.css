@@ -238,18 +238,30 @@ header {
 .logo {
   float: left;
   margin-left: 16px;
-  color: #28547a;
+   
 
+	text-shadow: 0 1px black, 0 2px #777;
+  font-family: verdana, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif";
+	font-size: 36px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 700;
+	line-height: 60px;
+  color: #28547a;
   
  
 }
 
 .logo a {
+  
+  text-shadow: 0 1px #777, 0 2px #777;
+  font-family: verdana, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif";
+	font-size: 36px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 700;
+	line-height: 60px;
   color: #28547a;
-  font-size: 30px;
-  margin-top: 6px;
-  display: block;
-  text-decoration: none;
 }
 
 
@@ -316,7 +328,7 @@ a{
 }
 
 a:hover{
-  color:cornflowerblue;
+  color:dodgerblue
 }
 
 
