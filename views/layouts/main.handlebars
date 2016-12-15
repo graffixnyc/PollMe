@@ -9,16 +9,16 @@
 <div id="fb-root"></div>
 
 <body>
-    <header>
+    <header id="header">
         <div class="logo">
             <a href="/">PollMe</a>
-            <label>Search Polls by keyword and/or category</label>
-            <div>
-                <form action="/search" method="POST">
+        </div>
+        <br>
+        <div align="right">
 
-                    <input id="keyword" type="text" name="keyword" placeholder="Search by keyword...">
-
-                    <select id="category" name="category">
+            <form action="/search" method="POST">
+                <input id="search-button" type="submit" value="Search">
+                <select id="category" name="category">
             <option value="null">--Select Category--</option>
             <option value="Arts">Arts</option>
             <option value="Automotive">Automotive</option>
@@ -41,12 +41,15 @@
             <option value="Other">Other</option>
             
         </select>
-                    <input id="search-button" type="submit" value="Search">
-                </form>
-            </div>
+                <input id="keyword" type="text" name="keyword" placeholder="Search by keyword...">
+                <label id="searchlabel" for="keyword">Search Polls by keyword and/or category:&nbsp&nbsp</label>
+
+
+            </form>
         </div>
+
         <div class="menu">
-            <nav>
+            <nav id="nav">
                 <ul>
                     <li><a href="/">Home</li>
                         <li><a href="/createpoll">Create Poll</li>
