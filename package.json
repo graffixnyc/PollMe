@@ -26,6 +26,7 @@
     "req-flash": "0.0.3",
     "request": "^2.78.0",
     "request-promise": "^4.1.1",
-    "uuid": "^2.0.3"
+    "uuid": "^2.0.3",
+    "xss": "^0.3.2"
   }
 }
