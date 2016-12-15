@@ -1,4 +1,3 @@
-
 const express = require('express');
 const router = express.Router();
 const data = require('../data');
@@ -8,6 +7,7 @@ const usersPollsData = data.usersandpolls;
 const votesmatrixData = data.votesAndMetrics;
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const xss = require('xss');
 
 router.get("/", function (request, response) {
     // need to change this to the page Haoyang and Seito create
@@ -26,7 +26,7 @@ router.get("/", function (request, response) {
             })
             pollsInfo.push(subpoll);
         }
-        response.render("pollme/home_before_login", { poll: pollsInfo, loginuser: request.user });
+        response.render("pollme/home_before_login", { poll: pollsInfo, loginuser: xss(request.user) });
     })
         .catch((error) => {
             response.status(404).json({ error: "Error!Poll not found" });
@@ -41,7 +41,7 @@ router.get("/createpoll", function (request, response) {
     if (request.isAuthenticated()) {
         //Render the make poll page or something like that
         //request.user.username has username of user
-        response.render('pollme/create_poll', { user: request.user, loginuser: request.user });
+        response.render('pollme/create_poll', { user: xss(request.user), loginuser: xss(request.user) });
     }
     else {
         //Render a login page
@@ -59,7 +59,7 @@ router.post("/createpoll", function (request, response) {
     var newPoll = request.body;
     if (request.isAuthenticated()) {
         var currentDate = new Date()
-        pollsData.addPoll(newPoll.category, currentDate, newPoll.question, newPoll.choice1, newPoll.choice2, newPoll.choice3, newPoll.choice4, request.user._id).then((pollid) => {
+        pollsData.addPoll(xss(newPoll.category), currentDate, xss(newPoll.question), xss(newPoll.choice1), xss(newPoll.choice2), xss(newPoll.choice3), xss(newPoll.choice4), xss(request.user._id)).then((pollid) => {
             response.redirect("/poll/" + pollid);
         }, (err) => {
             console.log(err);
@@ -78,14 +78,14 @@ router.post("/createpoll", function (request, response) {
 router.get("/poll/:id", function (request, response) {
     // Create a result set to contain data from different collections.
     let pollResult = {};
-    pollsData.getPollById(request.params.id).then((pollInfo) => {
+    pollsData.getPollById(xss(request.params.id)).then((pollInfo) => {
         pollResult.poll = pollInfo;
     })
         .then(() => {
             pollResult.user = request.user;
-            votesmatrixData.getVotesForPoll(request.params.id).then((voteInfo) => {
+            votesmatrixData.getVotesForPoll(xss(request.params.id)).then((voteInfo) => {
                 pollResult.vote = voteInfo;
-                response.render("pollme/single_poll", { poll: pollResult, loginuser: request.user });
+                response.render("pollme/single_poll", { poll: pollResult, loginuser: xss(request.user) });
             })
         })
         .catch(() => {
@@ -101,7 +101,7 @@ router.post("/voteonpoll", function (request, response) {
 
     if (request.isAuthenticated()) {
         var theyVoted = false;
-        usersData.getPollsUserVotedin(vote.userid).then((polls) => {
+        usersData.getPollsUserVotedin(xss(vote.userid)).then((polls) => {
             console.log(polls)
             for (var i = 0; i < polls.length; i++) {
                 if (polls[i].pollId == vote.pollid) {
@@ -123,18 +123,18 @@ router.post("/voteonpoll", function (request, response) {
     }
     else {
         //Render a login page
-        response.render('pollme/login_signup', { redirectPage: "/poll/" + request.body.pollid });
+        response.render('pollme/login_signup', { redirectPage: "/poll/" + xss(request.body.pollid) });
 
     }
 });
 
 router.post("/search", function (request, response) {
     //If they do not eneter a search term or category to search
-    if (!request.body.keyword && request.body.category == "null") {
+    if (!xss(request.body.keyword) && xss(request.body.category) == "null") {
         Promise.reject("You must specify a search term or category to search");
-        // If they enter a search term but no category  
-    } else if (request.body.keyword && request.body.category == "null") {
-        return pollsData.searchPollsByKeyword(request.body.keyword.trim()).then((searchResults) => {
+        // If they enter a search term but no category
+    } else if (xss(request.body.keyword) && xss(request.body.category) == "null") {
+        return pollsData.searchPollsByKeyword(xss(request.body.keyword).trim()).then((searchResults) => {
             let pollsInfo = [];
             for (i = 0; i < searchResults.length; i++) {
                 let subpoll = {};
@@ -151,11 +151,11 @@ router.post("/search", function (request, response) {
             }
             //render page here
             //res.render('locations/single', { searchResults: searchResults});
-            response.render("pollme/home_before_login", { poll: pollsInfo, loginuser: request.user });
+            response.render("pollme/home_before_login", { poll: pollsInfo, loginuser: xss(request.user) });
         });
         //If they search category but no keyword
-    } else if (request.body.category && !request.body.keyword) {
-        return pollsData.getPollsByCategory(request.body.category).then((searchResults) => {
+    } else if (xss(request.body.category) && !xss(request.body.keyword)) {
+        return pollsData.getPollsByCategory(xss(request.body.category)).then((searchResults) => {
             //render page here
             let pollsInfo = [];
             for (i = 0; i < searchResults.length; i++) {
@@ -172,11 +172,11 @@ router.post("/search", function (request, response) {
                 pollsInfo.push(subpoll);
             }
             //res.render('locations/single', { searchResults: searchResults});
-            response.render("pollme/home_before_login", { poll: pollsInfo, loginuser: request.user });
+            response.render("pollme/home_before_login", { poll: pollsInfo, loginuser: xss(request.user) });
         });
         //If they search by keyword and category
     } else {
-        return pollsData.searchPollsByKeywordAndCategory(request.body.keyword.trim(), request.body.category).then((searchResults) => {
+        return pollsData.searchPollsByKeywordAndCategory(xss(request.body.keyword).trim(), xss(request.body.category)).then((searchResults) => {
             //render page here
             let pollsInfo = [];
             for (i = 0; i < searchResults.length; i++) {
@@ -193,7 +193,7 @@ router.post("/search", function (request, response) {
                 pollsInfo.push(subpoll);
             }
             //res.render('locations/single', { searchResults: searchResults});
-            response.render("pollme/home_before_login", { poll: pollsInfo, loginuser: request.user });
+            response.render("pollme/home_before_login", { poll: pollsInfo, loginuser: xss(request.user) });
         });
     }
 });
@@ -204,21 +204,21 @@ router.post("/commentonpoll", function (request, response) {
     if (request.isAuthenticated()) {
         // Allowed to comment on poll
         // request.user.username has username of user
-        if (request.body.comment && request.body.comment !== "")
-            pollsData.addCommentToPoll(request.body.pollid, request.user.username, request.body.comment).then(() => {
-                response.redirect("/poll/" + request.body.pollid);
+        if (xss(request.body.comment) && xss(request.body.comment) !== "")
+            pollsData.addCommentToPoll(xss(request.body.pollid), xss(request.user.username), xss(request.body.comment)).then(() => {
+                response.redirect("/poll/" + xss(request.body.pollid));
             }, (err) => {
                 console.log(err);
             });
         else
-            response.redirect("/poll/" + request.body.pollid);
+            response.redirect("/poll/" + xss(request.body.pollid));
     }
     else {
         //Render a login page
         if (request.flash().error)
             response.render('pollme/login_signup', { error: request.flash().error, redirectPage: "/poll/" + request.body.pollid });
         else
-            response.render('pollme/login_signup', { redirectPage: "/poll/" + request.body.pollid });
+            response.render('pollme/login_signup', { redirectPage: "/poll/" + xss(request.body.pollid0) });
     }
 });
 
