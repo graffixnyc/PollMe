@@ -457,7 +457,7 @@ width: 200px;
 }
 
 .table-head {
-  background: url(http://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#28547a, black);
+  background: #28547a;
 	/*border-left: 1px solid #555;
 	border-right: 1px solid #777;
 	border-top: 1px solid #555;
@@ -469,6 +469,7 @@ width: 200px;
 	padding: 10px 15px;
 	position: relative;
 	text-shadow: 0 1px 0 dimgray;	
+  text-align: center;
   white-space: nowrap;
   text-decoration: none;
 }
