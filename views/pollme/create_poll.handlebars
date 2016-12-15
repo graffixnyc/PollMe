@@ -1,7 +1,7 @@
 <center>
-    <div class="user-home">
+    <div class="user-home-mypolls">
         <form>
-            <h3 class="ask">Create Your Poll</h3>
+            <h3 id="mypoll-heading"> Create Poll</h3>
         </form>
         <div>
             <form id="new-poll" method="post" action="/createpoll">
@@ -54,10 +54,10 @@
                         </tr>
                     </tbody>
                     <tr>
-                        <td></td>
-                        <td >
-                            <input id="search-button" type="submit" value="Submit">
-                            <input id="cancel-button" type="button" onclick="window.location.replace('/createpoll')" value="Cancel" />
+
+                        <td colspan="2">
+                            <input class="button button-block" type="submit" value="Create Poll">
+
                         </td>
                     </tr>
                 </table>
