@@ -134,7 +134,7 @@ router.post("/search", function (request, response) {
         Promise.reject("You must specify a search term or category to search");
         // If they enter a search term but no category  
     } else if (request.body.keyword && request.body.category == "null") {
-        return pollsData.searchPollsByKeyword(request.body.keyword).then((searchResults) => {
+        return pollsData.searchPollsByKeyword(request.body.keyword.trim()).then((searchResults) => {
             let pollsInfo = [];
             for (i = 0; i < searchResults.length; i++) {
                 let subpoll = {};
@@ -176,7 +176,7 @@ router.post("/search", function (request, response) {
         });
         //If they search by keyword and category
     } else {
-        return pollsData.searchPollsByKeywordAndCategory(request.body.keyword, request.body.category).then((searchResults) => {
+        return pollsData.searchPollsByKeywordAndCategory(request.body.keyword.trim(), request.body.category).then((searchResults) => {
             //render page here
             let pollsInfo = [];
             for (i = 0; i < searchResults.length; i++) {
