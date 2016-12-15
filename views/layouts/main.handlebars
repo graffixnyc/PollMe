@@ -22,13 +22,13 @@
     <div id='cssmenu'>
         <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="createpoll">Create Poll</a></li>
+            <li><a href="/createpoll">Create Poll</a></li>
             {{#if loginuser}}
             <li><a class='has-sub' href="#">My Account</a>
                 <ul class="dl-submenu">
-                    <li><a href="mypolls">My Polls</a></li>
-                    <li><a href="Edit Profile">Edit Profile</a></li>
-                    <li class='last'><a href="logout">Log Out</a></li>
+                    <li><a href="/mypolls">My Polls</a></li>
+                    <li><a href="/editprofile">Edit Profile</a></li>
+                    <li class='last'><a href="/logout">Log Out</a></li>
                 </ul>
             </li>
             {{else}}
