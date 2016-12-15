@@ -210,12 +210,12 @@ textarea {
 }
 
 .mypage-edit {
-  padding: 40px;
-  max-width: 1000px;
-  margin: 100px auto;
+
+  max-width: 300px;
+  
   border-radius: 60px;
   opacity: 0.94;
-  margin-right: 500px;
+margin-bottom: 50px;
   margin-top: 25px;
 }
 
@@ -267,7 +267,7 @@ footer {
 }
 
 .user-home-mypolls {
-  margin-top: 220px;
+  margin-top: 25px;
 }
 
 .home-before {
@@ -296,11 +296,11 @@ footer {
 	/*-webkit-box-shadow: 0 3px 3px rgba(255,255,255,.1), 0 3px 0 #bbb, 0 4px 0 #aaa, 0 5px 5px #444;*/
 	/*-moz-box-shadow: 0 3px 3px rgba(255,255,255,.1), 0 3px 0 #bbb, 0 4px 0 #aaa, 0 5px 5px #444;*/
 	/*box-shadow: 0 3px 3px rgba(255,255,255,.1), 0 3px 0 #bbb, 0 4px 0 #aaa, 0 5px 5px #444;*/
-	margin: 100px auto;
+
 	overflow: hidden;
 	padding: 8px;
-	width: 400px;
-  margin-top: 150px;
+	max-width: 300px;
+ 
   margin-bottom: 10px;
 }
 
