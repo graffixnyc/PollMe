@@ -9,16 +9,37 @@
 <div id="fb-root"></div>
 
 <body>
-    <header id="header">
-        <div class="logo">
-            <a href="/">PollMe</a>
-        </div>
-        <br>
-        <div align="right">
 
-            <form action="/search" method="POST">
-                <input id="search-button" type="submit" value="Search">
-                <select id="category" name="category">
+
+
+    <div class="logo">
+        <a href="/">PollMe</a>
+    </div>
+    <br><br><br>
+    <div id='cssmenu'>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="createpoll">Create Poll</a></li>
+            {{#if loginuser}}
+            <li><a class='has-sub' href="#">My Account</a>
+                <ul class="dl-submenu">
+                    <li><a href="mypolls">My Polls</a></li>
+                    <li><a href="Edit Profile">Edit Profile</a></li>
+                    <li class='last'><a href="logout">Log Out</a></li>
+                </ul>
+            </li>
+            {{else}}
+            <li><a href="/login">Login/Sign Up</a></li>
+            {{/if}}
+
+        </ul>
+    </div>
+    <br>
+
+    <div align="right">
+        <form action="/search" method="POST">
+            <input id="search-button" type="submit" value="Search">
+            <select id="category" name="category">
             <option value="null">--Select Category--</option>
             <option value="Arts">Arts</option>
             <option value="Automotive">Automotive</option>
@@ -41,33 +62,18 @@
             <option value="Other">Other</option>
             
         </select>
-                <input id="keyword" type="text" name="keyword" placeholder="Search by keyword...">
-                <label id="searchlabel" for="keyword">Search Polls by keyword and/or category:&nbsp&nbsp</label>
+            <input id="keyword" type="text" name="keyword" placeholder="Search by keyword...">
+            <label id="searchlabel" for="keyword">Search Polls by keyword and/or category:&nbsp&nbsp</label>
 
 
-            </form>
-        </div>
+        </form>
+    </div>
 
-        <div class="menu">
-            <nav id="nav">
-                <ul>
-                    <li><a href="/">Home</li>
-                        <li><a href="/createpoll">Create Poll</li>
-                        {{#if loginuser}}
-                        <li class="dropdown"><a href="/">My Account{{this.username}}</a>
-                        <div class="dropdown-content">
-                            <a class="submenu" href="/mypolls">My Polls</a>
-                            <a class="submenu" href="/editprofile">Edit Profile</a>
-                            <a class="submenu" href="/logout">Log Out</a>
-                        </div>
-                    </li>
-                    {{else}}
-                    <li><a href="/login">Login/Sign Up</a></li>
-                    {{/if}}
-                </ul>
-            </nav>
-        </div>
-    </header>
+
+
+
+
+
     <main class="container">
         <div class="row">
         </div>
@@ -88,6 +94,7 @@
     <script type="text/javascript" src="/public/js/login_signup.js"></script>
     <script type="text/javascript" src="/public/js/voteonpoll.js"></script>
     <script type="text/javascript" src="/public/js/social.js"></script>
+    <script type="text/javascript" src="/public/js/menu.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>
 
