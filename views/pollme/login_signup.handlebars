@@ -43,37 +43,37 @@
       <form role="form" action="/signup" method="post">
         <div class="top-row">
           <div class="field-wrap">
-            <label>
+            <label for="firstname">
                 First Name<span class="req">*</span>
               </label>
-            <input class="original-input-1" name="firstname" type="text" required autocomplete="on" />
+            <input class="original-input-1" name="firstname" id="firstname" type="text" required autocomplete="on" />
           </div>
 
           <div class="field-wrap">
-            <label>
+            <label for="lastname">
                 Last Name<span class="req">*</span>
               </label>
-            <input class="original-input-1" name="lastname" type="text" required autocomplete="on" />
+            <input class="original-input-1" name="lastname" id="lastname" type="text" required autocomplete="on" />
           </div>
         </div>
 
 
         <div class="field-wrap">
-          <label>
+          <label for="signUpUsername">
               Username<span class="req">*</span>
             </label>
-          <input class="original-input" name="signUpUsername" type="text" required autocomplete="on" />
+          <input class="original-input" name="signUpUsername" id="signUpUsername" type="text" required autocomplete="on" />
         </div>
 
         <div class="field-wrap">
-          <label>
+          <label for="email">
               Email Address<span class="req">*</span>
             </label>
-          <input class="original-input" name="email" type="email" required autocomplete="on" />
+          <input class="original-input" name="email"id="email"  type="email" required autocomplete="on" />
         </div>
 
         <div class="field-wrap">
-          <label>
+          <label for="gender">
               Gender<span class="req">*</span>
             </label>
           <input value="M" type="radio" name="gender" id="gender" />
@@ -83,25 +83,25 @@
         </div>
 
         <div class="field-wrap">
-          <label>
+          <label for="age">
               Age<span class="req">*</span>
             </label>
-          <input class="original-input" name="age" type="text" name="age" />
+          <input class="original-input" name="age" id="age" type="text" name="age" />
         </div>
 
         <div class="top-row">
           <div class="field-wrap">
-            <label>
+            <label for="city">
                 City<span class="req">*</span>
               </label>
-            <input class="original-input-1" name="city" type="text" required autocomplete="on" />
+            <input class="original-input-1" name="city" id="city" type="text" required autocomplete="on" />
           </div>
 
           <div class="field-wrap">
-            <label>
+            <label for="state">
                 State<span class="req">*</span>
             </label>
-            <select class="original-input-1" name="state">
+            <select class="original-input-1" name="state" id="state">
               <option value="null">--</option>
               <option value="AL">Alabama</option>
               <option value="AK">Alaska</option>
@@ -159,16 +159,16 @@
         </div>
 
         <div class="field-wrap">
-          <label>
+          <label for="signUpPassword">
               Set A Password<span class="req">*</span>
             </label>
-          <input class="original-input" name="signUpPassword" type="password" required autocomplete="on" />
+          <input class="original-input" name="signUpPassword" id="signUpPassword" type="password" required autocomplete="on" />
         </div>
         <div>
-         <label>
+         <label for="signUpPassword2">
               Confirm Password<span class="req">*</span>
             </label>
-          <input class="original-input" name="signUpPassword2" type="password" required autocomplete="on" />
+          <input class="original-input" name="signUpPassword2" id="signUpPassword2" type="password" required autocomplete="on" />
         </div> <br><br>
         {{#if redirectPage }}
         <input type="hidden" name="redirectPageSignUp" id="redirectPageSignUp" value={{ redirectPage }}> {{/if}}
