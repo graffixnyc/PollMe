@@ -35,9 +35,6 @@ router.get("/", function (request, response) {
 
 router.get("/createpoll", function (request, response) {
 
-    console.log(request.user);
-
-    // var categories = ["Movies", "Video Games"];
     if (request.isAuthenticated()) {
         //Render the make poll page or something like that
         //request.user.username has username of user

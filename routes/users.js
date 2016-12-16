@@ -54,7 +54,8 @@ router.get("/user/:username", function (request, response) {
 // });
 
 router.get("/login", function (request, response) {
-    response.render("pollme/login_signup", { message: request.flash('loginMessage') });
+    if (!request.isAuthenticated())
+        response.render("pollme/login_signup", { message: request.flash('loginMessage') });
 })
 
 //Update the post /login with passport
@@ -117,14 +118,6 @@ router.get('/mypolls', isLoggedIn, function (req, res) {
 
 });
 
-//NEEDS TO BE DONE
-router.put('/editprofile', isLoggedIn, function (req, res) {
-    console.log(req.user._id)
-    votesmatrixData.updateUser(req.user._id, {firstName: req.user.firstname, lastName: req.user.lastname, username: req.user.username, email: req.user.email, 
-        gender: req.user.gender, city: req.user.city, state:req.user.state, age:req.user.age, password: req.user.signUpPassword})
-
-
-});
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
@@ -132,16 +125,6 @@ function isLoggedIn(req, res, next) {
     else
         res.redirect('/login');
 }
-
-router.get("/signup", function (request, response) {
-
-    if (request.isAuthenticated()) {
-        // user needs to logout first
-    }
-    else {
-        // render sign up page
-    }
-});
 
 
 router.post("/signup", function (request, response) {
@@ -194,10 +177,16 @@ router.get('/editprofile', function (request, response) {
     }
 });
 
-router.post('/editprofile', function (request, response) {
-    // DO THIS NEXT
+router.put('/editprofile', function (request, response) {
+
     if (request.isAuthenticated()) {
-        console.log("Logged in");
+        
+        votesmatrixData.updateUser(request.user._id, {firstName: request.user.firstname, lastName: request.user.lastname, username: request.user.username, email: request.user.email, 
+        gender: request.user.gender, city: request.user.city, state:request.user.state, age:request.user.age, password: request.user.signUpPassword}).then((user) => {
+            response.redirect("/user/" + request.user.username);
+        });
+        
+
     }
     else {
         if (request.flash().error)
