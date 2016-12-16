@@ -96,7 +96,7 @@
 
         {{/if}}
 
-        <form id="vote-on-poll" method="post" action="/voteonpoll">
+        <form role="form" id="vote-on-poll" method="post" action="/voteonpoll">
             <br>
             <h3 class="ask">Which do you vote for?</h3><br>
             <table>
@@ -152,7 +152,7 @@
             </table>
         </div>
 
-        <form id="post-comment" method="post" action="/commentonpoll">
+        <form role="form" id="post-comment" method="post" action="/commentonpoll">
             <h3 class="ask">What's on your mind?</h3><br>
             <textarea class="comment-post"id="comment-post" name="comment"></textarea><br>
             <input type="hidden" name="pollid" value="{{poll.poll._id}}">
