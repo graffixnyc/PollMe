@@ -365,6 +365,7 @@ let exportedMethods = {
             let updatedUser = {
                 firstName: updatedUser.firstName,
                 lastName: updatedUser.lastName,
+                username: updatedUser.username,
                 email: upatedUser.email,
                 gender: upatedUser.gender,
                 city: updateUser.city,

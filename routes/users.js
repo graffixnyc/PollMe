@@ -118,6 +118,8 @@ router.get('/mypolls', isLoggedIn, function (req, res) {
 });
 router.put('/editprofile', isLoggedIn, function (req, res) {
     console.log(req.user._id)
+    votesmatrixData.updateUser(req.user._id, {firstName: req.user.firstname, lastName: req.user.lastname, username: req.user.username, email: req.user.email, 
+        gender: req.user.gender, city: req.user.city, state:req.user.state, age:req.user.age, password: req.user.signUpPassword})
 
 
 });
