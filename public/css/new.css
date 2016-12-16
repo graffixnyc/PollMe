@@ -209,10 +209,12 @@ textarea {
 
 .single-poll {
   padding: 40px;
-  max-width: 1000px;
+  max-width: 100%;
+  min-width: 300px;
   margin: 100px auto;
   border-radius: 60px;
   opacity: 0.94;
+  overflow-x:auto;
   
 }
 
@@ -432,11 +434,13 @@ width: 200px;
 	font-size: 12px;
 	line-height: 24px;
 	text-align: left;
-  width: 500px;
+  max-width: 500px;
+  min-width: 250px;
   text-decoration: none;
 }
 .comment-post {
-  width: 500px;
+  max-width: 500px;
+  min-width: 250px;
   text-decoration: none;
 }
 .poll-table-2 {
@@ -451,6 +455,8 @@ width: 200px;
   max-width: 100%;
   margin-top: 50px;
   text-decoration: none;
+  overflow-x:auto;
+  
 }
 
 #poll-question {
@@ -851,7 +857,16 @@ width: 200px;
   margin-top: 50px;
   text-decoration: none;
 }
-
+.single-poll {
+  padding: 40px;
+  max-width: 500px;
+ 
+  
+  border-radius: 60px;
+  opacity: 0.94;
+  overflow-x:auto;
+  
+}
   #cssmenu {
     background: #28547a;
   }
