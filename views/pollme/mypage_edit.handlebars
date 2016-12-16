@@ -122,7 +122,13 @@
             <label>
                 Password<span class="req">*</span>
                 </label>
-            <input class="original-input" name="signUpPassword" type="password" required autocomplete="on" value={{$password}}>
+            <input class="original-input" name="signUpPassword" id="signUpPassword" type="password" required autocomplete="on" value={{$password}}>
+          </div>
+          <div class="field-wrap">
+            <label>
+                Confirm Password<span class="req">*</span>
+                </label>
+            <input class="original-input" name="signUpPassword2" id="signUpPassword2" type="password" required autocomplete="on" value={{$password}}>
           </div>
           <input type="hidden" name="_method" value="PUT">
           <button type="submit" class="button button-block">Save Profile</button>

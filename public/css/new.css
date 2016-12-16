@@ -40,7 +40,7 @@ width: 300px;
   min-width: 300px;
   border-radius: 60px;
   opacity: 0.94;
-margin-bottom: 50px;
+margin-bottom: 100px;
   margin-top: 25px;
   
 }
@@ -50,7 +50,7 @@ width: 50%;
   min-width: 300px;
   border-radius: 60px;
   opacity: 0.94;
-margin-bottom: 50px;
+margin-bottom: 100px;
   margin-top: 25px;
   
 }
@@ -222,7 +222,7 @@ textarea {
   
   border-radius: 60px;
   opacity: 0.94;
-margin-bottom: 50px;
+margin-bottom: 100px;
   margin-top: 25px;
 }
 
@@ -271,6 +271,7 @@ footer {
   min-width: 300px;
   background: #28547a;
   bottom: 0;
+  
   text-align: center;
 }
 
@@ -278,6 +279,7 @@ footer {
   margin:0;
   padding: 0;
   min-width: 300px;
+  
   color: gray;
 }
 
@@ -849,6 +851,7 @@ width: 200px;
   margin-top: 50px;
   text-decoration: none;
 }
+
   #cssmenu {
     background: #28547a;
   }
