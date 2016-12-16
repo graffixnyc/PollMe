@@ -103,7 +103,7 @@ label {
   -webkit-transform: translateY(6px);
           transform: translateY(6px);
   left: 13px;
-  color: #99A2A4;
+  color: darkslategray;
   -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease;
   -webkit-backface-visibility: hidden;
@@ -112,7 +112,7 @@ label {
 }
 label .req {
   margin: 2px;
-  color: #99A2A4;
+  color: darkslategray;
 }
 
 .original-input, textarea {
