@@ -362,20 +362,20 @@ let exportedMethods = {
                 }
                 // })
             }
-            let updatedUser = {
+            let updateduser = {
                 firstName: updatedUser.firstName,
                 lastName: updatedUser.lastName,
                 username: updatedUser.username,
-                email: upatedUser.email,
-                gender: upatedUser.gender,
-                city: updateUser.city,
+                email: updatedUser.email,
+                gender: updatedUser.gender,
+                city: updatedUser.city,
                 state: updatedUser.state,
                 age: updatedUser.age,
                 hashedPassword: updatedUser.hashedPassword
             };
 
             let updateCommand = {
-                $set: updatedUser
+                $set: updateduser
             };
             return users().then((userCollection) => {
                 return userCollection.updateOne({ _id: id }, updateCommand).then(() => {

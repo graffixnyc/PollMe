@@ -9,35 +9,33 @@ const votesmatrixData = data.votesAndMetrics;
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const flash = require("req-flash");
-router.get("/profile", function (request, response) {
-
-    if (request.isAuthenticated())
-        response.redirect('/user/' + request.user.username);
-    else {
-        if (request.flash().error)
-            response.render('pollme/login_signup', { error: request.flash().error, redirectPage: "/profile" });
-        else
-            response.render('pollme/login_signup', { redirectPage: "/profile" });
-    }
-});
-
 
 router.get("/user/:username", function (request, response) {
     if (!request.params.username) {
         //error handling
 
     }
-    usersData.getUserByUsername(request.params.username).then((user) => {
-        if (!user) {
-            //error handling   
-        }
-
-        response.render('pollme/userprofile', { user: user });
-
-    }, (err) => {
-        //error handling   
-        console.log(err);
-    });
+    else {
+        usersData.getUserByUsername(request.params.username).then((user) => {
+            pollsData.getPollsByUser(user._id).then((polls) => {
+            let pollsInfo = [];
+            for (i = 0; i < polls.length; i++) {
+                let subpoll = {};
+                subpoll._id = polls[i]._id;
+                subpoll.question = polls[i].question;
+                subpoll.category = polls[i].category;
+                subpoll.postedDate = polls[i].postedDate;
+                votesmatrixData.getVotesForPoll(polls[i]._id).then((votes) => {
+                    if (votes) {
+                        subpoll.votes = votes.totalVotesForPoll;
+                    }
+                })
+                pollsInfo.push(subpoll);
+            }
+            res.render("pollme/mypage_mypoll", { poll: pollsInfo, loginuser: user });
+            });
+        });
+    }
 
 });
 
@@ -164,7 +162,7 @@ router.post("/signup", function (request, response) {
 });
 
 router.get('/editprofile', function (request, response) {
-
+    
     if (request.isAuthenticated()) {
         response.render('pollme/mypage_edit', { user: request.user, loginuser: request.user });
 
@@ -177,18 +175,37 @@ router.get('/editprofile', function (request, response) {
     }
 });
 
-router.put('/editprofile', function (request, response) {
+router.post('/editprofile', function (request, response) {
 
     if (request.isAuthenticated()) {
-        
-        votesmatrixData.updateUser(request.user._id, {firstName: request.user.firstname, lastName: request.user.lastname, username: request.user.username, email: request.user.email, 
-        gender: request.user.gender, city: request.user.city, state:request.user.state, age:request.user.age, password: request.user.signUpPassword}).then((user) => {
-            response.redirect("/user/" + request.user.username);
-        });
-        
+        if(request.body.signUpPassword !== request.body.signUpPassword2) {
+            //error handler
+            console.log("Different passwords");
+        }
+        else {
+            console.log(request.body);
+            
+            usersData.createHashedPassword(request.body.signUpPassword).then((hashedPassword) => {
+                var updatedUser = {firstName: request.body.firstname, lastName: request.body.lastname, username: request.body.username, email: request.body.email, 
+                gender: request.body.gender, city: request.body.city, state:request.body.state, age:request.body.age, hashedPassword: hashedPassword};
+                
+                votesmatrixData.updateUser(request.user._id, updatedUser).then((user) => {
+                    console.log(user.username);
+                    request.login(user, function (err) {
+                        if (err) { console.log(err); }
+                        response.redirect("/mypolls");
+                    });
+                }, (err) => {
+                    console.log(err);   
+                });
+            }, (err) => {
+                console.log(err);   
+            });
 
+        }
     }
     else {
+        console.log(request.user.username);
         if (request.flash().error)
             response.render('pollme/login_signup', { error: request.flash().error, redirectPage: "/editprofile" });
         else

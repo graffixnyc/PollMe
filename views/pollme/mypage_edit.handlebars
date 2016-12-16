@@ -2,7 +2,7 @@
   <div class="mypage-edit">
     <h3 id="mypoll-heading" > Edit Profile</h3>
       <div id="signup">
-        <form role="form" method="put" action="/editprofile">
+        <form role="form" method="post" action="/editprofile">
           <div class="top-row">
             <div class="field-wrap">
               <label>
@@ -130,7 +130,7 @@
                 </label>
             <input class="original-input" name="signUpPassword2" id="signUpPassword2" type="password" required autocomplete="on" value={{$password}}>
           </div>
-          <input type="hidden" name="_method" value="PUT">
+          <!--<input type="hidden" name="_method" value="PUT"> -->
           <button type="submit" class="button button-block">Save Profile</button>
         </form>
       </div>
