@@ -198,7 +198,7 @@ router.post('/editprofile', function (request, response) {
 
 router.get('/logout', function (request, response) {
     request.logout();
-    response.redirect('/');
+    response.redirect('/login');
 });
 
 module.exports = router;
