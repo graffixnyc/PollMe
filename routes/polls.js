@@ -71,6 +71,26 @@ router.post("/createpoll", function (request, response) {
     }
 });
 
+router.get("/editpoll/:id", function (request, response) {
+    // Create a result set to contain data from different collections.
+    let pollResult = {};
+    pollsData.getPollById(xss(request.params.id)).then((pollInfo) => {
+            votesmatrixData.getVotesForPoll(xss(request.params.id)).then((vote) => {
+                if(vote === null) {
+                
+                    response.render("pollme/edit_poll", { poll: pollInfo });
+                    
+                }
+                else {
+                    //Can't edit poll because votes were already made   
+                }
+            })
+        })
+        .catch(() => {
+            res.status(404).json({ error: "Error!Poll not found" });
+        })
+});
+
 router.post("/editpoll", function (request, response) {
 
 });
@@ -89,7 +109,10 @@ router.get("/poll/:id", function (request, response) {
             pollResult.user = request.user;
             votesmatrixData.getVotesForPoll(xss(request.params.id)).then((voteInfo) => {
                 pollResult.vote = voteInfo;
-                response.render("pollme/single_poll", { poll: pollResult, loginuser: xss(request.user) });
+                if(pollResult.poll.createdByUser === request.user._id)
+                    response.render("pollme/single_poll", { poll: pollResult, loginuser: xss(request.user), auth: true });
+                else
+                    response.render("pollme/single_poll", { poll: pollResult, loginuser: xss(request.user) });
             })
         })
         .catch(() => {

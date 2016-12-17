@@ -151,18 +151,16 @@ let exportedMethods = {
         });
     },
     
-    editPoll(pollId) {
+    editPoll(pollId, category, postedDate, question, ansChoice1, ansChoice2, ansChoice3, ansChoice4) {
         return polls().then((pollCollection) => {
             let updatedPoll = {
-                firstName: updatedUser.firstName,
-                lastName: updatedUser.lastName,
-                username: updatedUser.username,
-                email: updatedUser.email,
-                gender: updatedUser.gender,
-                city: updatedUser.city,
-                state: updatedUser.state,
-                age: updatedUser.age,
-                hashedPassword: updatedUser.hashedPassword
+                category: category,
+                postedDate: postedDate,
+                question: question,
+                ansChoice1: ansChoice1,
+                ansChoice2: ansChoice2,
+                ansChoice3: ansChoice3,
+                ansChoice4: ansChoice4
             };
 
             let updateCommand = {

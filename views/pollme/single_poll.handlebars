@@ -17,7 +17,8 @@
         </table>
 
 
-        <div id="poll-question">{{poll.poll.question}}</div><br> {{#if poll.vote}}
+        <div id="poll-question">{{poll.poll.question}}</div><br> 
+        {{#if poll.vote}}
         <div id="votes-total">{{poll.vote.totalVotesForPoll}} Votes</div><br>
 
         <table class="poll-table-2">
@@ -160,5 +161,18 @@
             <input type="submit" class="submit-comment" value="Submit">
         </form>
 
+        {{#if auth}}
+        <div>
+            <form role="form" id="edit-poll" method="get" action="/editpoll">
+                <input type="hidden" name="pollid" value="{{poll.poll._id}}">
+                <input type="submit" class="submit-comment" value="Edit Poll">
+            </form>
+        
+            <form role="form" id="delete-poll" method="post" action="/deletepoll">
+                <input type="hidden" name="pollid" value="{{poll.poll._id}}">
+                <input type="submit" class="submit-comment" value="Delete Poll">
+            </form>
+        </div>
+        {{/if}}
     </div>
 </center>
