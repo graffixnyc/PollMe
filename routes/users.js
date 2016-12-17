@@ -47,7 +47,7 @@ router.get("/login", function (request, response) {
 
 //Update the post /login with passport
 router.post('/login', passport.authenticate('local', {
-    successRedirect: '/',
+    successRedirect: '/mypolls',
     failureRedirect: '/login',
     failureFlash: true
 }));
