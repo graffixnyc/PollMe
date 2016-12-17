@@ -95,8 +95,24 @@ router.post("/editpoll", function (request, response) {
 
 });
 
-router.post("/deletepoll", function (request, response) {
+router.post("/deleteconfirm", function (request, response) {
+    if(request.isAuthenticated()) {
+        response.render("pollme/delete_confirm", { pollid: request.body.pollid});        
+    }
+    else {
+        response.redirect("/login");   
+    }
+});
 
+router.post("/deletepoll", function (request, response) {
+    if(request.isAuthenticated()) {
+        pollsData.removePoll(request.body.pollid).then(() => {
+            response.redirect("/mypolls");
+        });
+    }
+    else {
+        response.redirect("/login");   
+    }
 });
 
 router.get("/poll/:id", function (request, response) {
