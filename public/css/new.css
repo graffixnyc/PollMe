@@ -295,6 +295,7 @@ footer {
 
 .home-before {
   margin-top: 120px;
+  margin-bottom: 100px;
 }
 
 /*#home-img {
@@ -1001,7 +1002,6 @@ width: 200px;
 	position: relative;
 	text-shadow: 0 1px 0 dimgray;	
   text-align: center;
-  white-space: nowrap;
   text-decoration: none;
 }
 
