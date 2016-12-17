@@ -18,21 +18,21 @@ router.get("/user/:username", function (request, response) {
     else {
         usersData.getUserByUsername(request.params.username).then((user) => {
             pollsData.getPollsByUser(user._id).then((polls) => {
-            let pollsInfo = [];
-            for (i = 0; i < polls.length; i++) {
-                let subpoll = {};
-                subpoll._id = polls[i]._id;
-                subpoll.question = polls[i].question;
-                subpoll.category = polls[i].category;
-                subpoll.postedDate = polls[i].postedDate;
-                votesmatrixData.getVotesForPoll(polls[i]._id).then((votes) => {
-                    if (votes) {
-                        subpoll.votes = votes.totalVotesForPoll;
-                    }
-                })
-                pollsInfo.push(subpoll);
-            }
-            res.render("pollme/mypage_mypoll", { poll: pollsInfo, loginuser: user });
+                let pollsInfo = [];
+                for (i = 0; i < polls.length; i++) {
+                    let subpoll = {};
+                    subpoll._id = polls[i]._id;
+                    subpoll.question = polls[i].question;
+                    subpoll.category = polls[i].category;
+                    subpoll.postedDate = polls[i].postedDate;
+                    votesmatrixData.getVotesForPoll(polls[i]._id).then((votes) => {
+                        if (votes) {
+                            subpoll.votes = votes.totalVotesForPoll;
+                        }
+                    })
+                    pollsInfo.push(subpoll);
+                }
+                res.render("pollme/mypage_mypoll", { poll: pollsInfo, loginuser: user });
             });
         });
     }
@@ -131,14 +131,14 @@ router.post("/signup", function (request, response) {
     if (newUser.signUpPassword != newUser.signUpPassword2) {
         //passwords do not match
         request.flash('errorMessage', 'Passwords do not Match');
-                response.send(request.flash());
+        response.send(request.flash());
     } else {
-        usersData.getUserByUsernameOrEmail(newUser.signUpUsername.toLowerCase(),newUser.email).then((user) => {
+        usersData.getUserByUsernameOrEmail(newUser.signUpUsername.toLowerCase(), newUser.email).then((user) => {
             if (user) {
                 //Username already in system
-                 request.flash('errorMessage', 'Username or User Email Already Exists');
+                request.flash('errorMessage', 'Username or User Email Already Exists');
                 response.send(request.flash());
-        
+
             } else {
                 usersData.createHashedPassword(newUser.signUpPassword).then((hashedPassword) => {
                     usersData.addUser(newUser.signUpUsername, newUser.firstname, newUser.lastname, newUser.email, newUser.gender, newUser.city, newUser.state, newUser.age, hashedPassword).then((user) => {
@@ -162,7 +162,7 @@ router.post("/signup", function (request, response) {
 });
 
 router.get('/editprofile', function (request, response) {
-    
+
     if (request.isAuthenticated()) {
         response.render('pollme/mypage_edit', { user: request.user, loginuser: request.user });
 
@@ -178,30 +178,40 @@ router.get('/editprofile', function (request, response) {
 router.post('/editprofile', function (request, response) {
 
     if (request.isAuthenticated()) {
-        if(request.body.signUpPassword !== request.body.signUpPassword2) {
-            //error handler
-            console.log("Different passwords");
-        }
-        else {
-            console.log(request.body);
-            
-            usersData.createHashedPassword(request.body.signUpPassword).then((hashedPassword) => {
-                var updatedUser = {firstName: request.body.firstname, lastName: request.body.lastname, username: request.body.username, email: request.body.email, 
-                gender: request.body.gender, city: request.body.city, state:request.body.state, age:request.body.age, hashedPassword: hashedPassword};
-                
-                votesmatrixData.updateUser(request.user._id, updatedUser).then((user) => {
-                    console.log(user.username);
-                    request.login(user, function (err) {
-                        if (err) { console.log(err); }
-                        response.redirect("/mypolls");
+        if (!request.body.gender) {
+            //error checking
+            console.log("user did not select a gender")
+        } else if (!request.body.state) {
+            //error checking
+            console.log("user did not select a gender")
+        } else {
+            if (request.body.signUpPassword !== request.body.signUpPassword2) {
+                //error handler
+                console.log("Different passwords");
+            }
+            else {
+                console.log(request.body);
+
+                usersData.createHashedPassword(request.body.signUpPassword).then((hashedPassword) => {
+                    var updatedUser = {
+                        firstName: request.body.firstname, lastName: request.body.lastname, username: request.body.username, email: request.body.email,
+                        gender: request.body.gender, city: request.body.city, state: request.body.state, age: request.body.age, hashedPassword: hashedPassword
+                    };
+
+                    votesmatrixData.updateUser(request.user._id, updatedUser).then((user) => {
+                        console.log(user.username);
+                        request.login(user, function (err) {
+                            if (err) { console.log(err); }
+                            response.redirect("/mypolls");
+                        });
+                    }, (err) => {
+                        console.log(err);
                     });
                 }, (err) => {
-                    console.log(err);   
+                    console.log(err);
                 });
-            }, (err) => {
-                console.log(err);   
-            });
 
+            }
         }
     }
     else {
