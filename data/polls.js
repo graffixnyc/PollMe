@@ -151,6 +151,30 @@ let exportedMethods = {
         });
     },
     
+    editPoll(pollId) {
+        return polls().then((pollCollection) => {
+            let updatedPoll = {
+                firstName: updatedUser.firstName,
+                lastName: updatedUser.lastName,
+                username: updatedUser.username,
+                email: updatedUser.email,
+                gender: updatedUser.gender,
+                city: updatedUser.city,
+                state: updatedUser.state,
+                age: updatedUser.age,
+                hashedPassword: updatedUser.hashedPassword
+            };
+
+            let updateCommand = {
+                $set: updatedPoll
+            };
+            
+            return pollCollection.updateOne({ _id: pollId }, updateCommand).then(() => {
+                return getPollById(pollId);
+            });
+        });
+    },
+    
     addCommentToPoll(pollId, poster, comment) {
         return polls().then((pollCollection) => {
             return pollCollection.updateOne({ _id: pollId }, {

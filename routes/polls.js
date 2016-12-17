@@ -71,6 +71,13 @@ router.post("/createpoll", function (request, response) {
     }
 });
 
+router.post("/editpoll", function (request, response) {
+
+});
+
+router.post("/deletepoll", function (request, response) {
+
+});
 
 router.get("/poll/:id", function (request, response) {
     // Create a result set to contain data from different collections.
