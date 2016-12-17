@@ -51,11 +51,9 @@ router.get("/createpoll", function (request, response) {
 
 router.post("/createpoll", function (request, response) {
 
-    var now = new Date();
-
     var newPoll = request.body;
     if (request.isAuthenticated()) {
-        var currentDate = new Date()
+        var currentDate = new Date();
         pollsData.addPoll(xss(newPoll.category), currentDate, xss(newPoll.question), xss(newPoll.choice1), xss(newPoll.choice2), xss(newPoll.choice3), xss(newPoll.choice4), xss(request.user._id)).then((pollid) => {
             response.redirect("/poll/" + pollid);
         }, (err) => {
@@ -71,28 +69,45 @@ router.post("/createpoll", function (request, response) {
     }
 });
 
-router.get("/editpoll/:id", function (request, response) {
+router.get("/editpoll", function (request, response) {
     // Create a result set to contain data from different collections.
-    let pollResult = {};
-    pollsData.getPollById(xss(request.params.id)).then((pollInfo) => {
-        votesmatrixData.getVotesForPoll(xss(request.params.id)).then((vote) => {
-            if (vote === null) {
+    if (request.isAuthenticated()) {
+        pollsData.getPollById(xss(request.query.pollid)).then((poll) => {
+            votesmatrixData.getVotesForPoll(xss(request.params.id)).then((vote) => {
+                if (vote === null) {
 
-                response.render("pollme/edit_poll", { poll: pollInfo });
+                    response.render("pollme/edit_poll", { poll: poll });
 
-            }
-            else {
-                //Can't edit poll because votes were already made
-            }
+                }
+                else {
+                    //Can't edit poll because votes were already made
+                }
+            })
         })
-    })
-        .catch(() => {
-            res.status(404).json({ error: "Error!Poll not found" });
-        })
+            .catch(() => {
+                res.status(404).json({ error: "Error!Poll not found" });
+            })
+    }
+    else {
+        response.redirect("/login");
+    }
 });
 
 router.post("/editpoll", function (request, response) {
 
+    var editPoll = request.body;
+    if (request.isAuthenticated()) {
+        var currentDate = new Date();
+        pollsData.editPoll(editPoll.pollId, editPoll.category, currentDate, xss(editPoll.question), xss(editPoll.ansChoice1), xss(editPoll.ansChoice2), xss(editPoll.ansChoice3), xss(editPoll.ansChoice4)).then((poll) => {
+            response.redirect("/poll/" + poll._id);
+        }, (err) => {
+            console.log(err);
+        });
+    
+    }
+    else {
+        response.redirect("/login");
+    }
 });
 
 router.post("/deleteconfirm", function (request, response) {
