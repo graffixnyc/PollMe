@@ -172,7 +172,7 @@
     <table>
         <tr>
             <td class="editdelete">
-                <form role="form" id="edit-poll" method="get" action="/editpoll">
+                <form role="form" id="edit-poll" method="post" action="/editpollpage">
                     <input type="hidden" name="pollid" value="{{poll.poll._id}}">
                     <input type="submit" class="submit-comment" value="Edit Poll">
                 </form>

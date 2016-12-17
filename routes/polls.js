@@ -81,6 +81,7 @@ router.post("/editpollpage", function (request, response) {
                 else {
                     //Can't edit poll because votes were already made
                     console.log("Can't edit poll");
+                    response.redirect("/poll/" + request.body.pollid);
                 }
             })
         })
@@ -98,7 +99,7 @@ router.post("/editpoll", function (request, response) {
     var editPoll = request.body;
     if (request.isAuthenticated()) {
         var currentDate = new Date();
-        pollsData.editPoll(editPoll.pollId, editPoll.category, currentDate, xss(editPoll.question), xss(editPoll.ansChoice1), xss(editPoll.ansChoice2), xss(editPoll.ansChoice3), xss(editPoll.ansChoice4)).then((poll) => {
+        pollsData.editPoll(editPoll.pollId, editPoll.category, currentDate, xss(editPoll.question), xss(editPoll.choice1), xss(editPoll.choice2), xss(editPoll.choice3), xss(editPoll.choice4)).then((poll) => {
             response.redirect("/poll/" + poll._id);
         }, (err) => {
             console.log(err);
