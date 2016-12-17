@@ -433,6 +433,9 @@ width: 200px;
   margin-top: 50px;
   text-decoration: none;
 }
+.editdelete {
+ text-align: center;
+}
 .comment-table {
   background: #f5f5f5;
 	border-collapse: separate;
