@@ -1,14 +1,14 @@
 <center>
-    <div class="form2">
+    <div class="home-before">
             <h3 id="mypoll-heading">Edit Poll</h3>
         <div>
             <form role="form" id="new-poll" method="post" action="/editpoll">
                 <input type="hidden" name="pollId"  value="{{ poll._id }}" />
-                <table id="poll-create-maintable" class="poll-table">
+                <table class="form2">
                     <tbody>
                         <tr>
                             <th class="table-head-1">Question</th>
-                            <td><input class="table-body" style="width:100%" type="text" name="question" value="{{ poll.question }}" /></td>
+                            <td><input class="table-body2" style="width:100%" type="text" name="question" value="{{poll.question}}" /></td>
                         </tr>
                         <tr>
                             <th class="table-head-1">Category</th>
@@ -37,19 +37,19 @@
                         </tr>
                         <tr>
                             <th class="table-head-1">Choice 1</th>
-                            <td><input class="table-body " style="width:100%" type="text" name="choice1" value="{{ poll.ansChoice1 }}" /></td>
+                            <td><input class="table-body2" style="width:100%" type="text" name="choice1" value="{{ poll.ansChoice1 }}" /></td>
                         </tr>
                         <tr>
                             <th class="table-head-1">Choice 2</th>
-                            <td><input class="table-body " style="width:100%" type="text" name="choice2" value="{{ poll.ansChoice2 }}" /></td>
+                            <td><input class="table-body2" style="width:100%" type="text" name="choice2" value="{{ poll.ansChoice2 }}" /></td>
                         </tr>
                         <tr>
                             <th class="table-head-1">Choice 3</th>
-                            <td><input class="table-body " style="width:100%" type="text" name="choice3" value="{{ poll.ansChoice3 }}" /></td>
+                            <td><input class="table-body2" style="width:100%" type="text" name="choice3" value="{{ poll.ansChoice3 }}" /></td>
                         </tr>
                         <tr>
                             <th class="table-head-1">Choice 4</th>
-                            <td><input class="table-body " style="width:100%" type="text" name="choice4" value="{{ poll.ansChoice4 }}" /></td>
+                            <td><input class="table-body2" style="width:100%" type="text" name="choice4" value="{{ poll.ansChoice4 }}" /></td>
                         </tr>
                     </tbody>
                     <tr>
