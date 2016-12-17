@@ -177,9 +177,9 @@ router.post("/voteonpoll", function (request, response) {
                     pollResult.poll = pollInfo;
                 }).then(() => {
                     pollResult.user = request.user;
-                    votesmatrixData.getVotesForPoll(xss(vote.pollid)).then((voteInfo) => {
+                    votesmatrixData.getVotesForPoll(vote.pollid).then((voteInfo) => {
                         pollResult.vote = voteInfo;
-                        response.render("pollme/single_poll", { poll: pollResult, error: request.flash().error, loginuser: xss(request.user) });
+                        response.render("pollme/single_poll", { poll: pollResult, error: request.flash().error, loginuser: request.user });
                     }, (err) => {
                         console.log(err);
                     })
