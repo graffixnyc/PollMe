@@ -1,6 +1,9 @@
 <center>
     <div class="home-before">
-
+          {{#if error}}
+                <div class="alert-danger" name="alert-danger">{{error}}</div>
+                <br><br>
+        {{/if}}
         <table>
             <tr>
                 <td valign="top">

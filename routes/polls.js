@@ -75,17 +75,17 @@ router.get("/editpoll/:id", function (request, response) {
     // Create a result set to contain data from different collections.
     let pollResult = {};
     pollsData.getPollById(xss(request.params.id)).then((pollInfo) => {
-            votesmatrixData.getVotesForPoll(xss(request.params.id)).then((vote) => {
-                if(vote === null) {
-                
-                    response.render("pollme/edit_poll", { poll: pollInfo });
-                    
-                }
-                else {
-                    //Can't edit poll because votes were already made   
-                }
-            })
+        votesmatrixData.getVotesForPoll(xss(request.params.id)).then((vote) => {
+            if (vote === null) {
+
+                response.render("pollme/edit_poll", { poll: pollInfo });
+
+            }
+            else {
+                //Can't edit poll because votes were already made   
+            }
         })
+    })
         .catch(() => {
             res.status(404).json({ error: "Error!Poll not found" });
         })
@@ -104,19 +104,18 @@ router.get("/poll/:id", function (request, response) {
     let pollResult = {};
     pollsData.getPollById(xss(request.params.id)).then((pollInfo) => {
         pollResult.poll = pollInfo;
-    })
-        .then(() => {
-            pollResult.user = request.user;
-            votesmatrixData.getVotesForPoll(xss(request.params.id)).then((voteInfo) => {
-                pollResult.vote = voteInfo;
-                //This makes the poll not load.  If the user logs in, clicks a poll the poll loads
-                //If they log out, then click a poll, it never loads
-                // if(pollResult.poll.createdByUser === request.user._id)
-                //     response.render("pollme/single_poll", { poll: pollResult, loginuser: xss(request.user), auth: true });
-                // else
-                    response.render("pollme/single_poll", { poll: pollResult, loginuser: xss(request.user) });
-            })
+    }).then(() => {
+        pollResult.user = request.user;
+        votesmatrixData.getVotesForPoll(xss(request.params.id)).then((voteInfo) => {
+            pollResult.vote = voteInfo;
+            //This makes the poll not load.  If the user logs in, clicks a poll the poll loads
+            //If they log out, then click a poll, it never loads
+            // if(pollResult.poll.createdByUser === request.user._id)
+            //     response.render("pollme/single_poll", { poll: pollResult, loginuser: xss(request.user), auth: true });
+            // else
+            response.render("pollme/single_poll", { poll: pollResult, loginuser: xss(request.user) });
         })
+    })
         .catch(() => {
             res.status(404).json({ error: "Error!Poll not found" });
         })
@@ -138,14 +137,26 @@ router.post("/voteonpoll", function (request, response) {
                 }
             }
             if (theyVoted == true) {
-                Promise.reject("User Voted already");
-                //needs work
-                request.flash('errorMessage', 'User Voted already in poll');
-                response.send(request.flash());
+                request.flash('error', 'User Voted already in poll');
+                let pollResult = {};
+                pollsData.getPollById(vote.pollid).then((pollInfo) => {
+                    pollResult.poll = pollInfo;
+                }).then(() => {
+                    pollResult.user = request.user;
+                    votesmatrixData.getVotesForPoll(xss(vote.pollid)).then((voteInfo) => {
+                        pollResult.vote = voteInfo;
+                        response.render("pollme/single_poll", { poll: pollResult, error: request.flash().error, loginuser: xss(request.user) });
+                    })
+                })
+                    .catch(() => {
+                        res.status(404).json({ error: "Error!Poll not found" });
+                    })
+
             } else {
                 votesmatrixData.countVote(vote.pollid, vote.selector, vote.userid, user.gender).then(() => {
                     let voted = true;
-                    response.redirect("/poll/" + vote.pollid + "?voted=" + voted);
+                    response.redirect("/poll/" + vote.pollid);
+
                 });
             }
         })
