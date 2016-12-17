@@ -109,7 +109,11 @@ router.get("/poll/:id", function (request, response) {
             pollResult.user = request.user;
             votesmatrixData.getVotesForPoll(xss(request.params.id)).then((voteInfo) => {
                 pollResult.vote = voteInfo;
-              
+                //This makes the poll not load.  If the user logs in, clicks a poll the poll loads
+                //If they log out, then click a poll, it never loads
+                // if(pollResult.poll.createdByUser === request.user._id)
+                //     response.render("pollme/single_poll", { poll: pollResult, loginuser: xss(request.user), auth: true });
+                // else
                     response.render("pollme/single_poll", { poll: pollResult, loginuser: xss(request.user) });
             })
         })
