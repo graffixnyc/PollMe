@@ -46,7 +46,7 @@ margin-bottom: 100px;
 }
 .form2 {
   
-width: 50%;
+max-width: 100%;
   min-width: 300px;
   border-radius: 60px;
   opacity: 0.94;
@@ -554,6 +554,27 @@ width: 200px;
   color: black;
   background: #fff;
 }
+.table-body2 {
+  border-right: 0px solid black;
+	border-left: 0px solid black;
+	border-top: 0px solid black;
+	border-bottom: 0px solid black;
+	padding: 10px 15px;
+	position: relative;
+	transition: all 300ms;
+  text-decoration: none;
+  font-size: 15px;
+  text-align: left;
+  color:black;
+  font-family: "verdana", Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif";
+	
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
+  color: black;
+  background: #fff;
+}
 .table-body-select {
   border-right: 0px solid black;
 	border-left: 0px solid black;
@@ -859,7 +880,7 @@ width: 200px;
   margin-top: 50px;
   text-decoration: none;
 }
-  .poll-table2 {
+  .poll-table-2 {
   background: #f5f5f5;
 	border-collapse: separate;
 	box-shadow: inset 0 1px 0 #fff;
