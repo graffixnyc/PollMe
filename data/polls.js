@@ -168,7 +168,7 @@ let exportedMethods = {
             };
             
             return pollCollection.updateOne({ _id: pollId }, updateCommand).then(() => {
-                return getPollById(pollId);
+                return this.getPollById(pollId);
             });
         });
     },

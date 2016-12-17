@@ -69,18 +69,18 @@ router.post("/createpoll", function (request, response) {
     }
 });
 
-router.get("/editpoll", function (request, response) {
+router.post("/editpollpage", function (request, response) {
     // Create a result set to contain data from different collections.
     if (request.isAuthenticated()) {
-        pollsData.getPollById(xss(request.query.pollid)).then((poll) => {
-            votesmatrixData.getVotesForPoll(xss(request.params.id)).then((vote) => {
-                if (vote === null) {
-
+        pollsData.getPollById(xss(request.body.pollid)).then((poll) => {
+            votesmatrixData.getVotesForPoll(xss(request.body.pollid)).then((vote) => {
+                console.log(vote);
+                if (vote == null || vote === undefined) {
                     response.render("pollme/edit_poll", { poll: poll });
-
                 }
                 else {
                     //Can't edit poll because votes were already made
+                    console.log("Can't edit poll");
                 }
             })
         })
