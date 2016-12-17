@@ -355,7 +355,7 @@ let exportedMethods = {
                         }
                         console.log(`Poll id ${pollId} Male: ${totalMaleVotesForAnsChoice1}, ${totalMaleVotesForAnsChoice2}, ${totalMaleVotesForAnsChoice3}, ${totalMaleVotesForAnsChoice4}`)
                         console.log(`Poll id ${pollId} FeMale: ${totalFemaleVotesForAnsChoice1}, ${totalFemaleVotesForAnsChoice2}, ${totalFemaleVotesForAnsChoice3}, ${totalFemaleVotesForAnsChoice4}`)
-                        votesAndMetrics.updateVotesForChangedGender(pollId, totalMaleVotesForAnsChoice1, totalMaleVotesForAnsChoice2, totalMaleVotesForAnsChoice3, totalMaleVotesForAnsChoice4,
+                        this.updateVotesForChangedGender(pollId, totalMaleVotesForAnsChoice1, totalMaleVotesForAnsChoice2, totalMaleVotesForAnsChoice3, totalMaleVotesForAnsChoice4,
                             totalFemaleVotesForAnsChoice1, totalFemaleVotesForAnsChoice2, totalFemaleVotesForAnsChoice3, totalFemaleVotesForAnsChoice4,
                             votes.ansChoice1.totalVotes, votes.ansChoice2.totalVotes, votes.ansChoice3.totalVotes, votes.ansChoice4.totalVotes)
                     })
@@ -371,7 +371,7 @@ let exportedMethods = {
                 city: updatedUser.city,
                 state: updatedUser.state,
                 age: updatedUser.age,
-                hashedPassword: updatedUser.hashedPassword
+                password: updatedUser.hashedPassword
             };
 
             let updateCommand = {
