@@ -109,9 +109,7 @@ router.get("/poll/:id", function (request, response) {
             pollResult.user = request.user;
             votesmatrixData.getVotesForPoll(xss(request.params.id)).then((voteInfo) => {
                 pollResult.vote = voteInfo;
-                if(pollResult.poll.createdByUser === request.user._id)
-                    response.render("pollme/single_poll", { poll: pollResult, loginuser: xss(request.user), auth: true });
-                else
+              
                     response.render("pollme/single_poll", { poll: pollResult, loginuser: xss(request.user) });
             })
         })
