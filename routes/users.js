@@ -43,6 +43,8 @@ router.get("/user/:username", function (request, response) {
 router.get("/login", function (request, response) {
     if (!request.isAuthenticated())
         response.render("pollme/login_signup", { message: request.flash('loginMessage') });
+    else
+        response.redirect("/");
 })
 
 //Update the post /login with passport
@@ -89,31 +91,39 @@ router.post("/signup", function (request, response) {
     if (newUser.signUpPassword != newUser.signUpPassword2) {
         //passwords do not match
         //We need to display error to user better
-        request.flash('errorMessage', 'Passwords do not Match');
-        response.send(request.flash());
+        request.flash('loginMessage', 'Passwords do not Match');
+        response.redirect("/login#signup");
     } else {
         usersData.getUserByUsernameOrEmail(newUser.signUpUsername.toLowerCase(), newUser.email).then((user) => {
             if (user) {
                 //Username already in system
                 //We need to display error to user better
-                request.flash('errorMessage', 'Username or User Email Already Exists');
-                response.send(request.flash());
+                request.flash('loginMessage', 'Username or User Email Already Exists');
+                response.redirect("/login#signup");
 
             } else {
                 usersData.createHashedPassword(xss(newUser.signUpPassword)).then((hashedPassword) => {
                     usersData.addUser(xss(newUser.signUpUsername), xss(newUser.firstname), xss(newUser.lastname), xss(newUser.email), xss(newUser.gender), xss(newUser.city), xss(newUser.state), xss(newUser.age), hashedPassword).then((user) => {
                         request.login(user, function (err) {
-                            if (err) { console.log(err); }
+                            if (err) { 
+                                console.log(err);
+                                request.flash('loginMessage', err);
+                                response.redirect("/login#signup");
+                            }
                             response.redirect("/");
                         });
 
                     }, (err) => {
                         //error handling
                         console.log(err);
+                        request.flash('loginMessage', err);
+                        response.redirect("/login#signup");
                     });
                 }, (err) => {
                     //error handling
                     console.log(err);
+                    request.flash('loginMessage', err);
+                    response.redirect("/login#signup");
                 });
             }
         })
