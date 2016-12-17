@@ -1,15 +1,16 @@
 var LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
-
+const xss = require('xss');
 const data = require('../data');
 const User = data.users;
+
 
 module.exports = function(passport) {
     // passport session setup, required for persistent login sessions
     passport.serializeUser(function(user, done) {
         done(null, user);
     });
-    //Attention: you can also use the same method body as serializeUser. remove user by id is not nesssary. 
+    //Attention: you can also use the same method body as serializeUser. remove user by id is not nesssary.
     passport.deserializeUser(function(user, done) {
         done(null, user);
     });
@@ -22,7 +23,7 @@ module.exports = function(passport) {
         function(req, username, password, done) {
 
             User.getUserByUsername(username.toLowerCase()).then((user) => {
-                bcrypt.compare(password, user.password, function (err, res) {
+                bcrypt.compare(password, xss(user.password), function (err, res) {
                     if (err)
                         return Promise.reject("Error");
                     else {

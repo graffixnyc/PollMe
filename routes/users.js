@@ -1,5 +1,5 @@
 
-
+const xss = require('xss');
 const express = require('express');
 const router = express.Router();
 const data = require('../data');
@@ -11,12 +11,13 @@ const LocalStrategy = require('passport-local').Strategy;
 const flash = require("req-flash");
 
 router.get("/user/:username", function (request, response) {
-    if (!request.params.username) {
+    if (!xss(request.params.username)) {
         //error handling
-
+        request.flash('errorMessage', 'No such user exists');
+        response.send(request.flash());
     }
     else {
-        usersData.getUserByUsername(request.params.username).then((user) => {
+        usersData.getUserByUsername(xss(request.params.username)).then((user) => {
             pollsData.getPollsByUser(user._id).then((polls) => {
                 let pollsInfo = [];
                 for (i = 0; i < polls.length; i++) {
@@ -53,7 +54,7 @@ router.post('/login', passport.authenticate('local', {
 
 router.get('/mypolls', isLoggedIn, function (req, res) {
     console.log(req.user._id)
-    pollsData.getPollsByUser(req.user._id).then((polls) => {
+    pollsData.getPollsByUser(xss(req.user._id)).then((polls) => {
         let pollsInfo = [];
         for (i = 0; i < polls.length; i++) {
             let subpoll = {};
@@ -99,8 +100,8 @@ router.post("/signup", function (request, response) {
                 response.send(request.flash());
 
             } else {
-                usersData.createHashedPassword(newUser.signUpPassword).then((hashedPassword) => {
-                    usersData.addUser(newUser.signUpUsername, newUser.firstname, newUser.lastname, newUser.email, newUser.gender, newUser.city, newUser.state, newUser.age, hashedPassword).then((user) => {
+                usersData.createHashedPassword(xss(newUser.signUpPassword)).then((hashedPassword) => {
+                    usersData.addUser(xss(newUser.signUpUsername), xss(newUser.firstname), xss(newUser.lastname), xss(newUser.email), xss(newUser.gender), xss(newUser.city), xss(newUser.state), xss(newUser.age), hashedPassword).then((user) => {
                         request.login(user, function (err) {
                             if (err) { console.log(err); }
                             response.redirect("/");
@@ -123,7 +124,7 @@ router.post("/signup", function (request, response) {
 router.get('/editprofile', function (request, response) {
 
     if (request.isAuthenticated()) {
-        response.render('pollme/mypage_edit', { user: request.user, loginuser: request.user });
+        response.render('pollme/mypage_edit', { user: xss(request.user), loginuser: xss(request.user) });
 
     }
     else {
@@ -138,39 +139,39 @@ router.post('/editprofile', function (request, response) {
 
     if (request.isAuthenticated()) {
         //need error checking here
-        if (!request.body.signUpPassword  ||!request.body.signUpPassword2){
+        if (!xss(request.body.signUpPassword)  ||!xss(request.body.signUpPassword2)){
             //We need to display error to user
              console.log("user did not enter either password 1 or password 2")
              request.flash('error', 'Either Password or Password Confirmation are Missing');
-            response.render('pollme/mypage_edit', { user: request.user, error: request.flash().error, redirectPage: "/editprofile" });
-        } else if (!request.body.gender) {
+            response.render('pollme/mypage_edit', { user: xss(request.user), error: request.flash().error, redirectPage: "/editprofile" });
+        } else if (!xss(request.body.gender)) {
             //We need to display error to user
             console.log("user did not select a gender")
             request.flash('errorMessage', 'User did not select a gender');
-            response.render('pollme/mypage_edit', { user: request.user, error: request.flash().error, redirectPage: "/editprofile" });
-        } else if (!request.body.state) {
+            response.render('pollme/mypage_edit', { user: xss(request.user), error: request.flash().error, redirectPage: "/editprofile" });
+        } else if (!xss(request.body.state)) {
            //We need to display error to user
             console.log("user did not select a state")
             request.flash('errorMessage', 'User did not select a state');
-            response.render('pollme/mypage_edit', { user: request.user, error: request.flash().error, redirectPage: "/editprofile" });
+            response.render('pollme/mypage_edit', { user: xss(request.user), error: request.flash().error, redirectPage: "/editprofile" });
         } else {
-            if (request.body.signUpPassword !== request.body.signUpPassword2) {
+            if (xss(request.body.signUpPassword) !== xss(request.body.signUpPassword2)) {
                 //We need to display error to user
                 console.log("Different passwords");
                 request.flash('error', 'The Passwords do not match');
-                response.render('pollme/mypage_edit', { user: request.user, error: request.flash().error, redirectPage: "/editprofile" });
+                response.render('pollme/mypage_edit', { user: xss(request.user), error: request.flash().error, redirectPage: "/editprofile" });
             }
-            
+
             else {
                 console.log(request.body);
 
-                usersData.createHashedPassword(request.body.signUpPassword).then((hashedPassword) => {
+                usersData.createHashedPassword(xss(request.body.signUpPassword)).then((hashedPassword) => {
                     var updatedUser = {
-                        firstName: request.body.firstname, lastName: request.body.lastname, username: request.body.username, email: request.body.email,
-                        gender: request.body.gender, city: request.body.city, state: request.body.state, age: request.body.age, hashedPassword: hashedPassword
+                        firstName: xss(request.body.firstname), lastName: xss(request.body.lastname), username: xss(request.body.username), email: xss(request.body.email),
+                        gender: xss(request.body.gender), city: xss(request.body.city), state: xss(request.body.state), age: xss(request.body.age), hashedPassword: hashedPassword
                     };
 
-                    votesmatrixData.updateUser(request.user._id, updatedUser).then((user) => {
+                    votesmatrixData.updateUser(xss(request.user._id), updatedUser).then((user) => {
                         console.log(user.username);
                         request.login(user, function (err) {
                             if (err) { console.log(err); }

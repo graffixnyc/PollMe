@@ -82,7 +82,7 @@ router.get("/editpoll/:id", function (request, response) {
 
             }
             else {
-                //Can't edit poll because votes were already made   
+                //Can't edit poll because votes were already made
             }
         })
     })
@@ -155,7 +155,7 @@ router.post("/voteonpoll", function (request, response) {
             } else {
                 votesmatrixData.countVote(vote.pollid, vote.selector, vote.userid, user.gender).then(() => {
                     let voted = true;
-                    response.redirect("/poll/" + vote.pollid);
+                    response.redirect("/poll/" + xss(vote.pollid));
 
                 });
             }
