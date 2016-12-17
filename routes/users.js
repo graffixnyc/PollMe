@@ -134,7 +134,7 @@ router.post("/signup", function (request, response) {
 router.get('/editprofile', function (request, response) {
 
     if (request.isAuthenticated()) {
-        response.render('pollme/mypage_edit', { user: xss(request.user), loginuser: xss(request.user) });
+        response.render('pollme/mypage_edit', { user: request.user, loginuser: request.user });
 
     }
     else {
