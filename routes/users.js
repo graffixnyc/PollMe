@@ -137,28 +137,30 @@ router.get('/editprofile', function (request, response) {
 router.post('/editprofile', function (request, response) {
 
     if (request.isAuthenticated()) {
+        //need error checking here
         if (!request.body.signUpPassword  ||!request.body.signUpPassword2){
             //We need to display error to user
              console.log("user did not enter either password 1 or password 2")
-             request.flash('errorMessage', 'Either Password or Password Confirmation are Missing');
-                response.send(request.flash());
+             request.flash('error', 'Either Password or Password Confirmation are Missing');
+            response.render('pollme/mypage_edit', { user: request.user, error: request.flash().error, redirectPage: "/editprofile" });
         } else if (!request.body.gender) {
             //We need to display error to user
             console.log("user did not select a gender")
             request.flash('errorMessage', 'User did not select a gender');
-                response.send(request.flash());
+            response.render('pollme/mypage_edit', { user: request.user, error: request.flash().error, redirectPage: "/editprofile" });
         } else if (!request.body.state) {
            //We need to display error to user
             console.log("user did not select a state")
             request.flash('errorMessage', 'User did not select a state');
-                response.send(request.flash());
+            response.render('pollme/mypage_edit', { user: request.user, error: request.flash().error, redirectPage: "/editprofile" });
         } else {
             if (request.body.signUpPassword !== request.body.signUpPassword2) {
                 //We need to display error to user
                 console.log("Different passwords");
-                request.flash('errorMessage', 'The Passwords do not match');
-                response.send(request.flash());
+                request.flash('error', 'The Passwords do not match');
+                response.render('pollme/mypage_edit', { user: request.user, error: request.flash().error, redirectPage: "/editprofile" });
             }
+            
             else {
                 console.log(request.body);
 

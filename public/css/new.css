@@ -414,6 +414,11 @@ width: 200px;
 }
 
 
+.alert-danger2{
+  color:red;
+  font-size: 20px;
+  font-weight: 500
+}
 
 .poll-table {
   background: #f5f5f5;
