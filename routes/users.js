@@ -183,7 +183,7 @@ router.post('/editprofile', function (request, response) {
             console.log("user did not select a gender")
         } else if (!request.body.state) {
             //error checking
-            console.log("user did not select a gender")
+            console.log("user did not select a state")
         } else {
             if (request.body.signUpPassword !== request.body.signUpPassword2) {
                 //error handler
