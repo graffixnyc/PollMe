@@ -180,6 +180,8 @@ router.post("/voteonpoll", function (request, response) {
                     votesmatrixData.getVotesForPoll(xss(vote.pollid)).then((voteInfo) => {
                         pollResult.vote = voteInfo;
                         response.render("pollme/single_poll", { poll: pollResult, error: request.flash().error, loginuser: xss(request.user) });
+                    }, (err) => {
+                        console.log(err);
                     })
                 })
                     .catch(() => {
@@ -193,6 +195,8 @@ router.post("/voteonpoll", function (request, response) {
 
                 });
             }
+        }, (err) => {
+            console.log(err);   
         })
     }
     else {
