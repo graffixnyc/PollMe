@@ -27,7 +27,15 @@ const handlebarsInstance = exphbs.create({
                 return new Handlebars.SafeString(JSON.stringify(obj, null, spacing));
         
             return new Handlebars.SafeString(JSON.stringify(obj));
+        },
+        setChecked: (value, currentValue) => {
+            if (value == currentValue) {
+                return "checked"
+            } else {
+                return "";
+            }
         }
+        
     }
 });
 
