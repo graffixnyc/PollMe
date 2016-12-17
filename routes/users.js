@@ -32,24 +32,12 @@ router.get("/user/:username", function (request, response) {
                     })
                     pollsInfo.push(subpoll);
                 }
-                res.render("pollme/mypage_mypoll", { poll: pollsInfo, loginuser: user });
+                response.render("pollme/mypage_mypoll", { poll: pollsInfo, loginuser: user });
             });
         });
     }
 
 });
-
-// router.post("/login", function(request, response, next) {
-//   passport.authenticate('local', function(err, user, info) {
-//     if(info.message) request.flash('error', info.message);
-//     if (err) { return next(err); }
-//     if (!user) { return response.redirect(request.body.redirectPage); }
-//     req.logIn(user, function(err) {
-//       if (err) { return next(err); }
-//       return response.redirect(request.body.redirectPage);
-//     });
-//   })(request, response, next);
-// });
 
 router.get("/login", function (request, response) {
     if (!request.isAuthenticated())
@@ -62,37 +50,6 @@ router.post('/login', passport.authenticate('local', {
     failureRedirect: '/login',
     failureFlash: true
 }));
-
-
-// This route is not really needed and is a duplicate of the / route. There is nothing displayed 
-// after the user logs in that is private
-// router.get('/private', isLoggedIn, function (req, res) {
-//     // let userResult = {};
-//     // userResult.userInfo = req.user;
-//     // console.log(userResult.userInfo);
-//     let pollsInfo = [];
-//     pollsData.getAllPolls().then((polls) => {
-//         for (i = 0; i < polls.length; i++) {
-//             let subpoll = {};
-//             subpoll._id = polls[i]._id;
-//             subpoll.question = polls[i].question;
-//             subpoll.category = polls[i].category;
-//             subpoll.postedDate = polls[i].postedDate;
-//             votesmatrixData.getVotesForPoll(polls[i]._id).then((votes) => {
-//                 if (votes) {
-//                     subpoll.votes = votes.totalVotesForPoll;
-//                 }
-//             })
-//             pollsInfo.push(subpoll);
-//         }
-//     })
-//     // userResult.pollInfo = pollsInfo;
-//     res.render('pollme/home_before_login', {
-//         poll: pollsInfo,
-//         loginuser: req.user
-//     });
-
-// });
 
 router.get('/mypolls', isLoggedIn, function (req, res) {
     console.log(req.user._id)
@@ -130,12 +87,14 @@ router.post("/signup", function (request, response) {
     let newUser = request.body;
     if (newUser.signUpPassword != newUser.signUpPassword2) {
         //passwords do not match
+        //We need to display error to user better
         request.flash('errorMessage', 'Passwords do not Match');
         response.send(request.flash());
     } else {
         usersData.getUserByUsernameOrEmail(newUser.signUpUsername.toLowerCase(), newUser.email).then((user) => {
             if (user) {
                 //Username already in system
+                //We need to display error to user better
                 request.flash('errorMessage', 'Username or User Email Already Exists');
                 response.send(request.flash());
 
@@ -178,16 +137,27 @@ router.get('/editprofile', function (request, response) {
 router.post('/editprofile', function (request, response) {
 
     if (request.isAuthenticated()) {
-        if (!request.body.gender) {
-            //error checking
+        if (!request.body.signUpPassword  ||!request.body.signUpPassword2){
+            //We need to display error to user
+             console.log("user did not enter either password 1 or password 2")
+             request.flash('errorMessage', 'Either Password or Password Confirmation are Missing');
+                response.send(request.flash());
+        } else if (!request.body.gender) {
+            //We need to display error to user
             console.log("user did not select a gender")
+            request.flash('errorMessage', 'User did not select a gender');
+                response.send(request.flash());
         } else if (!request.body.state) {
-            //error checking
+           //We need to display error to user
             console.log("user did not select a state")
+            request.flash('errorMessage', 'User did not select a state');
+                response.send(request.flash());
         } else {
             if (request.body.signUpPassword !== request.body.signUpPassword2) {
-                //error handler
+                //We need to display error to user
                 console.log("Different passwords");
+                request.flash('errorMessage', 'The Passwords do not match');
+                response.send(request.flash());
             }
             else {
                 console.log(request.body);
