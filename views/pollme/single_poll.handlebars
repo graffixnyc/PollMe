@@ -3,6 +3,33 @@
         {{#if error}}
         <div class="alert-danger" name="alert-danger">{{error}}</div>
         <br><br> {{/if}}
+        {{#if auth}}
+<div id="show-comments">
+    <table>
+        <tr>
+             {{#if poll.vote}}
+             {{else}}
+            <td class="editdelete">
+               
+                <form role="form" id="edit-poll" method="post" action="/editpollpage">
+                    <input type="hidden" name="pollid" value="{{poll.poll._id}}">
+                    <input type="submit" class="submit-comment" value="Edit Poll">
+                </form>
+            </td>
+            {{/if}}
+            <td class="editdelete">
+                <form role="form" id="delete-poll" method="post" action="/deleteconfirm">
+                    <input type="hidden" name="pollid" value="{{poll.poll._id}}">
+                    <input type="submit" class="submit-comment" value="Delete Poll">
+                </form>
+                </td>
+        </tr>
+    </table>
+</div>
+<br>
+<br>
+
+{{/if}}
         <table>
             <tr>
                 <td valign="top">
@@ -167,26 +194,7 @@
 </form>
 <br>
 <br> 
-{{#if auth}}
-<div id="show-comments">
-    <table>
-        <tr>
-            <td class="editdelete">
-                <form role="form" id="edit-poll" method="post" action="/editpollpage">
-                    <input type="hidden" name="pollid" value="{{poll.poll._id}}">
-                    <input type="submit" class="submit-comment" value="Edit Poll">
-                </form>
-            </td>
-            <td class="editdelete">
-                <form role="form" id="delete-poll" method="post" action="/deleteconfirm">
-                    <input type="hidden" name="pollid" value="{{poll.poll._id}}">
-                    <input type="submit" class="submit-comment" value="Delete Poll">
-                </form>
-                </td>
-        </tr>
-    </table>
-</div>
-{{/if}}
+
 </div>
 
 </center>

@@ -131,6 +131,7 @@ router.post("/signup", function (request, response) {
                                 return response.redirect(redirector);
                             else    
                                 return response.redirect('/mypolls');
+
                         });
 
                     }, (err) => {
