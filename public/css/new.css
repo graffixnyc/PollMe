@@ -575,7 +575,7 @@ width: 200px;
   text-align: left;
   color:black;
   font-family: "verdana", Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif";
-	
+	 border: 1px solid #a0b3b0;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: 500;
@@ -584,10 +584,7 @@ width: 200px;
   background: #fff;
 }
 .table-body-select {
-  border-right: 0px solid black;
-	border-left: 0px solid black;
-	border-top: 0px solid black;
-	border-bottom: 0px solid black;
+   border: 1px solid #a0b3b0;
 	padding: 10px 15px;
 	position: relative;
 	transition: all 300ms;
