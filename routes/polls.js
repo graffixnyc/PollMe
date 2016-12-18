@@ -10,7 +10,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const xss = require('xss');
 
 router.get("/", function (request, response) {
-    // need to change this to the page Haoyang and Seito create
+    
     pollsData.getAllPolls().then((polls) => {
         let pollsInfo = [];
         for (i = 0; i < polls.length; i++) {
@@ -42,10 +42,8 @@ router.get("/createpoll", function (request, response) {
     }
     else {
         //Render a login page
-        if (request.flash().error)
-            response.render('pollme/login_signup', { error: request.flash().error, redirectPage: "/createpoll" });
-        else
-            response.render('pollme/login_signup', { redirectPage: "/createpoll" });
+        request.flash('redirectPage', '/createpoll');
+        response.redirect("/login");
     }
 });
 
@@ -62,10 +60,8 @@ router.post("/createpoll", function (request, response) {
     }
     else {
         //Render a login page
-        if (request.flash().error)
-            response.render('pollme/login_signup', { error: request.flash().error, redirectPage: "/createpoll" });
-        else
-            response.render('pollme/login_signup', { redirectPage: "/createpoll" });
+        request.flash('redirectPage', '/createpoll');
+        response.redirect("/login");
     }
 });
 
@@ -107,6 +103,7 @@ router.post("/editpoll", function (request, response) {
     
     }
     else {
+        request.flash('redirectPage', '/poll/' + editPoll.pollId);
         response.redirect("/login");
     }
 });
@@ -116,6 +113,7 @@ router.post("/deleteconfirm", function (request, response) {
         response.render("pollme/delete_confirm", { pollid: request.body.pollid});        
     }
     else {
+        request.flash('redirectPage', '/poll/' + request.body.pollid);
         response.redirect("/login");   
     }
 });
@@ -127,6 +125,7 @@ router.post("/deletepoll", function (request, response) {
         });
     }
     else {
+        request.flash('redirectPage', '/poll/' + request.body.pollid);
         response.redirect("/login");   
     }
 });
@@ -201,8 +200,9 @@ router.post("/voteonpoll", function (request, response) {
     }
     else {
         //Render a login page
-        response.render('pollme/login_signup', { redirectPage: "/poll/" + xss(request.body.pollid) });
-
+        console.log('/poll/' + request.body.pollid);
+        request.flash('redirectPage', '/poll/' + request.body.pollid);
+        response.redirect("/login");
     }
 });
 
@@ -278,7 +278,6 @@ router.post("/search", function (request, response) {
 
 router.post("/commentonpoll", function (request, response) {
 
-    console.log(request.body);
     if (request.isAuthenticated()) {
         // Allowed to comment on poll
         // request.user.username has username of user
@@ -293,10 +292,8 @@ router.post("/commentonpoll", function (request, response) {
     }
     else {
         //Render a login page
-        if (request.flash().error)
-            response.render('pollme/login_signup', { error: request.flash().error, redirectPage: "/poll/" + request.body.pollid });
-        else
-            response.render('pollme/login_signup', { redirectPage: "/poll/" + xss(request.body.pollid0) });
+        request.flash('redirectPage', '/poll/' + request.body.pollid);
+        response.redirect("/login");
     }
 });
 

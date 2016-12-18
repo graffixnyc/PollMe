@@ -45,15 +45,31 @@ router.get("/login", function (request, response) {
         response.render("pollme/login_signup", { message: request.flash('loginMessage') });
     else
         response.redirect("/");
-})
+});
 
+router.post('/login', function(req, res, next) {
+  passport.authenticate('local', {failureFlash: true}, function(err, user, info) {
+    if (err) { return next(err); }
+    if (!user) { return res.redirect('/login'); }  
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+        let redirector = req.flash('redirectPage')[0];
+        if(redirector !== undefined)
+            return res.redirect(redirector);
+        else    
+            return res.redirect('/mypolls');
+    });
+  })(req, res, next);
+});
+
+/*
 //Update the post /login with passport
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/mypolls',
     failureRedirect: '/login',
     failureFlash: true
 }));
-
+*/
 router.get('/mypolls', isLoggedIn, function (req, res) {
     console.log(req.user._id)
     pollsData.getPollsByUser(xss(req.user._id)).then((polls) => {
@@ -110,7 +126,11 @@ router.post("/signup", function (request, response) {
                                 request.flash('loginMessage', err);
                                 response.redirect("/login#signup");
                             }
-                            response.redirect("/");
+                            let redirector = request.flash('redirectPage')[0];
+                            if(redirector !== undefined)
+                                return response.redirect(redirector);
+                            else    
+                                return response.redirect('/mypolls');
                         });
 
                     }, (err) => {
@@ -138,10 +158,8 @@ router.get('/editprofile', function (request, response) {
 
     }
     else {
-        if (request.flash().error)
-            response.render('pollme/login_signup', { error: request.flash().error, redirectPage: "/editprofile" });
-        else
-            response.render('pollme/login_signup', { redirectPage: "/editprofile" });
+        request.flash('redirectPage', '/editprofile');
+        response.redirect('/login');
     }
 });
 
@@ -198,11 +216,8 @@ router.post('/editprofile', function (request, response) {
         }
     }
     else {
-        console.log(request.user.username);
-        if (request.flash().error)
-            response.render('pollme/login_signup', { error: request.flash().error, redirectPage: "/editprofile" });
-        else
-            response.render('pollme/login_signup', { redirectPage: "/editprofile" });
+        request.flash('redirectPage', '/editprofile');
+        response.redirect('/login');
     }
 });
 
