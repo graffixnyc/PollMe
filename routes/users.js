@@ -110,7 +110,7 @@ router.post("/signup", function (request, response) {
                                 request.flash('loginMessage', err);
                                 response.redirect("/login#signup");
                             }
-                            response.redirect("/");
+                            response.redirect("/mypolls");
                         });
 
                     }, (err) => {
