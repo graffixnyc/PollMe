@@ -198,7 +198,7 @@ router.post("/voteonpoll", function (request, response) {
                     votesmatrixData.getVotesForPoll(vote.pollid).then((voteInfo) => {
                         pollResult.vote = voteInfo;
                          request.flash('error', 'Vote Counted! Thank You for Voting!');
-                        response.render("pollme/single_poll", { poll: pollResult, error: request.flash().error, loginuser: request.user });
+                        response.render("pollme/single_poll", { poll: pollResult, error: request.flash().error, loginuser: request.user, auth: true });
                     }, (err) => {
                         console.log(err);
                     })
