@@ -10,7 +10,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const xss = require('xss');
 
 router.get("/", function (request, response) {
-    
+
     pollsData.getAllPolls().then((polls) => {
         let pollsInfo = [];
         for (i = 0; i < polls.length; i++) {
@@ -100,7 +100,7 @@ router.post("/editpoll", function (request, response) {
         }, (err) => {
             console.log(err);
         });
-    
+
     }
     else {
         request.flash('redirectPage', '/poll/' + editPoll.pollId);
@@ -109,24 +109,24 @@ router.post("/editpoll", function (request, response) {
 });
 
 router.post("/deleteconfirm", function (request, response) {
-    if(request.isAuthenticated()) {
-        response.render("pollme/delete_confirm", { pollid: request.body.pollid});        
+    if (request.isAuthenticated()) {
+        response.render("pollme/delete_confirm", { pollid: request.body.pollid });
     }
     else {
         request.flash('redirectPage', '/poll/' + request.body.pollid);
-        response.redirect("/login");   
+        response.redirect("/login");
     }
 });
 
 router.post("/deletepoll", function (request, response) {
-    if(request.isAuthenticated()) {
+    if (request.isAuthenticated()) {
         pollsData.removePoll(request.body.pollid).then(() => {
             response.redirect("/mypolls");
         });
     }
     else {
         request.flash('redirectPage', '/poll/' + request.body.pollid);
-        response.redirect("/login");   
+        response.redirect("/login");
     }
 });
 
@@ -139,8 +139,8 @@ router.get("/poll/:id", function (request, response) {
         pollResult.user = request.user;
         votesmatrixData.getVotesForPoll(xss(request.params.id)).then((voteInfo) => {
             pollResult.vote = voteInfo;
-            if(request.isAuthenticated()) {
-                if(pollResult.poll.createdByUser === request.user._id)
+            if (request.isAuthenticated()) {
+                if (pollResult.poll.createdByUser === request.user._id)
                     response.render("pollme/single_poll", { poll: pollResult, loginuser: xss(request.user), auth: true });
                 else
                     response.render("pollme/single_poll", { poll: pollResult, loginuser: xss(request.user) });
@@ -170,7 +170,7 @@ router.post("/voteonpoll", function (request, response) {
                 }
             }
             if (theyVoted == true) {
-                request.flash('error', 'User Voted already in poll');
+                
                 let pollResult = {};
                 pollsData.getPollById(vote.pollid).then((pollInfo) => {
                     pollResult.poll = pollInfo;
@@ -178,6 +178,7 @@ router.post("/voteonpoll", function (request, response) {
                     pollResult.user = request.user;
                     votesmatrixData.getVotesForPoll(vote.pollid).then((voteInfo) => {
                         pollResult.vote = voteInfo;
+                        request.flash('error', 'User Voted already in poll');
                         response.render("pollme/single_poll", { poll: pollResult, error: request.flash().error, loginuser: request.user });
                     }, (err) => {
                         console.log(err);
@@ -191,23 +192,27 @@ router.post("/voteonpoll", function (request, response) {
                 votesmatrixData.countVote(vote.pollid, vote.selector, vote.userid, user.gender).then(() => {
                     let voted = true;
                     let pollResult = {};
-                      pollsData.getPollById(vote.pollid).then((pollInfo) => {
-                    pollResult.poll = pollInfo;
-                }).then(() => {
-                    pollResult.user = request.user;
-                    votesmatrixData.getVotesForPoll(vote.pollid).then((voteInfo) => {
-                        pollResult.vote = voteInfo;
+                    pollsData.getPollById(vote.pollid).then((pollInfo) => {
+                        pollResult.poll = pollInfo;
+                    }).then(() => {
+                        pollResult.user = request.user;
                          request.flash('error', 'Vote Counted! Thank You for Voting!');
-                        response.render("pollme/single_poll", { poll: pollResult, error: request.flash().error, loginuser: request.user, auth: true });
-                    }, (err) => {
-                        console.log(err);
+                        votesmatrixData.getVotesForPoll(vote.pollid).then((voteInfo) => {
+                            pollResult.vote = voteInfo;
+                           
+                            if (pollResult.poll.createdByUser === request.user._id)
+                                response.render("pollme/single_poll", { poll: pollResult, error: request.flash().error, loginuser: xss(request.user), auth: true });
+                            else
+                                response.render("pollme/single_poll", { poll: pollResult, error: request.flash().error, loginuser: xss(request.user) });
+                        }, (err) => {
+                            console.log(err);
+                        })
                     })
-                })
 
                 });
             }
         }, (err) => {
-            console.log(err);   
+            console.log(err);
         })
     }
     else {
