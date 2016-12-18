@@ -190,7 +190,19 @@ router.post("/voteonpoll", function (request, response) {
             } else {
                 votesmatrixData.countVote(vote.pollid, vote.selector, vote.userid, user.gender).then(() => {
                     let voted = true;
-                    response.redirect("/poll/" + xss(vote.pollid));
+                    let pollResult = {};
+                      pollsData.getPollById(vote.pollid).then((pollInfo) => {
+                    pollResult.poll = pollInfo;
+                }).then(() => {
+                    pollResult.user = request.user;
+                    votesmatrixData.getVotesForPoll(vote.pollid).then((voteInfo) => {
+                        pollResult.vote = voteInfo;
+                         request.flash('error', 'Vote Counted! Thank You for Voting!');
+                        response.render("pollme/single_poll", { poll: pollResult, error: request.flash().error, loginuser: request.user });
+                    }, (err) => {
+                        console.log(err);
+                    })
+                })
 
                 });
             }
